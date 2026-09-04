@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phase 01: Core Sentence Backbone & Rapid Scanning - Dr. Jesús Miguel Lima E.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&family=Space+Grotesk:wght@600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'AnanthaSignature';
+      src: url('Anantha Signature For Personal Use.ttf') format('truetype'),
+           url('Anantha Signature For Personal Use.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --bg-canvas: #040914;
+      --bg-panel: #0a1324;
+      --bg-card: #101d36;
+      --bg-card-inner: #070e1c;
+      --border-subtle: #1c2e4c;
+      --border-gold: rgba(212, 175, 55, 0.45);
+      --accent-gold: #d4af37;
+      --accent-gold-soft: rgba(212, 175, 55, 0.12);
+      --accent-blue: #2563eb;
+      --accent-blue-light: #60a5fa;
+      --toefl-brand-blue: #2B2B7A;
+      --success: #10b981;
+      --success-bg: rgba(16, 185, 129, 0.15);
+      --danger: #ef4444;
+      --danger-bg: rgba(239, 68, 68, 0.15);
+      --warning: #f59e0b;
+      --warning-bg: rgba(245, 158, 11, 0.15);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-spanish: #8192a9;
+      --shadow-deep: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      min-height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 90% 10%, rgba(37, 99, 235, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 10% 90%, rgba(212, 175, 55, 0.1) 0%, transparent 60%),
+        linear-gradient(to bottom, #030710, #081120);
+    }
+
+    #app-viewport {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    /* TOP BAR */
+    .top-nav {
+      height: 62px;
+      background: rgba(6, 12, 23, 0.98);
+      border-bottom: 1px solid rgba(28, 46, 76, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-nav-exit {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid var(--border-subtle);
+      color: #cbd5e1;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-nav-exit:hover {
+      background: rgba(37, 99, 235, 0.25);
+      border-color: var(--accent-blue-light);
+      color: #ffffff;
+    }
+
+    .toefl-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      padding: 4px 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      user-select: none;
+    }
+
+    .toefl-spark {
+      width: 15px;
+      height: 15px;
+      fill: var(--toefl-brand-blue);
+    }
+
+    .toefl-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--toefl-brand-blue);
+      letter-spacing: -0.4px;
+      line-height: 1;
+    }
+
+    .toefl-reg {
+      font-size: 7.5px;
+      font-weight: 700;
+      color: var(--toefl-brand-blue);
+      margin-top: -5px;
+    }
+
+    .nav-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      background: var(--accent-gold-soft);
+      color: var(--accent-gold);
+      border: 1px solid var(--border-gold);
+      padding: 4px 12px;
+      border-radius: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .coin-vault {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(212, 175, 55, 0.14);
+      border: 1.5px solid var(--accent-gold);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--accent-gold);
+    }
+
+    .btn-dropdown-menu {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-subtle);
+      color: #f8fafc;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .company-logo-slot {
+      height: 40px;
+      max-width: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .company-logo-slot img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    /* MENÚ FLOTANTE */
+    #curriculumMenu {
+      position: absolute;
+      top: 66px;
+      right: 36px;
+      width: 360px;
+      max-height: 520px;
+      overflow-y: auto;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-gold);
+      border-radius: 12px;
+      box-shadow: var(--shadow-deep);
+      padding: 16px;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .menu-header-tag {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      margin-bottom: 4px;
+      letter-spacing: 1px;
+    }
+
+    .menu-link-btn {
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: var(--bg-card-inner);
+      border: 1px solid var(--border-subtle);
+      font-size: 13px;
+      font-weight: 600;
+      color: #cbd5e1;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s;
+    }
+
+    .menu-link-btn:hover {
+      background: #192d4f;
+      color: #ffffff;
+      border-color: var(--accent-blue-light);
+    }
+
+    /* CONTENEDOR AMPLIO */
+    .stage-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 1520px;
+      margin: 0 auto;
+      padding: 40px 80px 24px 80px;
+      justify-content: space-between;
+    }
+
+    .slide {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .slide.active {
+      display: flex;
+      animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--accent-blue-light);
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid rgba(96, 165, 250, 0.35);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .main-step-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(30px, 3.2vw, 46px);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .sub-step-desc {
+      font-size: clamp(16px, 1.3vw, 20px);
+      color: #e2e8f0;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    .es-note {
+      font-style: italic;
+      font-size: clamp(14px, 1.1vw, 17px);
+      color: var(--text-spanish);
+      line-height: 1.55;
+      margin-top: 6px;
+    }
+
+    /* TEORÍA PEDAGÓGICA */
+    .theory-atomic-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-subtle);
+      border-left: 6px solid var(--accent-gold);
+      border-radius: 12px;
+      padding: 24px 30px;
+      margin-top: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-deep);
+    }
+
+    .theory-atomic-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .theory-atomic-card p {
+      font-size: clamp(15px, 1.15vw, 17.5px);
+      color: #f1f5f9;
+      line-height: 1.65;
+    }
+
+    /* PRÁCTICA */
+    .practice-atomic-box {
+      background: var(--bg-card-inner);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 26px 32px;
+      margin-bottom: 24px;
+    }
+
+    .speaker-dialogue-card {
+      background: rgba(16, 29, 54, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-left: 4px solid var(--accent-blue);
+      border-radius: 8px;
+      padding: 12px 18px;
+      margin-bottom: 18px;
+    }
+
+    .speaker-dialogue-card .label {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent-blue-light);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .speaker-dialogue-card .dialogue-text {
+      font-size: clamp(15px, 1.2vw, 18px);
+      color: #ffffff;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .practice-task-prompt {
+      font-size: clamp(16px, 1.25vw, 19px);
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    /* TILES Y DOCK */
+    .tiles-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      min-height: 56px;
+      padding: 12px;
+      background: rgba(7, 13, 24, 0.7);
+      border: 1.5px dashed var(--border-subtle);
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    .sentence-construction-dock {
+      min-height: 64px;
+      background: var(--bg-card);
+      border: 2px dashed var(--border-subtle);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .tile-btn {
+      background: #192942;
+      border: 1.5px solid #2e476e;
+      padding: 10px 20px;
+      border-radius: 7px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(14px, 1.1vw, 16px);
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+
+    .tile-btn:hover {
+      border-color: var(--accent-blue-light);
+      background: #243b61;
+      transform: translateY(-2px);
+    }
+
+    .tile-btn.docked {
+      background: #1e3a5f;
+      border-color: #3b82f6;
+    }
+
+    .tile-btn.locked-hint {
+      background: rgba(212, 175, 55, 0.25);
+      border-color: var(--accent-gold);
+      color: #fef08a;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .dock-terminal-sign {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--accent-gold);
+      padding-left: 10px;
+    }
+
+    /* TIMER DEL MOCK */
+    .mock-timer-display {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--accent-gold);
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--accent-gold);
+      padding: 5px 14px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .mock-timer-display.danger {
+      color: #fca5a5;
+      border-color: var(--danger);
+      background: var(--danger-bg);
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    /* FEEDBACK */
+    .audit-feedback-card {
+      display: none;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 16px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .audit-feedback-card.show-success {
+      display: block;
+      background: var(--success-bg);
+      border: 1.5px solid var(--success);
+      color: #a7f3d0;
+    }
+
+    .audit-feedback-card.show-error {
+      display: block;
+      background: var(--danger-bg);
+      border: 1.5px solid var(--danger);
+      color: #fecaca;
+    }
+
+    /* CLIPPY */
+    .clippy-drill-box {
+      background: linear-gradient(135deg, rgba(16, 29, 54, 0.95) 0%, rgba(8, 16, 31, 0.95) 100%);
+      border: 1.5px solid var(--accent-gold);
+      border-radius: 12px;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 16px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    .clippy-mini-avatar {
+      width: 52px;
+      height: 52px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1.5px solid var(--accent-gold);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .clippy-mini-speech {
+      font-size: clamp(13.5px, 1.1vw, 15px);
+      color: #e2e8f0;
+      line-height: 1.55;
+    }
+
+    .clippy-mini-speech strong {
+      color: var(--accent-gold);
+    }
+
+    /* CONTROLES INFERIORES */
+    .bottom-bar {
+      padding: 18px 80px;
+      background: rgba(6, 12, 23, 0.98);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .btn-act {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 26px;
+      border-radius: 7px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent-blue);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #1d4ed8;
+      box-shadow: 0 0 18px rgba(37, 99, 235, 0.5);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border-subtle);
+      color: #cbd5e1;
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-card);
+      color: #ffffff;
+    }
+
+    .btn-skip-pill {
+      background: transparent;
+      border: 1.5px solid rgba(245, 158, 11, 0.45);
+      color: #fde68a;
+      font-size: 13px;
+      padding: 9px 18px;
+    }
+
+    .btn-skip-pill:hover {
+      background: rgba(245, 158, 11, 0.18);
+      border-color: var(--warning);
+    }
+
+    /* FOOTER SOBRIO */
+    .institutional-footer {
+      padding: 10px 48px;
+      background: #03060d;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11.5px;
+      color: #64748b;
+    }
+
+    .signature-badge {
+      font-family: 'AnanthaSignature', cursive, sans-serif;
+      font-size: 17px;
+      color: #ffffff;
+      line-height: 1;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 900px) {
+      .stage-container {
+        padding: 24px 20px;
+      }
+      .bottom-bar {
+        padding: 14px 20px;
+      }
+      .top-nav {
+        padding: 0 16px;
+      }
+      .institutional-footer {
+        padding: 8px 16px;
+        flex-direction: column;
+        gap: 4px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app-viewport">
+    
+    <!-- TOP NAVIGATION -->
+    <div class="top-nav">
+      <div class="nav-left">
+        <a href="index.html" class="btn-nav-exit"><span>⬅</span> Exit to Hub</a>
+        <div class="toefl-badge">
+          <svg class="toefl-spark" viewBox="0 0 100 100">
+            <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(0 50 50)"/>
+            <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(60 50 50)"/>
+            <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(120 50 50)"/>
+          </svg>
+          <span class="toefl-name">toefl ibt</span>
+          <span class="toefl-reg">®</span>
+        </div>
+        <span class="nav-badge" id="stepBadge">Phase 01 Roadmap</span>
+      </div>
+
+      <div class="nav-right">
+        <div class="coin-vault">
+          <span>🪙</span> <span id="userCoins">25</span>
+        </div>
+
+        <button class="btn-dropdown-menu" onclick="toggleMenu()">
+          <span>📋</span> Jump to Tip ▾
+        </button>
+
+        <div class="company-logo-slot">
+          <img src="logo.png" alt="JM ELT Solutions" onerror="this.style.display='none'">
+        </div>
+      </div>
+    </div>
+
+    <!-- MENÚ FLOTANTE -->
+    <div id="curriculumMenu">
+      <div class="menu-header-tag">Phase 01: Scaffolded Curriculum</div>
+      <div class="menu-link-btn" onclick="goToStep(0)">01. Phase 01 Blueprint</div>
+      <div class="menu-link-btn" onclick="goToStep(1)">02. Tip 01 • Rule A: Punctuation Scan</div>
+      <div class="menu-link-btn" onclick="goToStep(2)">03. Tip 01 • Rule B: Initial Word</div>
+      <div class="menu-link-btn" onclick="goToStep(3)">04. Tip 01 • Rule C: Inversion Assembly</div>
+      <div class="menu-link-btn" onclick="goToStep(4)">05. Tip 02 • Rule A: Temporal Cue</div>
+      <div class="menu-link-btn" onclick="goToStep(5)">06. Tip 02 • Rule B: Tense Harmony</div>
+      <div class="menu-link-btn" onclick="goToStep(6)">07. Tip 03 • Rule A: Pre-Verbal Adverb</div>
+      <div class="menu-link-btn" onclick="goToStep(7)">08. Tip 04 • Rule A: Do-Support Negation</div>
+      <div class="menu-link-btn" onclick="goToStep(8)">09. Official 15-Item Benchmark Mock</div>
+    </div>
+
+    <!-- MAIN MOUNT -->
+    <div id="mountPoint" style="flex:1; display:flex; flex-direction:column;"></div>
+
+    <!-- FOOTER INSTITUCIONAL -->
+    <div class="institutional-footer">
+      <span>TOEFL iBT Writing: Build a Sentence Mastery</span>
+      <span class="signature-badge">by Dr. Jesús Miguel Lima E.</span>
+      <span>JM ELT Solutions</span>
+    </div>
+
+  </div>
+
+  <script>
+    /* ========================================================
+       AUDIO ENGINE
+       ======================================================== */
+    let audioCtx = null;
+    function playSound(type) {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      if (type === 'tap') {
+        osc.frequency.setValueAtTime(420, now);
+        osc.frequency.exponentialRampToValueAtTime(560, now + 0.04);
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.linearRampToValueAtTime(0, now + 0.04);
+        osc.start(now); osc.stop(now + 0.04);
+      } else if (type === 'correct') {
+        osc.frequency.setValueAtTime(523.25, now);
+        osc.frequency.setValueAtTime(659.25, now + 0.08);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.linearRampToValueAtTime(0, now + 0.28);
+        osc.start(now); osc.stop(now + 0.28);
+      } else if (type === 'coin') {
+        osc.frequency.setValueAtTime(987.77, now);
+        osc.frequency.setValueAtTime(1318.51, now + 0.08);
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.linearRampToValueAtTime(0, now + 0.25);
+        osc.start(now); osc.stop(now + 0.25);
+      } else if (type === 'error') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(160, now);
+        osc.frequency.linearRampToValueAtTime(110, now + 0.16);
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.linearRampToValueAtTime(0, now + 0.16);
+        osc.start(now); osc.stop(now + 0.16);
+      }
+    }
+
+    /* ========================================================
+       DATA & STORAGE
+       ======================================================== */
+    const STORAGE_KEY = "toefl_mastery_user_profile";
+    let userData = {
+      name: "Candidate",
+      birthYear: "1998",
+      coins: 25,
+      phasesCompleted: [false, false, false, false, false],
+      stepProgress: new Array(12).fill(false)
+    };
+
+    function loadData() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        try {
+          userData = Object.assign(userData, JSON.parse(raw));
+        } catch(e) {}
+      }
+      document.getElementById('userCoins').innerText = userData.coins;
+    }
+
+    function saveCoins(delta) {
+      userData.coins += delta;
+      if (delta > 0) playSound('coin');
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+      document.getElementById('userCoins').innerText = userData.coins;
+    }
+
+    /* ========================================================
+       SCAFFOLDED MODULES
+       ======================================================== */
+    let activeStep = 0;
+    const mount = document.getElementById('mountPoint');
+    const badge = document.getElementById('stepBadge');
+
+    function goToStep(idx) {
+      activeStep = idx;
+      toggleMenu(false);
+      renderCurrentStep();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderCurrentStep() {
+      mount.innerHTML = '';
+      if (activeStep === 0) renderBlueprint();
+      else if (activeStep === 1) renderTip1RuleA();
+      else if (activeStep === 2) renderTip1RuleB();
+      else if (activeStep === 3) renderTip1RuleC();
+      else if (activeStep === 4) renderTip2RuleA();
+      else if (activeStep === 5) renderTip2RuleB();
+      else if (activeStep === 6) renderTip3RuleA();
+      else if (activeStep === 7) renderTip4RuleA();
+      else if (activeStep === 8) renderMockIntro();
+      else if (activeStep >= 9 && activeStep <= 23) {
+        renderMockItem(activeStep - 9);
+      } else if (activeStep === 24) {
+        renderMockResults();
+      }
+    }
+
+    /* PASO 0: BLUEPRINT */
+    function renderBlueprint() {
+      badge.innerText = "Phase 01 • Roadmap";
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>🧭</span> PHASE 01 CURRICULUM ARCHITECTURE</div>
+              <h2 class="main-step-title">CORE SENTENCE BACKBONE & RAPID SCANNING</h2>
+              <p class="sub-step-desc">
+                Welcome, <strong>${userData.name}</strong>! We will master the sentence backbone step-by-step. Each micro-lesson explains an atomic rule, followed immediately by its drill, before unlocking the 15-Item Mock Exam.
+              </p>
+              <p class="es-note">(Modelo paso a paso: Primero se explica la regla pedagógica, luego se practica de forma aislada.)</p>
+
+              <div class="theory-atomic-card">
+                <h3>Phase 01 Milestone Sequence:</h3>
+                <p>
+                  <strong>• Tip 01: The 5-Second Scan:</strong> Terminal punctuation verification & interrogative inversion.<br>
+                  <strong>• Tip 02: Contextual Framing:</strong> Aligning verb tenses with Speaker A's timeline.<br>
+                  <strong>• Tip 03: Nuclear SVO:</strong> Preserving the Verb-Object bond & pre-verbal adverbs.<br>
+                  <strong>• Tip 04: SVO with Negation:</strong> Strict auxiliary do-support & modal attachment.<br>
+                  <strong>• Milestone 05: Official 15-Item Mock:</strong> One question per screen under the 33-second rule.
+                </p>
+              </div>
+
+              <div class="clippy-drill-box">
+                <div class="clippy-mini-avatar">📎</div>
+                <div class="clippy-mini-speech">
+                  "Hi <strong>${userData.name}</strong>! I'm <strong>Clippy</strong>. Let's master the rules step-by-step so you guarantee a 10/10 raw score!"
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <a href="index.html" class="btn-act btn-outline"><span>⬅</span> Back to Hub</a>
+              <button class="btn-act btn-primary" onclick="goToStep(1)">
+                Begin Tip 01: Rule 1.A ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* PASO 1: TIP 01 • RULE 1.A (SIGNO) */
+    function renderTip1RuleA() {
+      badge.innerText = "Tip 01 • Rule 1.A";
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>🔍</span> TIP 01 • RULE 1.A: TERMINAL PUNCTUATION</div>
+              <h2 class="main-step-title">The Terminal Sign Controls the Syntax</h2>
+              <p class="sub-step-desc">
+                Every sentence in TOEFL Task 1 is governed by its terminal mark. A period (.) demands Subject-Verb order. A question mark (?) demands Auxiliary Inversion.
+              </p>
+              <p class="es-note">(El signo final manda: Punto = Sujeto + Verbo. Signo de interrogación = Auxiliar primero.)</p>
+
+              <div class="theory-atomic-card">
+                <h3>Rule Explanation (Explicación Pedagógica):</h3>
+                <p>
+                  <strong>Never touch a word tile first!</strong> Your very first action within the 33 seconds must be scanning the far-right terminal sign. If you see [ <strong>?</strong> ], you are strictly forbidden from starting with the subject (*<em>The professor did...</em>). You must prepare an auxiliary fronting!
+                </p>
+              </div>
+
+              <div class="practice-atomic-box">
+                <div class="speaker-dialogue-card">
+                  <div class="label">Speaker A:</div>
+                  <div class="dialogue-text">"I need to locate the campus registration center."</div>
+                </div>
+
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 1.A: Click ONLY on the terminal mark that dictates your sentence structure:
+                </div>
+
+                <div class="tiles-area" id="t1aRack">
+                  <button class="tile-btn" onclick="handleWrongSign('library')">library</button>
+                  <button class="tile-btn" onclick="handleWrongSign('open')">open</button>
+                  <button class="tile-btn" id="targetSignBtn" onclick="handleCorrectSign(this)">?</button>
+                  <button class="tile-btn" onclick="handleWrongSign('is')">is</button>
+                  <button class="tile-btn" onclick="handleWrongSign('the')">the</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t1aDock">
+                  <span style="font-family:'JetBrains Mono'; font-size:14px; color:var(--text-muted);">
+                    [Terminal Sign Target Slot]
+                  </span>
+                </div>
+
+                <div class="audit-feedback-card" id="t1aFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech" id="clippyT1A">
+                    "Find the punctuation mark first, <strong>${userData.name}</strong>! That symbol dictates the entire sentence architecture!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(0)"><span>⬅</span> Previous</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(2)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext1A" onclick="goToStep(2)" disabled>
+                Next Rule: Initial Word ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleWrongSign(w) {
+      playSound('error');
+      const fb = document.getElementById('t1aFeedback');
+      fb.className = "audit-feedback-card show-error";
+      fb.innerHTML = `<strong>✕ Incorrect selection:</strong> "${w}" is a word. You must scan and click ONLY the punctuation mark (<code>?</code> or <code>.</code>) first!`;
+    }
+
+    function handleCorrectSign(btn) {
+      playSound('correct');
+      btn.style.background = "var(--success)";
+      btn.style.borderColor = "#93c5fd";
+      document.getElementById('t1aDock').innerHTML = `
+        <span style="font-family:'JetBrains Mono'; font-size:24px; font-weight:900; color:var(--accent-gold);">?</span>
+        <span style="font-size:14px; color:var(--success); font-weight:700; margin-left:12px;">✔ Question mark verified! Inversion triggered.</span>
+      `;
+
+      const fb = document.getElementById('t1aFeedback');
+      fb.className = "audit-feedback-card show-success";
+      fb.innerHTML = `<strong>✔ Rule Mastered (+10 🪙):</strong> By verifying the question mark, you know that subject-first word order is illegal. Position #1 must hold an auxiliary or Wh-word.`;
+      saveCoins(10);
+      userData.stepProgress[1] = true;
+
+      document.getElementById('clippyT1A').innerHTML = `"Splendid, <strong>${userData.name}</strong>! Now that we verified it's a question, let's learn how to choose the first word!"`;
+      document.getElementById('btnNext1A').disabled = false;
+    }
+
+    /* PASO 2: TIP 01 • RULE 1.B (INICIADOR) */
+    function renderTip1RuleB() {
+      badge.innerText = "Tip 01 • Rule 1.B";
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>🧩</span> TIP 01 • RULE 1.B: INITIAL WORD SELECTION</div>
+              <h2 class="main-step-title">Choosing Position #1 Based on the Sign</h2>
+              <p class="sub-step-desc">
+                Now that you know the mark is [ ? ], we select Position #1. Questions require an auxiliary verb (Did, Does, Is, Can) or Wh-focus first.
+              </p>
+              <p class="es-note">(En preguntas directas, el inglés prohíbe empezar con el sujeto. El auxiliar o Wh- toma la posición inicial.)</p>
+
+              <div class="theory-atomic-card">
+                <h3>Decision Protocol (Protocolo de Decisión):</h3>
+                <p>
+                  Target sign: [ <strong>?</strong> ]. Words available: <em>the, library, is, open</em>.<br><br>
+                  • If you start with <strong>"the"</strong>, you create a declarative statement, violating the question mark (<strong>0.0 points</strong>).<br>
+                  • If you start with the auxiliary <strong>"Is"</strong>, you correctly apply Subject-Auxiliary inversion (<strong>1.0 point</strong>).
+                </p>
+              </div>
+
+              <div class="practice-atomic-box">
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 1.B: Click ONLY on the word that must occupy Position #1:
+                </div>
+
+                <div class="tiles-area" id="t1bRack">
+                  <button class="tile-btn" onclick="handleWrongStarter('the')">the</button>
+                  <button class="tile-btn" onclick="handleWrongStarter('library')">library</button>
+                  <button class="tile-btn" onclick="handleCorrectStarter(this)">Is</button>
+                  <button class="tile-btn" onclick="handleWrongStarter('open')">open</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t1bDock">
+                  <span style="font-family:'JetBrains Mono'; font-size:14px; color:var(--text-muted);">
+                    [Pos #1 Slot] ... ?
+                  </span>
+                </div>
+
+                <div class="audit-feedback-card" id="t1bFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech" id="clippyT1B">
+                    "Only choose one word, <strong>${userData.name}</strong>! Which one is the auxiliary verb that must leap to the front?"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(1)"><span>⬅</span> Back to Rule 1.A</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(3)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext1B" onclick="goToStep(3)" disabled>
+                Next Rule: Inversion Assembly ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleWrongStarter(w) {
+      playSound('error');
+      const fb = document.getElementById('t1bFeedback');
+      fb.className = "audit-feedback-card show-error";
+      fb.innerHTML = `<strong>✕ Syntactic Error:</strong> Starting with "${w}" violates question syntax. The auxiliary verb must lead!`;
+    }
+
+    function handleCorrectStarter(btn) {
+      playSound('correct');
+      btn.style.background = "var(--success)";
+      document.getElementById('t1bDock').innerHTML = `
+        <span style="font-family:'JetBrains Mono'; font-size:18px; font-weight:800; color:var(--success);">Is</span>
+        <span style="font-family:'JetBrains Mono'; font-size:14px; color:var(--text-muted);">[subject + predicate] ?</span>
+      `;
+
+      const fb = document.getElementById('t1bFeedback');
+      fb.className = "audit-feedback-card show-success";
+      fb.innerHTML = `<strong>✔ Position #1 Locked (+10 🪙):</strong> "Is" correctly fronts the clause. Auxiliary is now positioned!`;
+      saveCoins(10);
+      userData.stepProgress[2] = true;
+
+      document.getElementById('clippyT1B').innerHTML = `"Brilliant, <strong>${userData.name}</strong>! You mastered the sign and the starter. Now let's complete the inversion!"`;
+      document.getElementById('btnNext1B').disabled = false;
+    }
+
+    /* PASO 3: TIP 01 • RULE 1.C (ENSAMBLE GUIADO) */
+    let t1cDocked = ['Is'];
+    const t1cTarget = ['Is', 'the', 'library', 'open'];
+
+    function renderTip1RuleC() {
+      badge.innerText = "Tip 01 • Rule 1.C";
+      t1cDocked = ['Is'];
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>⚙️</span> TIP 01 • RULE 1.C: AUXILIARY INVERSION ASSEMBLY</div>
+              <h2 class="main-step-title">Assemble the Subject & Predicate</h2>
+              <p class="sub-step-desc">
+                Position #1 is locked with <strong>Is</strong>. Now tap the remaining words in order: <strong>Subject ('the library') + Predicate Adjective ('open')</strong>.
+              </p>
+              <p class="es-note">(Completa la inversión: Auxiliar [Is] + Sujeto [the library] + Complemento [open].)</p>
+
+              <div class="practice-atomic-box">
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 1.C: Tap the tiles to assemble into the dock:
+                </div>
+
+                <div class="tiles-area" id="t1cRack">
+                  <button class="tile-btn" onclick="tapT1CWord(this, 'open')">open</button>
+                  <button class="tile-btn" onclick="tapT1CWord(this, 'library')">library</button>
+                  <button class="tile-btn" onclick="tapT1CWord(this, 'the')">the</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t1cDock">
+                  <span style="font-family:'JetBrains Mono'; font-size:18px; font-weight:800; color:var(--accent-gold);">Is</span>
+                  <span id="t1cWordsContainer" style="font-family:'JetBrains Mono'; font-size:18px; font-weight:700; color:#ffffff;"></span>
+                  <span class="dock-terminal-sign">?</span>
+                </div>
+
+                <div class="audit-feedback-card" id="t1cFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech" id="clippyT1C">
+                    "Look at the scaffolding: 1) Sign (?), 2) Auxiliary (Is), 3) Subject (the library), 4) Complement (open)!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(2)"><span>⬅</span> Back to Rule 1.B</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(4)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext1C" onclick="goToStep(4)" disabled>
+                Advance to Tip 02 ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function tapT1CWord(btn, word) {
+      if (btn.style.display === 'none') return;
+      playSound('tap');
+      btn.style.display = 'none';
+      t1cDocked.push(word);
+
+      document.getElementById('t1cWordsContainer').innerText = " " + t1cDocked.slice(1).join(' ');
+
+      if (t1cDocked.length === 4) {
+        const isCorrect = t1cDocked.every((w, i) => w === t1cTarget[i]);
+        const fb = document.getElementById('t1cFeedback');
+
+        if (isCorrect) {
+          playSound('correct');
+          fb.className = "audit-feedback-card show-success";
+          fb.innerHTML = `<strong>✔ 1.0 PERFECT RAW SCORE! (+10 🪙)</strong> "Is the library open?" strictly satisfies all syntactic rules!`;
+          saveCoins(10);
+          userData.stepProgress[3] = true;
+          document.getElementById('btnNext1C').disabled = false;
+        } else {
+          playSound('error');
+          fb.className = "audit-feedback-card show-error";
+          fb.innerHTML = `<strong>✕ Word Order Error:</strong> "${t1cDocked.join(' ')}?" is ungrammatical. Resetting so you can try again!`;
+          setTimeout(() => { renderTip1RuleC(); }, 1400);
+        }
+      }
+    }
+
+    /* PASO 4: TIP 02 • RULE 2.A (ANCLAJE TEMPORAL) */
+    function renderTip2RuleA() {
+      badge.innerText = "Tip 02 • Rule 2.A";
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>⏳</span> TIP 02 • RULE 2.A: CONTEXTUAL FRAMING</div>
+              <h2 class="main-step-title">Speaker A Supplies the Verb Tense Anchor</h2>
+              <p class="sub-step-desc">
+                Never pick a verb in isolation. The conversational context locks your verb tense into Past, Present, or Future aspect.
+              </p>
+              <p class="es-note">(Speaker A te da el ancla temporal obligatoria para descartar opciones trampa.)</p>
+
+              <div class="theory-atomic-card">
+                <h3>Rule Explanation (Explicación Pedagógica):</h3>
+                <p>
+                  Speaker A: "<em>Why was the chemistry lecture cancelled yesterday morning?</em>"<br><br>
+                  • The prompt words <strong>"was"</strong> and <strong>"yesterday"</strong> strictly establish simple past.<br>
+                  • You must discard present forms (*<em>causes</em>) and future forms (*<em>will cause</em>), selecting only the aligned past verb (<strong>caused</strong>).
+                </p>
+              </div>
+
+              <div class="practice-atomic-box">
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 2.A: Which verb form aligns with Speaker A's temporal anchor?
+                </div>
+
+                <div class="tiles-area" id="t2aRack">
+                  <button class="tile-btn" onclick="handleWrongTense('causes')">causes (Present)</button>
+                  <button class="tile-btn" onclick="handleCorrectTense(this)">caused (Simple Past)</button>
+                  <button class="tile-btn" onclick="handleWrongTense('will cause')">will cause (Future)</button>
+                </div>
+
+                <div class="audit-feedback-card" id="t2aFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech" id="clippyT2A">
+                    "Identify the time anchor in Speaker A's prompt, <strong>${userData.name}</strong>!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(3)"><span>⬅</span> Back to Tip 01</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(5)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext2A" onclick="goToStep(5)" disabled>
+                Next Rule: Tense Harmony ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleWrongTense(t) {
+      playSound('error');
+      const fb = document.getElementById('t2aFeedback');
+      fb.className = "audit-feedback-card show-error";
+      fb.innerHTML = `<strong>✕ Tense Conflict:</strong> "${t}" violates the past timeline established by Speaker A.`;
+    }
+
+    function handleCorrectTense(btn) {
+      playSound('correct');
+      btn.style.background = "var(--success)";
+      const fb = document.getElementById('t2aFeedback');
+      fb.className = "audit-feedback-card show-success";
+      fb.innerHTML = `<strong>✔ Temporal Harmony Achieved (+10 🪙):</strong> Simple past "caused" matches the historical stimulus!`;
+      saveCoins(10);
+      userData.stepProgress[4] = true;
+      document.getElementById('btnNext2A').disabled = false;
+    }
+
+    /* PASO 5: TIP 02 • RULE 2.B (ENSAMBLE EN PASADO) */
+    let t2bDocked = [];
+    const t2bTarget = ['they', 'found', 'ancient', 'stone', 'tools'];
+
+    function renderTip2RuleB() {
+      badge.innerText = "Tip 02 • Rule 2.B";
+      t2bDocked = [];
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>⏳</span> TIP 02 • RULE 2.B: ALIGNED TENSE SVO ASSEMBLY</div>
+              <h2 class="main-step-title">Assemble the Aligned Past Sentence</h2>
+              <p class="sub-step-desc">
+                Context: <em>"Did they find artifacts?"</em> Tap the words into the dock using the aligned past verb <strong>found</strong>.
+              </p>
+              <p class="es-note">(Ensamble con verbo alineado en pasado: Sujeto + found + adjetivos ordenados.)</p>
+
+              <div class="practice-atomic-box">
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 2.B: Tap the tiles to assemble:
+                </div>
+
+                <div class="tiles-area" id="t2bRack">
+                  <button class="tile-btn" onclick="tapT2BWord(this, 'tools')">tools</button>
+                  <button class="tile-btn" onclick="tapT2BWord(this, 'they')">they</button>
+                  <button class="tile-btn" onclick="tapT2BWord(this, 'ancient')">ancient</button>
+                  <button class="tile-btn" onclick="tapT2BWord(this, 'stone')">stone</button>
+                  <button class="tile-btn" onclick="tapT2BWord(this, 'found')">found</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t2bDock">
+                  <span id="t2bWordsContainer" style="font-family:'JetBrains Mono'; font-size:18px; font-weight:700; color:#ffffff;"></span>
+                  <span class="dock-terminal-sign">.</span>
+                </div>
+
+                <div class="audit-feedback-card" id="t2bFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech">
+                    "Subject 'they' + past verb 'found' + noun phrase 'ancient stone tools'!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(4)"><span>⬅</span> Back to Rule 2.A</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(6)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext2B" onclick="goToStep(6)" disabled>
+                Advance to Tip 03 ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function tapT2BWord(btn, word) {
+      if (btn.style.display === 'none') return;
+      playSound('tap');
+      btn.style.display = 'none';
+      t2bDocked.push(word);
+
+      document.getElementById('t2bWordsContainer').innerText = t2bDocked.join(' ');
+
+      if (t2bDocked.length === 5) {
+        const isCorrect = t2bDocked.every((w, i) => w === t2bTarget[i]);
+        const fb = document.getElementById('t2bFeedback');
+
+        if (isCorrect) {
+          playSound('correct');
+          fb.className = "audit-feedback-card show-success";
+          fb.innerHTML = `<strong>✔ PERFECT 1.0 SCORE (+10 🪙)!</strong> "They found ancient stone tools." matches past context and proper adjective ordering!`;
+          saveCoins(10);
+          userData.stepProgress[5] = true;
+          document.getElementById('btnNext2B').disabled = false;
+        } else {
+          playSound('error');
+          fb.className = "audit-feedback-card show-error";
+          fb.innerHTML = `<strong>✕ Word Order Error:</strong> Resetting tiles to try again!`;
+          setTimeout(() => { renderTip2RuleB(); }, 1400);
+        }
+      }
+    }
+
+    /* PASO 6: TIP 03 • RULE 3.A (ADVERBIO PRE-VERBAL) */
+    let t3aDocked = [];
+    const t3aTarget = ['the', 'board', 'unanimously', 'approved', 'the', 'plan'];
+
+    function renderTip3RuleA() {
+      badge.innerText = "Tip 03 • Rule 3.A";
+      t3aDocked = [];
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>🧱</span> TIP 03 • RULE 3.A: NUCLEAR SVO & ADVERB PLACEMENT</div>
+              <h2 class="main-step-title">Protecting the Verb-Object Nexus</h2>
+              <p class="sub-step-desc">
+                In strict English syntax, an adverb must NEVER split a transitive verb from its direct object. Mid-position adverbs strictly precede lexical verbs.
+              </p>
+              <p class="es-note">(Prohibido en TOEFL separar el verbo y su objeto con un adverbio. El adverbio de modo va antes del verbo.)</p>
+
+              <div class="theory-atomic-card">
+                <h3>Rule Explanation (Explicación Pedagógica):</h3>
+                <p>
+                  • <strong>Correct:</strong> The board <em>unanimously approved</em> the plan.<br>
+                  • <strong>Fatal TOEFL Error:</strong> *The board approved <em>unanimously</em> the plan (splits verb and object).
+                </p>
+              </div>
+
+              <div class="practice-atomic-box">
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 3.A: Assemble the sentence keeping the adverb before the verb:
+                </div>
+
+                <div class="tiles-area" id="t3aRack">
+                  <button class="tile-btn" onclick="tapT3AWord(this, 'approved')">approved</button>
+                  <button class="tile-btn" onclick="tapT3AWord(this, 'the')">the</button>
+                  <button class="tile-btn" onclick="tapT3AWord(this, 'board')">board</button>
+                  <button class="tile-btn" onclick="tapT3AWord(this, 'plan')">plan</button>
+                  <button class="tile-btn" onclick="tapT3AWord(this, 'the')">the</button>
+                  <button class="tile-btn" onclick="tapT3AWord(this, 'unanimously')">unanimously</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t3aDock">
+                  <span id="t3aWordsContainer" style="font-family:'JetBrains Mono'; font-size:18px; font-weight:700; color:#ffffff;"></span>
+                  <span class="dock-terminal-sign">.</span>
+                </div>
+
+                <div class="audit-feedback-card" id="t3aFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech">
+                    "Place 'unanimously' directly BEFORE 'approved', <strong>${userData.name}</strong>!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(5)"><span>⬅</span> Back to Tip 02</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(7)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext3A" onclick="goToStep(7)" disabled>
+                Advance to Tip 04 ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function tapT3AWord(btn, word) {
+      if (btn.style.display === 'none') return;
+      playSound('tap');
+      btn.style.display = 'none';
+      t3aDocked.push(word);
+
+      document.getElementById('t3aWordsContainer').innerText = t3aDocked.join(' ');
+
+      if (t3aDocked.length === 6) {
+        const isCorrect = t3aDocked.every((w, i) => w === t3aTarget[i]);
+        const fb = document.getElementById('t3aFeedback');
+
+        if (isCorrect) {
+          playSound('correct');
+          fb.className = "audit-feedback-card show-success";
+          fb.innerHTML = `<strong>✔ PERFECT RAW SCORE (+10 🪙)!</strong> The adverb 'unanimously' sits safely before the verb, preserving the Verb-Object bond.`;
+          saveCoins(10);
+          userData.stepProgress[6] = true;
+          document.getElementById('btnNext3A').disabled = false;
+        } else {
+          playSound('error');
+          fb.className = "audit-feedback-card show-error";
+          fb.innerHTML = `<strong>✕ Syntactic Error:</strong> Adverb placement error. Resetting tiles!`;
+          setTimeout(() => { renderTip3RuleA(); }, 1400);
+        }
+      }
+    }
+
+    /* PASO 7: TIP 04 • RULE 4.A (NEGACIÓN) */
+    let t4aDocked = [];
+    const t4aTarget = ['they', 'did', 'not', 'find', 'the', 'keys'];
+
+    function renderTip4RuleA() {
+      badge.innerText = "Tip 04 • Rule 4.A";
+      t4aDocked = [];
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>🚫</span> TIP 04 • RULE 4.A: RIGID AUXILIARY NEGATION</div>
+              <h2 class="main-step-title">Auxiliary Do-Support Attachment</h2>
+              <p class="sub-step-desc">
+                Lexical verbs in standard academic English cannot negate directly (*<em>found not</em>). The negative particle <strong>not</strong> strictly adheres to the auxiliary helper.
+              </p>
+              <p class="es-note">(El inglés formal no permite negar verbos léxicos solos. Exige auxiliar [did] + not + verbo base.)</p>
+
+              <div class="theory-atomic-card">
+                <h3>Rule Explanation (Explicación Pedagógica):</h3>
+                <p>
+                  • <strong>Strict Canonical Order:</strong> Subject (they) + Auxiliary (did) + Negator (not) + Base Verb (find) + Direct Object (the keys).<br>
+                  • Never allow 'not' to float freely or follow the main lexical verb!
+                </p>
+              </div>
+
+              <div class="practice-atomic-box">
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 4.A: Assemble the negated sentence:
+                </div>
+
+                <div class="tiles-area" id="t4aRack">
+                  <button class="tile-btn" onclick="tapT4AWord(this, 'find')">find</button>
+                  <button class="tile-btn" onclick="tapT4AWord(this, 'not')">not</button>
+                  <button class="tile-btn" onclick="tapT4AWord(this, 'they')">they</button>
+                  <button class="tile-btn" onclick="tapT4AWord(this, 'keys')">keys</button>
+                  <button class="tile-btn" onclick="tapT4AWord(this, 'did')">did</button>
+                  <button class="tile-btn" onclick="tapT4AWord(this, 'the')">the</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t4aDock">
+                  <span id="t4aWordsContainer" style="font-family:'JetBrains Mono'; font-size:18px; font-weight:700; color:#ffffff;"></span>
+                  <span class="dock-terminal-sign">.</span>
+                </div>
+
+                <div class="audit-feedback-card" id="t4aFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech">
+                    "Subject 'they' + auxiliary 'did' + 'not' + base verb 'find', <strong>${userData.name}</strong>!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(6)"><span>⬅</span> Back to Tip 03</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(8)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext4A" onclick="goToStep(8)" disabled>
+                Complete Phase 01 & Launch Mock ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function tapT4AWord(btn, word) {
+      if (btn.style.display === 'none') return;
+      playSound('tap');
+      btn.style.display = 'none';
+      t4aDocked.push(word);
+
+      document.getElementById('t4aWordsContainer').innerText = t4aDocked.join(' ');
+
+      if (t4aDocked.length === 6) {
+        const isCorrect = t4aDocked.every((w, i) => w === t4aTarget[i]);
+        const fb = document.getElementById('t4aFeedback');
+
+        if (isCorrect) {
+          playSound('correct');
+          fb.className = "audit-feedback-card show-success";
+          fb.innerHTML = `<strong>✔ PERFECT 1.0 SCORE (+10 🪙)!</strong> Auxiliary do-support negation strictly executed!`;
+          saveCoins(10);
+          userData.stepProgress[7] = true;
+          document.getElementById('btnNext4A').disabled = false;
+        } else {
+          playSound('error');
+          fb.className = "audit-feedback-card show-error";
+          fb.innerHTML = `<strong>✕ Negation Syntax Error:</strong> Resetting tiles to try again!`;
+          setTimeout(() => { renderTip4RuleA(); }, 1400);
+        }
+      }
+    }
+
+    /* ========================================================
+       DATABASE: 15 ITEMS DEL MOCK EXAM (FANTALLA POR PANTALLA)
+       ======================================================== */
+    const MOCK_15_ITEMS = [
+      {
+        speakerA: "Could you remind me when the campus bookstore opens tomorrow?",
+        bank: ["at", "opens", "it", "eight", "morning", "the", "in"],
+        target: ["it", "opens", "at", "eight", "in", "the", "morning"],
+        sign: "."
+      },
+      {
+        speakerA: "Someone mentioned that our final project guidelines were revised.",
+        bank: ["the", "did", "change", "professor", "it"],
+        target: ["did", "the", "professor", "change", "it"],
+        sign: "?"
+      },
+      {
+        speakerA: "I need urgent clarification regarding the research methodology assignment.",
+        bank: ["we", "talk", "can", "now", "about", "it"],
+        target: ["can", "we", "talk", "about", "it", "now"],
+        sign: "?"
+      },
+      {
+        speakerA: "The dining hall seems unusually crowded this afternoon.",
+        bank: ["students", "many", "eating", "are", "lunch", "there"],
+        target: ["many", "students", "are", "eating", "lunch", "there"],
+        sign: "."
+      },
+      {
+        speakerA: "I haven't seen our department coordinator anywhere in the building.",
+        bank: ["is", "on", "vacation", "she", "currently"],
+        target: ["is", "she", "currently", "on", "vacation"],
+        sign: "?"
+      },
+      {
+        speakerA: "Did the archeological team discover any fossil remains during the excavation?",
+        bank: ["found", "they", "ancient", "several", "tools", "stone"],
+        target: ["they", "found", "several", "ancient", "stone", "tools"],
+        sign: "."
+      },
+      {
+        speakerA: "The university library is always crowded before midterms.",
+        bank: ["students", "study", "for", "exams", "their", "there"],
+        target: ["students", "study", "there", "for", "their", "exams"],
+        sign: "."
+      },
+      {
+        speakerA: "Has the scholarship committee announced the final recipients yet?",
+        bank: ["not", "have", "they", "decided", "yet"],
+        target: ["they", "have", "not", "decided", "yet"],
+        sign: "."
+      },
+      {
+        speakerA: "Why was the flight to Chicago cancelled yesterday morning?",
+        bank: ["severe", "caused", "weather", "cancellation", "the"],
+        target: ["severe", "weather", "caused", "the", "cancellation"],
+        sign: "."
+      },
+      {
+        speakerA: "Are the biology professors planning a field trip next semester?",
+        bank: ["visit", "will", "marine", "they", "a", "station"],
+        target: ["they", "will", "visit", "a", "marine", "station"],
+        sign: "."
+      },
+      {
+        speakerA: "How did the board members react to the revised financial proposal?",
+        bank: ["plan", "the", "approved", "unanimously", "they"],
+        target: ["they", "unanimously", "approved", "the", "plan"],
+        sign: "."
+      },
+      {
+        speakerA: "Is the new software update causing difficulties for the campus staff?",
+        bank: ["system", "works", "smoothly", "the", "now"],
+        target: ["the", "system", "works", "smoothly", "now"],
+        sign: "."
+      },
+      {
+        speakerA: "Why did the laboratory director order an immediate safety audit?",
+        bank: ["equipment", "damaged", "the", "spill", "chemical", "the"],
+        target: ["the", "chemical", "spill", "damaged", "the", "equipment"],
+        sign: "."
+      },
+      {
+        speakerA: "Can undergraduate students submit their applications after the deadline?",
+        bank: ["accepts", "rarely", "submissions", "the", "late", "committee"],
+        target: ["the", "committee", "rarely", "accepts", "late", "submissions"],
+        sign: "."
+      },
+      {
+        speakerA: "Will the university administration raise tuition rates for graduate students next year?",
+        bank: ["fees", "increase", "will", "the", "not", "they"],
+        target: ["they", "will", "not", "increase", "the", "fees"],
+        sign: "."
+      }
+    ];
+
+    let mockCurrentIndex = 0;
+    let mockScores = new Array(15).fill(0);
+    let mockTimer = null;
+    let mockTimeLeft = 33;
+    let mockDocked = [];
+    let mockAvailable = [];
+
+    /* PASO 8: INTRO AL MOCK */
+    function renderMockIntro() {
+      badge.innerText = "Phase 01 Final Benchmark";
+      mockCurrentIndex = 0;
+      mockScores = new Array(15).fill(0);
+
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div style="text-align:center; padding: 20px 0;">
+              <div class="step-pill" style="color:var(--success); border-color:var(--success);"><span>🏁</span> PHASE 01 MASTERY BENCHMARK</div>
+              <h2 class="main-step-title">Official 15-Item Timed Benchmark Mock</h2>
+              <p class="sub-step-desc" style="margin: 0 auto 20px auto;">
+                You have completed all scaffolded lessons for Tips 01 through 04. Now, prove your mastery under real exam pacing conditions: <strong>15 official questions, one per screen, with a strict 33-second countdown per item!</strong>
+              </p>
+
+              <div class="theory-atomic-card" style="max-width:780px; margin: 0 auto 24px auto; text-align:left;">
+                <h3>Exam Benchmark Rules:</h3>
+                <p>
+                  • <strong>Pacing:</strong> 33 seconds per item. If time runs out, the sentence auto-evaluates.<br>
+                  • <strong>Scoring:</strong> 1.0 (Zero syntax errors) or 0.0 binary score per item.<br>
+                  • <strong>Passing Threshold:</strong> 12/15 (80%) or higher to unlock <strong>Phase 02</strong>.<br>
+                  • <strong>Format:</strong> Screen-by-screen progression with real-time feedback.
+                </p>
+              </div>
+
+              <div class="clippy-drill-box" style="max-width:780px; margin: 0 auto;">
+                <div class="clippy-mini-avatar">📎</div>
+                <div class="clippy-mini-speech">
+                  "Take a deep breath, <strong>${userData.name}</strong>! Trust your training: 1) Scan terminal sign, 2) Align tense, 3) Protect SVO, 4) Secure negation!"
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(7)"><span>⬅</span> Review Tip 04</button>
+              <button class="btn-act btn-primary" onclick="startMockExam()">
+                <span>🚀</span> Start Question 1 of 15 ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function startMockExam() {
+      mockCurrentIndex = 0;
+      mockScores = new Array(15).fill(0);
+      goToStep(9); // Slide 9 es el Item 1 del Mock
+    }
+
+    /* RENDERIZA CADA ITEM DEL MOCK EN UNA PANTALLA INDEPENDIENTE */
+    function renderMockItem(itemIdx) {
+      mockCurrentIndex = itemIdx;
+      const itemObj = MOCK_15_ITEMS[mockCurrentIndex];
+      badge.innerText = `Mock Exam • Question ${mockCurrentIndex + 1} of 15`;
+
+      mockDocked = [];
+      mockAvailable = [...itemObj.bank].sort(() => Math.random() - 0.5);
+      mockTimeLeft = 33;
+      clearInterval(mockTimer);
+
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                <div class="step-pill"><span>⚡</span> QUESTION ${mockCurrentIndex + 1} OF 15</div>
+                <div class="mock-timer-display" id="mockTimerBox">
+                  <span>⏱️</span> Time Left: <strong id="mockTimeNum">33</strong>s
+                </div>
+              </div>
+
+              <h2 class="main-step-title" style="font-size:26px; margin-bottom:14px;">Build the Correct Response Sentence</h2>
+
+              <div class="practice-atomic-box">
+                <div class="speaker-dialogue-card">
+                  <div class="label">Speaker A:</div>
+                  <div class="dialogue-text">"${itemObj.speakerA}"</div>
+                </div>
+
+                <div style="font-size:12px; font-family:'JetBrains Mono'; color:var(--text-muted); text-transform:uppercase; margin-bottom:8px;">
+                  Available Word Bank:
+                </div>
+                <div class="tiles-area" id="mockBankRack"></div>
+
+                <div style="font-size:12px; font-family:'JetBrains Mono'; color:var(--text-muted); text-transform:uppercase; margin-bottom:8px;">
+                  Your Response Dock:
+                </div>
+                <div class="sentence-construction-dock" id="mockDockRack">
+                  <span class="dock-terminal-sign">${itemObj.sign}</span>
+                </div>
+
+                <div class="audit-feedback-card" id="mockFeedback"></div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" id="btnResetMock" onclick="resetMockDock()">
+                <span>↺</span> Reset Tiles
+              </button>
+              <div style="display:flex; gap:10px;">
+                <button class="btn-act btn-primary" id="btnSubmitMock" onclick="submitMockSentence()">
+                  <span>✔</span> Submit Sentence
+                </button>
+                <button class="btn-act btn-primary" id="btnNextMock" onclick="nextMockItem()" style="display:none; background:var(--success);">
+                  Next Question <span>➔</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      refreshMockDOM();
+
+      // INICIAR RELOJ ESTRICTO DE 33s
+      mockTimer = setInterval(() => {
+        mockTimeLeft--;
+        const timerNum = document.getElementById('mockTimeNum');
+        const timerBox = document.getElementById('mockTimerBox');
+        if (timerNum) timerNum.innerText = mockTimeLeft;
+
+        if (mockTimeLeft <= 10 && timerBox) {
+          timerBox.classList.add('danger');
+        }
+
+        if (mockTimeLeft <= 0) {
+          clearInterval(mockTimer);
+          submitMockSentence(true); // Auto-evaluación por tiempo agotado
+        }
+      }, 1000);
+    }
+
+    function refreshMockDOM() {
+      const bankRack = document.getElementById('mockBankRack');
+      const dockRack = document.getElementById('mockDockRack');
+      const itemObj = MOCK_15_ITEMS[mockCurrentIndex];
+      if (!bankRack || !dockRack) return;
+
+      if (mockAvailable.length === 0) {
+        bankRack.innerHTML = '<span style="font-size:13px; color:var(--text-muted); font-style:italic;">(All words placed in dock)</span>';
+      } else {
+        bankRack.innerHTML = mockAvailable.map((w, idx) => `
+          <button class="tile-btn" onclick="dockMockWord(${idx})">${w}</button>
+        `).join('');
+      }
+
+      const dockedHTML = mockDocked.map((w, idx) => `
+        <button class="tile-btn docked" onclick="undockMockWord(${idx})">${w}</button>
+      `).join('');
+
+      if (mockDocked.length === 0) {
+        dockRack.innerHTML = '<span style="font-size:13.5px; color:var(--text-muted); font-style:italic;">[Tap words above to assemble here...]</span><span class="dock-terminal-sign">' + itemObj.sign + '</span>';
+      } else {
+        dockRack.innerHTML = dockedHTML + '<span class="dock-terminal-sign">' + itemObj.sign + '</span>';
+      }
+    }
+
+    function dockMockWord(idx) {
+      playSound('tap');
+      const w = mockAvailable.splice(idx, 1)[0];
+      mockDocked.push(w);
+      refreshMockDOM();
+    }
+
+    function undockMockWord(idx) {
+      playSound('tap');
+      const w = mockDocked.splice(idx, 1)[0];
+      mockAvailable.push(w);
+      refreshMockDOM();
+    }
+
+    function resetMockDock() {
+      playSound('tap');
+      const itemObj = MOCK_15_ITEMS[mockCurrentIndex];
+      mockDocked = [];
+      mockAvailable = [...itemObj.bank].sort(() => Math.random() - 0.5);
+      refreshMockDOM();
+    }
+
+    function submitMockSentence(isTimeOut = false) {
+      clearInterval(mockTimer);
+      const itemObj = MOCK_15_ITEMS[mockCurrentIndex];
+      const isCorrect = (mockDocked.length === itemObj.target.length) &&
+                        mockDocked.every((w, i) => w.toLowerCase() === itemObj.target[i].toLowerCase());
+
+      const fb = document.getElementById('mockFeedback');
+      const submitBtn = document.getElementById('btnSubmitMock');
+      const nextBtn = document.getElementById('btnNextMock');
+      const resetBtn = document.getElementById('btnResetMock');
+
+      submitBtn.style.display = 'none';
+      resetBtn.style.display = 'none';
+      nextBtn.style.display = 'inline-flex';
+
+      if (isCorrect) {
+        playSound('correct');
+        mockScores[mockCurrentIndex] = 1;
+        saveCoins(10);
+        fb.className = "audit-feedback-card show-success";
+        fb.innerHTML = `<strong>✔ 1.0 PERFECT SCORE (+10 🪙)!</strong> Syntactic pattern strictly assembled!`;
+      } else {
+        playSound('error');
+        mockScores[mockCurrentIndex] = 0;
+        fb.className = "audit-feedback-card show-error";
+        fb.innerHTML = isTimeOut 
+          ? `<strong>✕ Time Out (0.0 points):</strong> The 33 seconds expired.<br><strong>Correct Target:</strong> "${itemObj.target.join(' ')}${itemObj.sign}"`
+          : `<strong>✕ Syntax Error (0.0 points):</strong><br><strong>Correct Target:</strong> "${itemObj.target.join(' ')}${itemObj.sign}"`;
+      }
+    }
+
+    function nextMockItem() {
+      playSound('tap');
+      if (mockCurrentIndex < 14) {
+        goToStep(activeStep + 1); // Pasa al siguiente reactivo
+      } else {
+        goToStep(24); // Slide de Resultados Finales
+      }
+    }
+
+    /* PANTALLA DE RESULTADOS FINALES DEL MOCK */
+    function renderMockResults() {
+      badge.innerText = "Phase 01 Final Certification";
+      const totalScore = mockScores.reduce((a, b) => a + b, 0);
+      const percentage = Math.round((totalScore / 15) * 100);
+      const passed = (totalScore >= 12); // 80% mínimo para aprobar
+
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div style="text-align:center; padding: 20px 0;">
+              <div class="step-pill" style="color:${passed ? 'var(--success)' : 'var(--danger)'}; border-color:${passed ? 'var(--success)' : 'var(--danger)'};">
+                <span>🏆</span> PHASE 01 BENCHMARK AUDIT REPORT
+              </div>
+
+              <h2 class="main-step-title">Candidate: ${userData.name.toUpperCase()}</h2>
+              <p class="sub-step-desc" style="margin: 0 auto 24px auto;">
+                Final Benchmark Score: <strong style="color:var(--accent-gold); font-size:24px;">${totalScore} / 15</strong> (${percentage}%) • Status: <strong>${passed ? 'PASSED (CERTIFIED)' : 'RETRY REQUIRED'}</strong>
+              </p>
+
+              <div class="theory-atomic-card" style="max-width:760px; margin: 0 auto 24px auto; text-align:left;">
+                <h3>Performance Breakdown:</h3>
+                <p>
+                  • <strong>Total Items Completed:</strong> 15 questions.<br>
+                  • <strong>Raw Score Accuracy:</strong> ${totalScore} of 15 binary points.<br>
+                  • <strong>Phase 02 Access:</strong> ${passed ? 'UNLOCKED! You are authorized to begin Phase 02: The Noun Phrase Blueprint.' : 'Phase 02 remains locked. You need at least 12/15 to certify.'}
+                </p>
+              </div>
+
+              <div class="clippy-drill-box" style="max-width:760px; margin: 0 auto;">
+                <div class="clippy-mini-avatar">📎</div>
+                <div class="clippy-mini-speech">
+                  ${passed 
+                    ? `"CONGRATULATIONS, <strong>${userData.name}</strong>! You achieved a master score on the 15-item benchmark! Phase 02 is now ready for you!"`
+                    : `"Good effort, <strong>${userData.name}</strong>! You scored ${totalScore}/15. Click 'Retry Mock' below to hit the 12/15 requirement and unlock Phase 02!"`}
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(8)"><span>↺</span> Retry Benchmark Mock</button>
+              ${passed 
+                ? `<button class="btn-act btn-primary" onclick="proceedToPhase2()" style="background:var(--success);"><span>🚀</span> Launch Phase 02 (New File) ➔</button>`
+                : `<button class="btn-act btn-primary" onclick="goToStep(0)"><span>🧭</span> Review Phase 01 Roadmap</button>`}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function proceedToPhase2() {
+      userData.phasesCompleted[0] = true;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+      alert(`Phase 01 officially certified! Redirecting to PHASE 02.html...`);
+      window.location.href = "PHASE 02.html";
+    }
+
+    function toggleMenu(force) {
+      const m = document.getElementById('curriculumMenu');
+      if (typeof force === 'boolean') {
+        m.style.display = force ? 'flex' : 'none';
+      } else {
+        m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      const menu = document.getElementById('curriculumMenu');
+      const btn = document.querySelector('.btn-dropdown-menu');
+      if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.style.display = 'none';
+      }
+    });
+
+    // INICIALIZACIÓN
+    loadData();
+    renderCurrentStep();
+  </script>
+</body>
+</html>

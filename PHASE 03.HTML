@@ -1,0 +1,1962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phase 03: Verbal Complex & Complementation - Dr. Jesús Miguel Lima E.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&family=Space+Grotesk:wght@600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'AnanthaSignature';
+      src: url('Anantha Signature For Personal Use.ttf') format('truetype'),
+           url('Anantha Signature For Personal Use.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --bg-canvas: #040914;
+      --bg-panel: #0a1324;
+      --bg-card: #101d36;
+      --bg-card-inner: #070e1c;
+      --border-subtle: #1c2e4c;
+      --border-gold: rgba(212, 175, 55, 0.45);
+      --accent-gold: #d4af37;
+      --accent-gold-soft: rgba(212, 175, 55, 0.12);
+      --accent-blue: #2563eb;
+      --accent-blue-light: #60a5fa;
+      --toefl-brand-blue: #2B2B7A;
+      --success: #10b981;
+      --success-bg: rgba(16, 185, 129, 0.15);
+      --danger: #ef4444;
+      --danger-bg: rgba(239, 68, 68, 0.15);
+      --warning: #f59e0b;
+      --warning-bg: rgba(245, 158, 11, 0.15);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-spanish: #8192a9;
+      --shadow-deep: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      min-height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 90% 10%, rgba(37, 99, 235, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 10% 90%, rgba(212, 175, 55, 0.1) 0%, transparent 60%),
+        linear-gradient(to bottom, #030710, #081120);
+    }
+
+    #app-viewport {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    /* TOP BAR NAVEGACIÓN */
+    .top-nav {
+      height: 62px;
+      background: rgba(6, 12, 23, 0.98);
+      border-bottom: 1px solid rgba(28, 46, 76, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-nav-exit {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid var(--border-subtle);
+      color: #cbd5e1;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-nav-exit:hover {
+      background: rgba(37, 99, 235, 0.25);
+      border-color: var(--accent-blue-light);
+      color: #ffffff;
+    }
+
+    .toefl-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      padding: 4px 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      user-select: none;
+    }
+
+    .toefl-spark {
+      width: 15px;
+      height: 15px;
+      fill: var(--toefl-brand-blue);
+    }
+
+    .toefl-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--toefl-brand-blue);
+      letter-spacing: -0.4px;
+      line-height: 1;
+    }
+
+    .toefl-reg {
+      font-size: 7.5px;
+      font-weight: 700;
+      color: var(--toefl-brand-blue);
+      margin-top: -5px;
+    }
+
+    .nav-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      background: var(--accent-gold-soft);
+      color: var(--accent-gold);
+      border: 1px solid var(--border-gold);
+      padding: 4px 12px;
+      border-radius: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .coin-vault {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(212, 175, 55, 0.14);
+      border: 1.5px solid var(--accent-gold);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--accent-gold);
+    }
+
+    .btn-dropdown-menu {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-subtle);
+      color: #f8fafc;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .company-logo-slot {
+      height: 40px;
+      max-width: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .company-logo-slot img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    /* MENÚ FLOTANTE */
+    #curriculumMenu {
+      position: absolute;
+      top: 66px;
+      right: 36px;
+      width: 360px;
+      max-height: 540px;
+      overflow-y: auto;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-gold);
+      border-radius: 12px;
+      box-shadow: var(--shadow-deep);
+      padding: 16px;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .menu-header-tag {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      margin-bottom: 4px;
+      letter-spacing: 1px;
+    }
+
+    .menu-link-btn {
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: var(--bg-card-inner);
+      border: 1px solid var(--border-subtle);
+      font-size: 13px;
+      font-weight: 600;
+      color: #cbd5e1;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s;
+    }
+
+    .menu-link-btn:hover {
+      background: #192d4f;
+      color: #ffffff;
+      border-color: var(--accent-blue-light);
+    }
+
+    /* CONTENEDOR AMPLIO */
+    .stage-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 1520px;
+      margin: 0 auto;
+      padding: 40px 80px 24px 80px;
+      justify-content: space-between;
+    }
+
+    .slide {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .slide.active {
+      display: flex;
+      animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--accent-blue-light);
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid rgba(96, 165, 250, 0.35);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .main-step-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(30px, 3.2vw, 46px);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .sub-step-desc {
+      font-size: clamp(16px, 1.3vw, 20px);
+      color: #e2e8f0;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    .es-note {
+      font-style: italic;
+      font-size: clamp(14px, 1.1vw, 17px);
+      color: var(--text-spanish);
+      line-height: 1.55;
+      margin-top: 6px;
+    }
+
+    /* TEORÍA PEDAGÓGICA */
+    .theory-atomic-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-subtle);
+      border-left: 6px solid var(--accent-gold);
+      border-radius: 12px;
+      padding: 24px 30px;
+      margin-top: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-deep);
+    }
+
+    .theory-atomic-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .theory-atomic-card p {
+      font-size: clamp(15px, 1.15vw, 17.5px);
+      color: #f1f5f9;
+      line-height: 1.65;
+    }
+
+    /* PRÁCTICA */
+    .practice-atomic-box {
+      background: var(--bg-card-inner);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 26px 32px;
+      margin-bottom: 24px;
+    }
+
+    .speaker-dialogue-card {
+      background: rgba(16, 29, 54, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-left: 4px solid var(--accent-blue);
+      border-radius: 8px;
+      padding: 12px 18px;
+      margin-bottom: 18px;
+    }
+
+    .speaker-dialogue-card .label {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent-blue-light);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .speaker-dialogue-card .dialogue-text {
+      font-size: clamp(15px, 1.2vw, 18px);
+      color: #ffffff;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .practice-task-prompt {
+      font-size: clamp(16px, 1.25vw, 19px);
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    /* TILES Y DOCK */
+    .tiles-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      min-height: 56px;
+      padding: 12px;
+      background: rgba(7, 13, 24, 0.7);
+      border: 1.5px dashed var(--border-subtle);
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    .sentence-construction-dock {
+      min-height: 64px;
+      background: var(--bg-card);
+      border: 2px dashed var(--border-subtle);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .tile-btn {
+      background: #192942;
+      border: 1.5px solid #2e476e;
+      padding: 10px 20px;
+      border-radius: 7px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(14px, 1.1vw, 16px);
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+
+    .tile-btn:hover {
+      border-color: var(--accent-blue-light);
+      background: #243b61;
+      transform: translateY(-2px);
+    }
+
+    .tile-btn.docked {
+      background: #1e3a5f;
+      border-color: #3b82f6;
+    }
+
+    .tile-btn.locked-hint {
+      background: rgba(212, 175, 55, 0.25);
+      border-color: var(--accent-gold);
+      color: #fef08a;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .dock-terminal-sign {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--accent-gold);
+      padding-left: 10px;
+    }
+
+    /* TIENDA DE PISTAS (COIN ECONOMY) */
+    .help-shop-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: rgba(10, 20, 36, 0.85);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin-top: 14px;
+    }
+
+    .help-shop-label {
+      font-size: 12.5px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-gold);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .help-shop-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .shop-btn {
+      background: rgba(18, 32, 56, 0.95);
+      border: 1px solid var(--border-gold);
+      color: #ffffff;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .shop-btn:hover {
+      background: rgba(212, 175, 55, 0.2);
+      border-color: var(--accent-gold);
+    }
+
+    /* TIMER DEL MOCK */
+    .mock-timer-display {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--accent-gold);
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--accent-gold);
+      padding: 5px 14px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .mock-timer-display.danger {
+      color: #fca5a5;
+      border-color: var(--danger);
+      background: var(--danger-bg);
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    /* FEEDBACK */
+    .audit-feedback-card {
+      display: none;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 16px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .audit-feedback-card.show-success {
+      display: block;
+      background: var(--success-bg);
+      border: 1.5px solid var(--success);
+      color: #a7f3d0;
+    }
+
+    .audit-feedback-card.show-error {
+      display: block;
+      background: var(--danger-bg);
+      border: 1.5px solid var(--danger);
+      color: #fecaca;
+    }
+
+    /* CLIPPY */
+    .clippy-drill-box {
+      background: linear-gradient(135deg, rgba(16, 29, 54, 0.95) 0%, rgba(8, 16, 31, 0.95) 100%);
+      border: 1.5px solid var(--accent-gold);
+      border-radius: 12px;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 16px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    .clippy-mini-avatar {
+      width: 52px;
+      height: 52px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1.5px solid var(--accent-gold);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .clippy-mini-speech {
+      font-size: clamp(13.5px, 1.1vw, 15px);
+      color: #e2e8f0;
+      line-height: 1.55;
+    }
+
+    .clippy-mini-speech strong {
+      color: var(--accent-gold);
+    }
+
+    /* CONTROLES INFERIORES */
+    .bottom-bar {
+      padding: 18px 80px;
+      background: rgba(6, 12, 23, 0.98);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .btn-act {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 26px;
+      border-radius: 7px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent-blue);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #1d4ed8;
+      box-shadow: 0 0 18px rgba(37, 99, 235, 0.5);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border-subtle);
+      color: #cbd5e1;
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-card);
+      color: #ffffff;
+    }
+
+    .btn-skip-pill {
+      background: transparent;
+      border: 1.5px solid rgba(245, 158, 11, 0.45);
+      color: #fde68a;
+      font-size: 13px;
+      padding: 9px 18px;
+    }
+
+    .btn-skip-pill:hover {
+      background: rgba(245, 158, 11, 0.18);
+      border-color: var(--warning);
+    }
+
+    /* FOOTER SOBRIO */
+    .institutional-footer {
+      padding: 10px 48px;
+      background: #03060d;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11.5px;
+      color: #64748b;
+    }
+
+    .signature-badge {
+      font-family: 'AnanthaSignature', cursive, sans-serif;
+      font-size: 17px;
+      color: #ffffff;
+      line-height: 1;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 900px) {
+      .stage-container {
+        padding: 24px 20px;
+      }
+      .bottom-bar {
+        padding: 14px 20px;
+      }
+      .top-nav {
+        padding: 0 16px;
+      }
+      .institutional-footer {
+        padding: 8px 16px;
+        flex-direction: column;
+        gap: 4px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app-viewport">
+    
+    <!-- TOP NAVIGATION -->
+    <div class="top-nav">
+      <div class="nav-left">
+        <a href="index.html" class="btn-nav-exit"><span>⬅</span> Main Hub</a>
+        <div class="toefl-badge">
+          <svg class="toefl-spark" viewBox="0 0 100 100">
+            <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(0 50 50)"/>
+            <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(60 50 50)"/>
+            <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(120 50 50)"/>
+          </svg>
+          <span class="toefl-name">toefl ibt</span>
+          <span class="toefl-reg">®</span>
+        </div>
+        <span class="nav-badge" id="stepBadge">Phase 03 Roadmap</span>
+      </div>
+
+      <div class="nav-right">
+        <div class="coin-vault">
+          <span>🪙</span> <span id="userCoins">25</span>
+        </div>
+
+        <button class="btn-dropdown-menu" onclick="toggleMenu()">
+          <span>📋</span> Jump to Tip ▾
+        </button>
+
+        <div class="company-logo-slot">
+          <img src="logo.png" alt="JM ELT Solutions" onerror="this.style.display='none'">
+        </div>
+      </div>
+    </div>
+
+    <!-- MENÚ FLOTANTE -->
+    <div id="curriculumMenu">
+      <div class="menu-header-tag">Phase 03: Verbal Complex & Complementation</div>
+      <div class="menu-link-btn" onclick="goToStep(0)">01. Phase 03 Blueprint</div>
+      <div class="menu-link-btn" onclick="goToStep(1)">02. Tip 09 • Rule A: Ditransitive Objects</div>
+      <div class="menu-link-btn" onclick="goToStep(2)">03. Tip 09 • Rule B: Prepositional Transfer</div>
+      <div class="menu-link-btn" onclick="goToStep(3)">04. Tip 10 • Rule A: Phrasal Pronoun Trapping</div>
+      <div class="menu-link-btn" onclick="goToStep(4)">05. Tip 10 • Rule B: Inseparable Verb Structure</div>
+      <div class="menu-link-btn" onclick="goToStep(5)">06. Tip 11 • Rule A: Gerund Complementation</div>
+      <div class="menu-link-btn" onclick="goToStep(6)">07. Tip 11 • Rule B: Infinitive Complementation</div>
+      <div class="menu-link-btn" onclick="goToStep(7)">08. Tip 12 • Rule A: Passive Voice Architecture</div>
+      <div class="menu-link-btn" onclick="goToStep(8)">09. Official 15-Item Benchmark Mock</div>
+    </div>
+
+    <!-- MAIN MOUNT -->
+    <div id="mountPoint" style="flex:1; display:flex; flex-direction:column;"></div>
+
+    <!-- FOOTER INSTITUCIONAL -->
+    <div class="institutional-footer">
+      <span>TOEFL iBT Writing: Build a Sentence Mastery</span>
+      <span class="signature-badge">by Dr. Jesús Miguel Lima E.</span>
+      <span>JM ELT Solutions</span>
+    </div>
+
+  </div>
+
+  <script>
+    /* ========================================================
+       AUDIO ENGINE
+       ======================================================== */
+    let audioCtx = null;
+    function playSound(type) {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      if (type === 'tap') {
+        osc.frequency.setValueAtTime(420, now);
+        osc.frequency.exponentialRampToValueAtTime(560, now + 0.04);
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.linearRampToValueAtTime(0, now + 0.04);
+        osc.start(now); osc.stop(now + 0.04);
+      } else if (type === 'correct') {
+        osc.frequency.setValueAtTime(523.25, now);
+        osc.frequency.setValueAtTime(659.25, now + 0.08);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.linearRampToValueAtTime(0, now + 0.28);
+        osc.start(now); osc.stop(now + 0.28);
+      } else if (type === 'coin') {
+        osc.frequency.setValueAtTime(987.77, now);
+        osc.frequency.setValueAtTime(1318.51, now + 0.08);
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.linearRampToValueAtTime(0, now + 0.25);
+        osc.start(now); osc.stop(now + 0.25);
+      } else if (type === 'hint') {
+        osc.frequency.setValueAtTime(350, now);
+        osc.frequency.linearRampToValueAtTime(440, now + 0.1);
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.linearRampToValueAtTime(0, now + 0.15);
+        osc.start(now); osc.stop(now + 0.15);
+      } else if (type === 'error') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(160, now);
+        osc.frequency.linearRampToValueAtTime(110, now + 0.16);
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.linearRampToValueAtTime(0, now + 0.16);
+        osc.start(now); osc.stop(now + 0.16);
+      }
+    }
+
+    /* ========================================================
+       DATA & STORAGE
+       ======================================================== */
+    const STORAGE_KEY = "toefl_mastery_user_profile";
+    let userData = {
+      name: "Candidate",
+      birthYear: "1998",
+      coins: 25,
+      phasesCompleted: [true, true, false, false, false],
+      phase3StepProgress: new Array(12).fill(false)
+    };
+
+    function loadData() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        try {
+          userData = Object.assign(userData, JSON.parse(raw));
+        } catch(e) {}
+      }
+      document.getElementById('userCoins').innerText = userData.coins;
+    }
+
+    function saveCoins(delta) {
+      userData.coins += delta;
+      if (delta > 0) playSound('coin');
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+      document.getElementById('userCoins').innerText = userData.coins;
+    }
+
+    /* ========================================================
+       SCAFFOLDED MODULES: EXPLICACIÓN -> PRÁCTICA
+       ======================================================== */
+    let activeStep = 0;
+    const mount = document.getElementById('mountPoint');
+    const badge = document.getElementById('stepBadge');
+
+    function goToStep(idx) {
+      activeStep = idx;
+      toggleMenu(false);
+      renderCurrentStep();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderCurrentStep() {
+      mount.innerHTML = '';
+      if (activeStep === 0) renderBlueprint();
+      else if (activeStep === 1) renderTip9RuleA();
+      else if (activeStep === 2) renderTip9RuleB();
+      else if (activeStep === 3) renderTip10RuleA();
+      else if (activeStep === 4) renderTip10RuleB();
+      else if (activeStep === 5) renderTip11RuleA();
+      else if (activeStep === 6) renderTip11RuleB();
+      else if (activeStep === 7) renderTip12RuleA();
+      else if (activeStep === 8) renderMockIntro();
+      else if (activeStep >= 9 && activeStep <= 23) {
+        renderMockItem(activeStep - 9);
+      } else if (activeStep === 24) {
+        renderMockResults();
+      }
+    }
+
+    /* PASO 0: BLUEPRINT DE LA FASE 03 */
+    function renderBlueprint() {
+      badge.innerText = "Phase 03 • Roadmap";
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>🧭</span> PHASE 03 CURRICULUM ARCHITECTURE</div>
+              <h2 class="main-step-title">VERBAL COMPLEX & COMPLEMENTATION</h2>
+              <p class="sub-step-desc">
+                Welcome to Phase 03, <strong>${userData.name}</strong>! Now that you have mastered sentence backbones and noun phrases, we delve into advanced predicate architecture: ditransitive object alternation, phrasal verb separability, gerund versus infinitive catenation, and passive voice structures.
+              </p>
+              <p class="es-note">(Fase 03: Complejo Verbal y Complementación. Verbos con dos objetos, verbos frasales, gerundios/infinitivos y voz pasiva.)</p>
+
+              <div class="theory-atomic-card">
+                <h3>Phase 03 Milestone Sequence:</h3>
+                <p>
+                  <strong>• Tip 09: Ditransitive Word Order:</strong> Indirect Object vs. Direct Object with and without prepositions (<em>give someone something</em> vs. <em>give something to someone</em>).<br>
+                  <strong>• Tip 10: Phrasal Verbs & Particle Separability:</strong> Pronoun trapping (<em>turn it down</em>) and inseparable prepositional verbs.<br>
+                  <strong>• Tip 11: Verb Complementation:</strong> Catenative verbs requiring mandatory Gerunds (<em>enjoy doing</em>) or Infinitives (<em>decide to do</em>).<br>
+                  <strong>• Tip 12: Passive Voice Architecture:</strong> Copular auxiliary + past participle + optional <em>by</em>-agent.<br>
+                  <strong>• Milestone 05: Official 15-Item Benchmark Mock:</strong> Screen-by-screen assessment under the 33-second rule.
+                </p>
+              </div>
+
+              <div class="clippy-drill-box">
+                <div class="clippy-mini-avatar">📎</div>
+                <div class="clippy-mini-speech">
+                  "Ready for Phase 03, <strong>${userData.name}</strong>? Verbs govern the entire complementation of the predicate. Master each atomic step before the 15-item mock!"
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <a href="index.html" class="btn-act btn-outline"><span>⬅</span> Main Hub</a>
+              <button class="btn-act btn-primary" onclick="goToStep(1)">
+                Begin Tip 09: Rule 9.A ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* PASO 1: TIP 09 • RULE 9.A (DITRANSITIVE BARE OBJECTS) */
+    function renderTip9RuleA() {
+      badge.innerText = "Tip 09 • Rule 9.A";
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>📘</span> TIP 09 • RULE 9.A: DITRANSITIVE OBJECT ORDER</div>
+              <h2 class="main-step-title">Double Object Construction (Verb + IO + DO)</h2>
+              <p class="sub-step-desc">
+                When a ditransitive verb (give, send, offer, award) takes two noun phrases without a preposition, the <strong>Indirect Object (Recipient)</strong> must strictly precede the <strong>Direct Object (Theme)</strong>.
+              </p>
+              <p class="es-note">(Sin preposición: Verbo + Receptor [Objeto Indirecto] + Cosa dada [Objeto Directo].)</p>
+
+              <div class="theory-atomic-card">
+                <h3>Decision Protocol (Protocolo de Decisión):</h3>
+                <p>
+                  Verb: <strong>awarded</strong>. Elements: <em>the committee, the student, a scholarship</em>.<br><br>
+                  • If you assemble *<em>awarded a scholarship the student</em> ➔ <strong>0.0 points</strong> (Theme cannot precede Recipient without preposition).<br>
+                  • If you assemble <strong>awarded the student a scholarship</strong> ➔ <strong>1.0 point</strong> (Recipient strictly precedes Theme).
+                </p>
+              </div>
+
+              <div class="practice-atomic-box">
+                <div class="speaker-dialogue-card">
+                  <div class="label">Speaker A:</div>
+                  <div class="dialogue-text">"Did the university recognize the young researcher's discovery?"</div>
+                </div>
+
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 9.A: Select the only predicate ordering that satisfies the bare ditransitive rule:
+                </div>
+
+                <div class="tiles-area" id="t9aRack">
+                  <button class="tile-btn" onclick="handleWrongDitr('prize the scientist')">awarded a prestigious prize the scientist</button>
+                  <button class="tile-btn" onclick="handleCorrectDitr(this)">awarded the scientist a prestigious prize</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t9aDock">
+                  <span style="font-family:'JetBrains Mono'; font-size:15px; color:#ffffff;">
+                    The faculty <strong style="color:var(--accent-gold);">[ ? ]</strong> yesterday.
+                  </span>
+                </div>
+
+                <div class="audit-feedback-card" id="t9aFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech" id="clippyT9A">
+                    "Recipient first, Theme second when no preposition is used, <strong>${userData.name}</strong>!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(0)"><span>⬅</span> Roadmap</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(2)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext9A" onclick="goToStep(2)" disabled>
+                Next Rule: Prepositional Transfer ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleWrongDitr(w) {
+      playSound('error');
+      const fb = document.getElementById('t9aFeedback');
+      fb.className = "audit-feedback-card show-error";
+      fb.innerHTML = `<strong>✕ Ditransitive Inversion Error:</strong> You cannot place the Direct Object before the Indirect Object without a preposition like "to".`;
+    }
+
+    function handleCorrectDitr(btn) {
+      playSound('correct');
+      btn.style.background = "var(--success)";
+      document.getElementById('t9aDock').innerHTML = `
+        <span style="font-family:'JetBrains Mono'; font-size:16px; font-weight:700; color:#ffffff;">
+          The faculty <strong style="color:var(--success);">awarded the scientist a prestigious prize</strong> yesterday.
+        </span>
+      `;
+      const fb = document.getElementById('t9aFeedback');
+      fb.className = "audit-feedback-card show-success";
+      fb.innerHTML = `<strong>✔ Ditransitive Rule Mastered (+10 🪙):</strong> Verb + Recipient (the scientist) + Theme (a prestigious prize) perfectly executed!`;
+      saveCoins(10);
+      document.getElementById('clippyT9A').innerHTML = `"Spot on, <strong>${userData.name}</strong>! Now let's see what happens when we introduce a prepositional transfer!"`;
+      document.getElementById('btnNext9A').disabled = false;
+    }
+
+    /* PASO 2: TIP 09 • RULE 9.B (PREPOSITIONAL DITRANSITIVE TRANSFER) */
+    let t9bDocked = [];
+    const t9bTarget = ['the', 'dean', 'sent', 'the', 'report', 'to', 'the', 'board'];
+
+    function renderTip9RuleB() {
+      badge.innerText = "Tip 09 • Rule 9.B";
+      t9bDocked = [];
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>🧩</span> TIP 09 • RULE 9.B: PREPOSITIONAL DITRANSITIVE TRANSFER</div>
+              <h2 class="main-step-title">Prepositional Object Shift (Verb + DO + to/for + IO)</h2>
+              <p class="sub-step-desc">
+                If the preposition <strong>to</strong> or <strong>for</strong> is present, the <strong>Direct Object (Theme)</strong> moves next to the verb, and the prepositional phrase attaches afterwards.
+              </p>
+              <p class="es-note">(Con preposición: Verbo + Objeto Directo [the report] + to + Receptor [the board].)</p>
+
+              <div class="practice-atomic-box">
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 9.B: Assemble the sentence into the dock using prepositional transfer:
+                </div>
+
+                <div class="tiles-area" id="t9bRack">
+                  <button class="tile-btn" onclick="tapT9BWord(this, 'the')">the</button>
+                  <button class="tile-btn" onclick="tapT9BWord(this, 'board')">board</button>
+                  <button class="tile-btn" onclick="tapT9BWord(this, 'sent')">sent</button>
+                  <button class="tile-btn" onclick="tapT9BWord(this, 'dean')">dean</button>
+                  <button class="tile-btn" onclick="tapT9BWord(this, 'to')">to</button>
+                  <button class="tile-btn" onclick="tapT9BWord(this, 'report')">report</button>
+                  <button class="tile-btn" onclick="tapT9BWord(this, 'the')">the</button>
+                  <button class="tile-btn" onclick="tapT9BWord(this, 'the')">the</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t9bDock">
+                  <span id="t9bWordsContainer" style="font-family:'JetBrains Mono'; font-size:18px; font-weight:700; color:#ffffff;"></span>
+                  <span class="dock-terminal-sign">.</span>
+                </div>
+
+                <div class="audit-feedback-card" id="t9bFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech">
+                    "When 'to' is in the bank: Verb (sent) + Theme (the report) + to + Recipient (the board)!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(1)"><span>⬅</span> Back to Rule 9.A</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(3)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext9B" onclick="goToStep(3)" disabled>
+                Advance to Tip 10 ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function tapT9BWord(btn, word) {
+      if (btn.style.display === 'none') return;
+      playSound('tap');
+      btn.style.display = 'none';
+      t9bDocked.push(word);
+
+      document.getElementById('t9bWordsContainer').innerText = t9bDocked.join(' ');
+
+      if (t9bDocked.length === 8) {
+        const isCorrect = t9bDocked.every((w, i) => w === t9bTarget[i]);
+        const fb = document.getElementById('t9bFeedback');
+
+        if (isCorrect) {
+          playSound('correct');
+          fb.className = "audit-feedback-card show-success";
+          fb.innerHTML = `<strong>✔ 1.0 PERFECT RAW SCORE (+10 🪙)!</strong> Prepositional ditransitive transfer strictly executed!`;
+          saveCoins(10);
+          document.getElementById('btnNext9B').disabled = false;
+        } else {
+          playSound('error');
+          fb.className = "audit-feedback-card show-error";
+          fb.innerHTML = `<strong>✕ Word Order Error:</strong> Resetting tiles to try again!`;
+          setTimeout(() => { renderTip9RuleB(); }, 1400);
+        }
+      }
+    }
+
+    /* PASO 3: TIP 10 • RULE 10.A (PHRASAL VERBS: PRONOUN TRAPPING) */
+    function renderTip10RuleA() {
+      badge.innerText = "Tip 10 • Rule 10.A";
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>🔗</span> TIP 10 • RULE 10.A: PHRASAL VERB SEPARABILITY</div>
+              <h2 class="main-step-title">The Pronoun Trapping Law</h2>
+              <p class="sub-step-desc">
+                When a separable transitive phrasal verb takes a personal pronoun (it, them, him, her) as its object, the pronoun <strong>MUST be trapped</strong> between the verb and the particle.
+              </p>
+              <p class="es-note">(Regla inquebrantable del pronombre: Si el objeto es 'it' o 'them', va OBLIGATORIAMENTE en medio: turn it off, nunca turn off it.)</p>
+
+              <div class="theory-atomic-card">
+                <h3>Decision Protocol (Protocolo de Decisión):</h3>
+                <p>
+                  Phrasal verb: <strong>turn down</strong> (reject). Pronoun object: <strong>it</strong>.<br><br>
+                  • If you choose *<em>turned down it</em> ➔ <strong>0.0 points</strong> (pronouns can never follow the particle).<br>
+                  • If you choose <strong>turned it down</strong> ➔ <strong>1.0 point</strong> (mandatory particle separation).
+                </p>
+              </div>
+
+              <div class="practice-atomic-box">
+                <div class="speaker-dialogue-card">
+                  <div class="label">Speaker A:</div>
+                  <div class="dialogue-text">"Did the applicant accept the revised scholarship offer?"</div>
+                </div>
+
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 10.A: Select the only grammatically legal pronoun placement:
+                </div>
+
+                <div class="tiles-area" id="t10aRack">
+                  <button class="tile-btn" onclick="handleWrongPhrasal('turned down it')">turned down it</button>
+                  <button class="tile-btn" onclick="handleCorrectPhrasal(this)">turned it down</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t10aDock">
+                  <span style="font-family:'JetBrains Mono'; font-size:15px; color:#ffffff;">
+                    The candidate <strong style="color:var(--accent-gold);">[ ? ]</strong> immediately.
+                  </span>
+                </div>
+
+                <div class="audit-feedback-card" id="t10aFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech" id="clippyT10A">
+                    "Pronouns must always be trapped in the middle of separable phrasal verbs, <strong>${userData.name}</strong>!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(2)"><span>⬅</span> Back to Tip 09</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(4)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext10A" onclick="goToStep(4)" disabled>
+                Next Rule: Inseparable Verbs ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleWrongPhrasal(w) {
+      playSound('error');
+      const fb = document.getElementById('t10aFeedback');
+      fb.className = "audit-feedback-card show-error";
+      fb.innerHTML = `<strong>✕ Pronoun Placement Error:</strong> Pronouns cannot follow the particle in separable verbs (*${w} is ungrammatical).`;
+    }
+
+    function handleCorrectPhrasal(btn) {
+      playSound('correct');
+      btn.style.background = "var(--success)";
+      document.getElementById('t10aDock').innerHTML = `
+        <span style="font-family:'JetBrains Mono'; font-size:16px; font-weight:700; color:#ffffff;">
+          The candidate <strong style="color:var(--success);">turned it down</strong> immediately.
+        </span>
+      `;
+      const fb = document.getElementById('t10aFeedback');
+      fb.className = "audit-feedback-card show-success";
+      fb.innerHTML = `<strong>✔ Pronoun Trapping Mastered (+10 🪙):</strong> Verb + Pronoun (it) + Particle (down) strictly assembled!`;
+      saveCoins(10);
+      document.getElementById('clippyT10A').innerHTML = `"Spot on! Now let's assemble an inseparable prepositional verb construction!"`;
+      document.getElementById('btnNext10A').disabled = false;
+    }
+
+    /* PASO 4: TIP 10 • RULE 10.B (INSEPARABLE PREPOSITIONAL VERB ASSEMBLY) */
+    let t10bDocked = [];
+    const t10bTarget = ['the', 'auditors', 'looked', 'into', 'the', 'financial', 'records'];
+
+    function renderTip10RuleB() {
+      badge.innerText = "Tip 10 • Rule 10.B";
+      t10bDocked = [];
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>🔗</span> TIP 10 • RULE 10.B: INSEPARABLE VERBS</div>
+              <h2 class="main-step-title">Inseparable Prepositional Verbs</h2>
+              <p class="sub-step-desc">
+                Unlike phrasal verbs, prepositional verbs (look into, cope with, rely on) are <strong>strictly inseparable</strong>. The preposition must never be separated from the verb by the object.
+              </p>
+              <p class="es-note">(Los verbos preposicionales son inseparables: Verb + Prep [looked into] + Objeto [the records].)</p>
+
+              <div class="practice-atomic-box">
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 10.B: Assemble the sentence keeping "looked into" strictly adjacent:
+                </div>
+
+                <div class="tiles-area" id="t10bRack">
+                  <button class="tile-btn" onclick="tapT10BWord(this, 'financial')">financial</button>
+                  <button class="tile-btn" onclick="tapT10BWord(this, 'the')">the</button>
+                  <button class="tile-btn" onclick="tapT10BWord(this, 'records')">records</button>
+                  <button class="tile-btn" onclick="tapT10BWord(this, 'auditors')">auditors</button>
+                  <button class="tile-btn" onclick="tapT10BWord(this, 'into')">into</button>
+                  <button class="tile-btn" onclick="tapT10BWord(this, 'the')">the</button>
+                  <button class="tile-btn" onclick="tapT10BWord(this, 'looked')">looked</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t10bDock">
+                  <span id="t10bWordsContainer" style="font-family:'JetBrains Mono'; font-size:18px; font-weight:700; color:#ffffff;"></span>
+                  <span class="dock-terminal-sign">.</span>
+                </div>
+
+                <div class="audit-feedback-card" id="t10bFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech">
+                    "Keep 'looked into' united as a single verbal unit!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(3)"><span>⬅</span> Back to Rule 10.A</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(5)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext10B" onclick="goToStep(5)" disabled>
+                Advance to Tip 11 ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function tapT10BWord(btn, word) {
+      if (btn.style.display === 'none') return;
+      playSound('tap');
+      btn.style.display = 'none';
+      t10bDocked.push(word);
+
+      document.getElementById('t10bWordsContainer').innerText = t10bDocked.join(' ');
+
+      if (t10bDocked.length === 7) {
+        const isCorrect = t10bDocked.every((w, i) => w === t10bTarget[i]);
+        const fb = document.getElementById('t10bFeedback');
+
+        if (isCorrect) {
+          playSound('correct');
+          fb.className = "audit-feedback-card show-success";
+          fb.innerHTML = `<strong>✔ 1.0 PERFECT RAW SCORE (+10 🪙)!</strong> Inseparable prepositional verb bond strictly maintained!`;
+          saveCoins(10);
+          document.getElementById('btnNext10B').disabled = false;
+        } else {
+          playSound('error');
+          fb.className = "audit-feedback-card show-error";
+          fb.innerHTML = `<strong>✕ Word Order Error:</strong> Resetting tiles to try again!`;
+          setTimeout(() => { renderTip10RuleB(); }, 1400);
+        }
+      }
+    }
+
+    /* PASO 5: TIP 11 • RULE 11.A (GERUND COMPLEMENTATION) */
+    function renderTip11RuleA() {
+      badge.innerText = "Tip 11 • Rule 11.A";
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>⚙️</span> TIP 11 • RULE 11.A: GERUND COMPLEMENTATION</div>
+              <h2 class="main-step-title">Verbs Requiring Mandatory Gerunds (-ing)</h2>
+              <p class="sub-step-desc">
+                Certain academic catenative verbs (avoid, consider, delay, suggest, enjoy, postpone) <strong>strictly require a gerund complement</strong>, never a full infinitive.
+              </p>
+              <p class="es-note">(Verbos como consider, avoid, delay exigen obligatoriamente gerundio [-ing], nunca 'to + verb'.)</p>
+
+              <div class="theory-atomic-card">
+                <h3>Decision Protocol (Protocolo de Decisión):</h3>
+                <p>
+                  Matrix verb: <strong>considered</strong>.<br><br>
+                  • If you choose *<em>considered to postpone the event</em> ➔ <strong>0.0 points</strong> (catenative infinitive clash).<br>
+                  • If you choose <strong>considered postponing the event</strong> ➔ <strong>1.0 point</strong> (canonical gerund complementation).
+                </p>
+              </div>
+
+              <div class="practice-atomic-box">
+                <div class="speaker-dialogue-card">
+                  <div class="label">Speaker A:</div>
+                  <div class="dialogue-text">"Did the organizers proceed with the outdoor conference?"</div>
+                </div>
+
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 11.A: Select the only grammatically acceptable verbal complement for "avoided":
+                </div>
+
+                <div class="tiles-area" id="t11aRack">
+                  <button class="tile-btn" onclick="handleWrongCatenative('to reschedule')">to reschedule</button>
+                  <button class="tile-btn" onclick="handleCorrectCatenative(this)">rescheduling</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t11aDock">
+                  <span style="font-family:'JetBrains Mono'; font-size:15px; color:#ffffff;">
+                    The committee avoided <strong style="color:var(--accent-gold);">[ ? ]</strong> the plenary session.
+                  </span>
+                </div>
+
+                <div class="audit-feedback-card" id="t11aFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech" id="clippyT11A">
+                    "'Avoid' always triggers an -ing gerund, <strong>${userData.name}</strong>!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(4)"><span>⬅</span> Back to Tip 10</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(6)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext11A" onclick="goToStep(6)" disabled>
+                Next Rule: Infinitives ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleWrongCatenative(w) {
+      playSound('error');
+      const fb = document.getElementById('t11aFeedback');
+      fb.className = "audit-feedback-card show-error";
+      fb.innerHTML = `<strong>✕ Catenative Error:</strong> "avoid" cannot take an infinitive (*avoided ${w} is an error).`;
+    }
+
+    function handleCorrectCatenative(btn) {
+      playSound('correct');
+      btn.style.background = "var(--success)";
+      document.getElementById('t11aDock').innerHTML = `
+        <span style="font-family:'JetBrains Mono'; font-size:16px; font-weight:700; color:#ffffff;">
+          The committee avoided <strong style="color:var(--success);">rescheduling</strong> the plenary session.
+        </span>
+      `;
+      const fb = document.getElementById('t11aFeedback');
+      fb.className = "audit-feedback-card show-success";
+      fb.innerHTML = `<strong>✔ Gerund Complementation Mastered (+10 🪙):</strong> "avoid + -ing" correctly applied!`;
+      saveCoins(10);
+      document.getElementById('clippyT11A').innerHTML = `"Exact! Now let's assemble verbs requiring to-infinitive complementation!"`;
+      document.getElementById('btnNext11A').disabled = false;
+    }
+
+    /* PASO 6: TIP 11 • RULE 11.B (INFINITIVE COMPLEMENTATION ASSEMBLY) */
+    let t11bDocked = [];
+    const t11bTarget = ['the', 'faculty', 'decided', 'to', 'expand', 'the', 'program'];
+
+    function renderTip11RuleB() {
+      badge.innerText = "Tip 11 • Rule 11.B";
+      t11bDocked = [];
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>⚙️</span> TIP 11 • RULE 11.B: INFINITIVE COMPLEMENTATION</div>
+              <h2 class="main-step-title">Verbs Requiring Mandatory To-Infinitives</h2>
+              <p class="sub-step-desc">
+                Verbs expressing intent, hope, decision, or refusal (decide, refuse, manage, offer, attempt) <strong>strictly require a to-infinitive complement</strong>.
+              </p>
+              <p class="es-note">(Verbos de intención como 'decide' exigen 'to + verbo base'.)</p>
+
+              <div class="practice-atomic-box">
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 11.B: Assemble the infinitive complement sentence:
+                </div>
+
+                <div class="tiles-area" id="t11bRack">
+                  <button class="tile-btn" onclick="tapT11BWord(this, 'expand')">expand</button>
+                  <button class="tile-btn" onclick="tapT11BWord(this, 'the')">the</button>
+                  <button class="tile-btn" onclick="tapT11BWord(this, 'program')">program</button>
+                  <button class="tile-btn" onclick="tapT11BWord(this, 'faculty')">faculty</button>
+                  <button class="tile-btn" onclick="tapT11BWord(this, 'to')">to</button>
+                  <button class="tile-btn" onclick="tapT11BWord(this, 'decided')">decided</button>
+                  <button class="tile-btn" onclick="tapT11BWord(this, 'the')">the</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t11bDock">
+                  <span id="t11bWordsContainer" style="font-family:'JetBrains Mono'; font-size:18px; font-weight:700; color:#ffffff;"></span>
+                  <span class="dock-terminal-sign">.</span>
+                </div>
+
+                <div class="audit-feedback-card" id="t11bFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech">
+                    "Decided + to + expand + the program!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(5)"><span>⬅</span> Back to Rule 11.A</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(7)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext11B" onclick="goToStep(7)" disabled>
+                Advance to Tip 12 ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function tapT11BWord(btn, word) {
+      if (btn.style.display === 'none') return;
+      playSound('tap');
+      btn.style.display = 'none';
+      t11bDocked.push(word);
+
+      document.getElementById('t11bWordsContainer').innerText = t11bDocked.join(' ');
+
+      if (t11bDocked.length === 7) {
+        const isCorrect = t11bDocked.every((w, i) => w === t11bTarget[i]);
+        const fb = document.getElementById('t11bFeedback');
+
+        if (isCorrect) {
+          playSound('correct');
+          fb.className = "audit-feedback-card show-success";
+          fb.innerHTML = `<strong>✔ 1.0 PERFECT RAW SCORE (+10 🪙)!</strong> Infinitive complementation strictly assembled!`;
+          saveCoins(10);
+          document.getElementById('btnNext11B').disabled = false;
+        } else {
+          playSound('error');
+          fb.className = "audit-feedback-card show-error";
+          fb.innerHTML = `<strong>✕ Complementation Error:</strong> Resetting tiles to try again!`;
+          setTimeout(() => { renderTip11RuleB(); }, 1400);
+        }
+      }
+    }
+
+    /* PASO 7: TIP 12 • RULE 12.A (PASSIVE VOICE ARCHITECTURE) */
+    let t12aDocked = [];
+    const t12aTarget = ['the', 'treaty', 'was', 'signed', 'by', 'both', 'delegations'];
+
+    function renderTip12RuleA() {
+      badge.innerText = "Tip 12 • Rule 12.A";
+      t12aDocked = [];
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>🏛️</span> TIP 12 • RULE 12.A: PASSIVE VOICE</div>
+              <h2 class="main-step-title">Passive Voice Architecture (Be + Participle + By)</h2>
+              <p class="sub-step-desc">
+                Passive constructions require strict syntactic alignment: <strong>Patient Subject + conjugated auxiliary 'be' + Past Participle + optional 'by'-agent</strong>.
+              </p>
+              <p class="es-note">(Estructura pasiva formal: Sujeto Paciente + be conjugado + Participio Pasado + by + Agente.)</p>
+
+              <div class="theory-atomic-card">
+                <h3>Rule Explanation (Explicación Pedagógica):</h3>
+                <p>
+                  • <strong>Strict Canonical Order:</strong> Subject (The treaty) + Aux 'be' (was) + Participle (signed) + Agent (by both delegations).<br>
+                  • Never allow the agent phrase to split the auxiliary from the past participle!
+                </p>
+              </div>
+
+              <div class="practice-atomic-box">
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 12.A: Assemble the formal passive sentence:
+                </div>
+
+                <div class="tiles-area" id="t12aRack">
+                  <button class="tile-btn" onclick="tapT12AWord(this, 'signed')">signed</button>
+                  <button class="tile-btn" onclick="tapT12AWord(this, 'treaty')">treaty</button>
+                  <button class="tile-btn" onclick="tapT12AWord(this, 'both')">both</button>
+                  <button class="tile-btn" onclick="tapT12AWord(this, 'delegations')">delegations</button>
+                  <button class="tile-btn" onclick="tapT12AWord(this, 'was')">was</button>
+                  <button class="tile-btn" onclick="tapT12AWord(this, 'the')">the</button>
+                  <button class="tile-btn" onclick="tapT12AWord(this, 'by')">by</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t12aDock">
+                  <span id="t12aWordsContainer" style="font-family:'JetBrains Mono'; font-size:18px; font-weight:700; color:#ffffff;"></span>
+                  <span class="dock-terminal-sign">.</span>
+                </div>
+
+                <div class="audit-feedback-card" id="t12aFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech">
+                    "Auxiliary 'was' must directly precede participle 'signed', followed by 'by both delegations'!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(6)"><span>⬅</span> Back to Tip 11</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(8)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext12A" onclick="goToStep(8)" disabled>
+                Complete Phase 03 & Launch Mock ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function tapT12AWord(btn, word) {
+      if (btn.style.display === 'none') return;
+      playSound('tap');
+      btn.style.display = 'none';
+      t12aDocked.push(word);
+
+      document.getElementById('t12aWordsContainer').innerText = t12aDocked.join(' ');
+
+      if (t12aDocked.length === 7) {
+        const isCorrect = t12aDocked.every((w, i) => w === t12aTarget[i]);
+        const fb = document.getElementById('t12aFeedback');
+
+        if (isCorrect) {
+          playSound('correct');
+          fb.className = "audit-feedback-card show-success";
+          fb.innerHTML = `<strong>✔ PERFECT 1.0 SCORE (+10 🪙)!</strong> Passive voice architecture strictly verified!`;
+          saveCoins(10);
+          document.getElementById('btnNext12A').disabled = false;
+        } else {
+          playSound('error');
+          fb.className = "audit-feedback-card show-error";
+          fb.innerHTML = `<strong>✕ Passive Syntax Error:</strong> Resetting tiles to try again!`;
+          setTimeout(() => { renderTip12RuleA(); }, 1400);
+        }
+      }
+    }
+
+    /* ========================================================
+       DATABASE: 15 ITEMS DEL MOCK EXAM - FASE 03
+       ======================================================== */
+    const MOCK_PHASE3_ITEMS = [
+      {
+        speakerA: "Did the foundation support the young scientist's project?",
+        bank: ["they", "awarded", "the", "researcher", "a", "grant"],
+        target: ["they", "awarded", "the", "researcher", "a", "grant"],
+        sign: "."
+      },
+      {
+        speakerA: "How did the department communicate the policy update?",
+        bank: ["the", "director", "sent", "the", "memo", "to", "all", "staff"],
+        target: ["the", "director", "sent", "the", "memo", "to", "all", "staff"],
+        sign: "."
+      },
+      {
+        speakerA: "What happened when the customer complained about the noise?",
+        bank: ["the", "clerk", "turned", "it", "down", "immediately"],
+        target: ["the", "clerk", "turned", "it", "down", "immediately"],
+        sign: "."
+      },
+      {
+        speakerA: "Why did the investigative committee visit the laboratory yesterday?",
+        bank: ["they", "looked", "into", "the", "reported", "irregularities"],
+        target: ["they", "looked", "into", "the", "reported", "irregularities"],
+        sign: "."
+      },
+      {
+        speakerA: "Will the administration reconsider their travel restrictions?",
+        bank: ["officials", "avoided", "discussing", "the", "controversial", "matter"],
+        target: ["officials", "avoided", "discussing", "the", "controversial", "matter"],
+        sign: "."
+      },
+      {
+        speakerA: "What did the scholarship board conclude this afternoon?",
+        bank: ["members", "decided", "to", "increase", "the", "funding"],
+        target: ["members", "decided", "to", "increase", "the", "funding"],
+        sign: "."
+      },
+      {
+        speakerA: "Who verified the authenticity of the ancient manuscript?",
+        bank: ["the", "document", "was", "examined", "by", "three", "historians"],
+        target: ["the", "document", "was", "examined", "by", "three", "historians"],
+        sign: "."
+      },
+      {
+        speakerA: "Did the instructor provide feedback to the students?",
+        bank: ["she", "offered", "them", "constructive", "academic", "advice"],
+        target: ["she", "offered", "them", "constructive", "academic", "advice"],
+        sign: "."
+      },
+      {
+        speakerA: "Where did the archives send the original blueprints?",
+        bank: ["the", "staff", "delivered", "the", "plans", "to", "the", "architect"],
+        target: ["the", "staff", "delivered", "the", "plans", "to", "the", "architect"],
+        sign: "."
+      },
+      {
+        speakerA: "Did the committee postpone the accreditation review?",
+        bank: ["they", "put", "it", "off", "until", "next", "month"],
+        target: ["they", "put", "it", "off", "until", "next", "month"],
+        sign: "."
+      },
+      {
+        speakerA: "How does the research institute handle severe budget cuts?",
+        bank: ["scientists", "cope", "with", "limited", "laboratory", "resources"],
+        target: ["scientists", "cope", "with", "limited", "laboratory", "resources"],
+        sign: "."
+      },
+      {
+        speakerA: "Did the conference organizers confirm the keynote address?",
+        bank: ["they", "postponed", "announcing", "the", "final", "schedule"],
+        target: ["they", "postponed", "announcing", "the", "final", "schedule"],
+        sign: "."
+      },
+      {
+        speakerA: "Can undergraduate assistants manage the complex machinery?",
+        bank: ["students", "attempted", "to", "calibrate", "the", "sensors"],
+        target: ["students", "attempted", "to", "calibrate", "the", "sensors"],
+        sign: "."
+      },
+      {
+        speakerA: "Was the new campus auditorium completed on schedule?",
+        bank: ["the", "facility", "was", "opened", "by", "the", "president"],
+        target: ["the", "facility", "was", "opened", "by", "the", "president"],
+        sign: "."
+      },
+      {
+        speakerA: "Who brought the laboratory samples to the analysis center?",
+        bank: ["the", "assistant", "handed", "them", "to", "the", "chemist"],
+        target: ["the", "assistant", "handed", "them", "to", "the", "chemist"],
+        sign: "."
+      }
+    ];
+
+    let mockCurrentIndex = 0;
+    let mockScores = new Array(15).fill(0);
+    let mockTimer = null;
+    let mockTimeLeft = 33;
+    let mockDocked = [];
+    let mockAvailable = [];
+
+    /* PASO 8: INTRO AL MOCK DE LA FASE 03 */
+    function renderMockIntro() {
+      badge.innerText = "Phase 03 Final Benchmark";
+      mockCurrentIndex = 0;
+      mockScores = new Array(15).fill(0);
+
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div style="text-align:center; padding: 20px 0;">
+              <div class="step-pill" style="color:var(--success); border-color:var(--success);"><span>🏁</span> PHASE 03 MASTERY BENCHMARK</div>
+              <h2 class="main-step-title">Official 15-Item Timed Benchmark Mock (Phase 03)</h2>
+              <p class="sub-step-desc" style="margin: 0 auto 20px auto;">
+                You have mastered ditransitives, phrasal pronoun trapping, gerund and infinitive catenation, and passive voice. Now, certify your performance under official test conditions: <strong>15 questions, one per screen, 33-second timer per item!</strong>
+              </p>
+
+              <div class="theory-atomic-card" style="max-width:780px; margin: 0 auto 24px auto; text-align:left;">
+                <h3>Exam Benchmark Standards:</h3>
+                <p>
+                  • <strong>Pacing:</strong> Strict 33-second countdown per item.<br>
+                  • <strong>Scoring:</strong> 1.0 (Zero syntax errors) or 0.0 binary score.<br>
+                  • <strong>Passing Threshold:</strong> 12/15 (80%) required to certify Phase 03 and unlock <strong>Phase 04: Clauses & Syntactic Expansion</strong>.<br>
+                  • <strong>Format:</strong> Screen-by-screen progression with real-time feedback.
+                </p>
+              </div>
+
+              <div class="clippy-drill-box" style="max-width:780px; margin: 0 auto;">
+                <div class="clippy-mini-avatar">📎</div>
+                <div class="clippy-mini-speech">
+                  "Ready for the Verbal Complex Mock, <strong>${userData.name}</strong>? Keep your particle positions and verb complementation rules sharp!"
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(7)"><span>⬅</span> Review Tip 12</button>
+              <button class="btn-act btn-primary" onclick="startMockExam()">
+                <span>🚀</span> Start Question 1 of 15 ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function startMockExam() {
+      mockCurrentIndex = 0;
+      mockScores = new Array(15).fill(0);
+      goToStep(9);
+    }
+
+    /* RENDERIZA CADA ITEM DEL MOCK EN PANTALLA INDEPENDIENTE */
+    function renderMockItem(itemIdx) {
+      mockCurrentIndex = itemIdx;
+      const itemObj = MOCK_PHASE3_ITEMS[mockCurrentIndex];
+      badge.innerText = `Mock Exam • Question ${mockCurrentIndex + 1} of 15`;
+
+      mockDocked = [];
+      mockAvailable = [...itemObj.bank].sort(() => Math.random() - 0.5);
+      mockTimeLeft = 33;
+      clearInterval(mockTimer);
+
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                <div class="step-pill"><span>⚡</span> QUESTION ${mockCurrentIndex + 1} OF 15</div>
+                <div class="mock-timer-display" id="mockTimerBox">
+                  <span>⏱️</span> Time Left: <strong id="mockTimeNum">33</strong>s
+                </div>
+              </div>
+
+              <h2 class="main-step-title" style="font-size:26px; margin-bottom:14px;">Build the Response Sentence (Verbal Complex Focus)</h2>
+
+              <div class="practice-atomic-box">
+                <div class="speaker-dialogue-card">
+                  <div class="label">Speaker A:</div>
+                  <div class="dialogue-text">"${itemObj.speakerA}"</div>
+                </div>
+
+                <div style="font-size:12px; font-family:'JetBrains Mono'; color:var(--text-muted); text-transform:uppercase; margin-bottom:8px;">
+                  Available Word Bank:
+                </div>
+                <div class="tiles-area" id="mockBankRack"></div>
+
+                <div style="font-size:12px; font-family:'JetBrains Mono'; color:var(--text-muted); text-transform:uppercase; margin-bottom:8px;">
+                  Your Response Dock:
+                </div>
+                <div class="sentence-construction-dock" id="mockDockRack">
+                  <span class="dock-terminal-sign">${itemObj.sign}</span>
+                </div>
+
+                <div class="audit-feedback-card" id="mockFeedback"></div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" id="btnResetMock" onclick="resetMockDock()">
+                <span>↺</span> Reset Tiles
+              </button>
+              <div style="display:flex; gap:10px;">
+                <button class="btn-act btn-primary" id="btnSubmitMock" onclick="submitMockSentence()">
+                  <span>✔</span> Submit Sentence
+                </button>
+                <button class="btn-act btn-primary" id="btnNextMock" onclick="nextMockItem()" style="display:none; background:var(--success);">
+                  Next Question <span>➔</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      refreshMockDOM();
+
+      mockTimer = setInterval(() => {
+        mockTimeLeft--;
+        const timerNum = document.getElementById('mockTimeNum');
+        const timerBox = document.getElementById('mockTimerBox');
+        if (timerNum) timerNum.innerText = mockTimeLeft;
+
+        if (mockTimeLeft <= 10 && timerBox) {
+          timerBox.classList.add('danger');
+        }
+
+        if (mockTimeLeft <= 0) {
+          clearInterval(mockTimer);
+          submitMockSentence(true);
+        }
+      }, 1000);
+    }
+
+    function refreshMockDOM() {
+      const bankRack = document.getElementById('mockBankRack');
+      const dockRack = document.getElementById('mockDockRack');
+      const itemObj = MOCK_PHASE3_ITEMS[mockCurrentIndex];
+      if (!bankRack || !dockRack) return;
+
+      if (mockAvailable.length === 0) {
+        bankRack.innerHTML = '<span style="font-size:13px; color:var(--text-muted); font-style:italic;">(All words placed in dock)</span>';
+      } else {
+        bankRack.innerHTML = mockAvailable.map((w, idx) => `
+          <button class="tile-btn" onclick="dockMockWord(${idx})">${w}</button>
+        `).join('');
+      }
+
+      const dockedHTML = mockDocked.map((w, idx) => `
+        <button class="tile-btn docked" onclick="undockMockWord(${idx})">${w}</button>
+      `).join('');
+
+      if (mockDocked.length === 0) {
+        dockRack.innerHTML = '<span style="font-size:13.5px; color:var(--text-muted); font-style:italic;">[Tap words above to assemble here...]</span><span class="dock-terminal-sign">' + itemObj.sign + '</span>';
+      } else {
+        dockRack.innerHTML = dockedHTML + '<span class="dock-terminal-sign">' + itemObj.sign + '</span>';
+      }
+    }
+
+    function dockMockWord(idx) {
+      playSound('tap');
+      const w = mockAvailable.splice(idx, 1)[0];
+      mockDocked.push(w);
+      refreshMockDOM();
+    }
+
+    function undockMockWord(idx) {
+      playSound('tap');
+      const w = mockDocked.splice(idx, 1)[0];
+      mockAvailable.push(w);
+      refreshMockDOM();
+    }
+
+    function resetMockDock() {
+      playSound('tap');
+      const itemObj = MOCK_PHASE3_ITEMS[mockCurrentIndex];
+      mockDocked = [];
+      mockAvailable = [...itemObj.bank].sort(() => Math.random() - 0.5);
+      refreshMockDOM();
+    }
+
+    function submitMockSentence(isTimeOut = false) {
+      clearInterval(mockTimer);
+      const itemObj = MOCK_PHASE3_ITEMS[mockCurrentIndex];
+      const isCorrect = (mockDocked.length === itemObj.target.length) &&
+                        mockDocked.every((w, i) => w.toLowerCase() === itemObj.target[i].toLowerCase());
+
+      const fb = document.getElementById('mockFeedback');
+      const submitBtn = document.getElementById('btnSubmitMock');
+      const nextBtn = document.getElementById('btnNextMock');
+      const resetBtn = document.getElementById('btnResetMock');
+
+      submitBtn.style.display = 'none';
+      resetBtn.style.display = 'none';
+      nextBtn.style.display = 'inline-flex';
+
+      if (isCorrect) {
+        playSound('correct');
+        mockScores[mockCurrentIndex] = 1;
+        saveCoins(10);
+        fb.className = "audit-feedback-card show-success";
+        fb.innerHTML = `<strong>✔ 1.0 PERFECT SCORE (+10 🪙)!</strong> Predicate complementation strictly validated!`;
+      } else {
+        playSound('error');
+        mockScores[mockCurrentIndex] = 0;
+        fb.className = "audit-feedback-card show-error";
+        fb.innerHTML = isTimeOut 
+          ? `<strong>✕ Time Out (0.0 points):</strong> The 33 seconds expired.<br><strong>Target:</strong> "${itemObj.target.join(' ')}${itemObj.sign}"`
+          : `<strong>✕ Syntax Error (0.0 points):</strong><br><strong>Target:</strong> "${itemObj.target.join(' ')}${itemObj.sign}"`;
+      }
+    }
+
+    function nextMockItem() {
+      playSound('tap');
+      if (mockCurrentIndex < 14) {
+        goToStep(activeStep + 1);
+      } else {
+        goToStep(24);
+      }
+    }
+
+    /* RESULTADOS DEL MOCK */
+    function renderMockResults() {
+      badge.innerText = "Phase 03 Certification";
+      const totalScore = mockScores.reduce((a, b) => a + b, 0);
+      const percentage = Math.round((totalScore / 15) * 100);
+      const passed = (totalScore >= 12);
+
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div style="text-align:center; padding: 20px 0;">
+              <div class="step-pill" style="color:${passed ? 'var(--success)' : 'var(--danger)'}; border-color:${passed ? 'var(--success)' : 'var(--danger)'};">
+                <span>🏆</span> PHASE 03 BENCHMARK AUDIT REPORT
+              </div>
+
+              <h2 class="main-step-title">Candidate: ${userData.name.toUpperCase()}</h2>
+              <p class="sub-step-desc" style="margin: 0 auto 24px auto;">
+                Final Benchmark Score: <strong style="color:var(--accent-gold); font-size:24px;">${totalScore} / 15</strong> (${percentage}%) • Status: <strong>${passed ? 'PASSED (CERTIFIED)' : 'RETRY REQUIRED'}</strong>
+              </p>
+
+              <div class="theory-atomic-card" style="max-width:760px; margin: 0 auto 24px auto; text-align:left;">
+                <h3>Performance Breakdown:</h3>
+                <p>
+                  • <strong>Items Evaluated:</strong> 15 questions.<br>
+                  • <strong>Verbal Complementation Accuracy:</strong> ${totalScore} of 15 points.<br>
+                  • <strong>Phase 04 Access:</strong> ${passed ? 'UNLOCKED! You are authorized to begin Phase 04: Clauses & Syntactic Expansion.' : 'Phase 04 remains locked. You need at least 12/15 to certify.'}
+                </p>
+              </div>
+
+              <div class="clippy-drill-box" style="max-width:760px; margin: 0 auto;">
+                <div class="clippy-mini-avatar">📎</div>
+                <div class="clippy-mini-speech">
+                  ${passed 
+                    ? `"MAGNIFICENT WORK, <strong>${userData.name}</strong>! You mastered the Verbal Complex & Complementation! Phase 04 is ready for you!"`
+                    : `"Good effort, <strong>${userData.name}</strong>! You scored ${totalScore}/15. Click 'Retry Benchmark Mock' to reach 12/15 and unlock Phase 04!"`}
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(8)"><span>↺</span> Retry Benchmark Mock</button>
+              ${passed 
+                ? `<button class="btn-act btn-primary" onclick="proceedToPhase4()" style="background:var(--success);"><span>🚀</span> Proceed to Phase 04 (New File) ➔</button>`
+                : `<button class="btn-act btn-primary" onclick="goToStep(0)"><span>🧭</span> Review Phase 03 Roadmap</button>`}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function proceedToPhase4() {
+      userData.phasesCompleted[2] = true;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+      alert(`Phase 03 certified! Ready for PHASE 04.html.`);
+      window.location.href = "PHASE 04.html";
+    }
+
+    function toggleMenu(force) {
+      const m = document.getElementById('curriculumMenu');
+      if (typeof force === 'boolean') {
+        m.style.display = force ? 'flex' : 'none';
+      } else {
+        m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      const menu = document.getElementById('curriculumMenu');
+      const btn = document.querySelector('.btn-dropdown-menu');
+      if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.style.display = 'none';
+      }
+    });
+
+    // INICIALIZACIÓN
+    loadData();
+    renderCurrentStep();
+  </script>
+</body>
+</html>

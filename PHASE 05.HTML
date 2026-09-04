@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phase 05: Advanced Inversion & Grand Final Simulation - Dr. Jesús Miguel Lima E.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&family=Space+Grotesk:wght@600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'AnanthaSignature';
+      src: url('Anantha Signature For Personal Use.ttf') format('truetype'),
+           url('Anantha Signature For Personal Use.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --bg-canvas: #040914;
+      --bg-panel: #0a1324;
+      --bg-card: #101d36;
+      --bg-card-inner: #070e1c;
+      --border-subtle: #1c2e4c;
+      --border-gold: rgba(212, 175, 55, 0.45);
+      --accent-gold: #d4af37;
+      --accent-gold-soft: rgba(212, 175, 55, 0.12);
+      --accent-blue: #2563eb;
+      --accent-blue-light: #60a5fa;
+      --toefl-brand-blue: #2B2B7A;
+      --success: #10b981;
+      --success-bg: rgba(16, 185, 129, 0.15);
+      --danger: #ef4444;
+      --danger-bg: rgba(239, 68, 68, 0.15);
+      --warning: #f59e0b;
+      --warning-bg: rgba(245, 158, 11, 0.15);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-spanish: #8192a9;
+      --shadow-deep: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      min-height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 90% 10%, rgba(37, 99, 235, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 10% 90%, rgba(212, 175, 55, 0.1) 0%, transparent 60%),
+        linear-gradient(to bottom, #030710, #081120);
+    }
+
+    #app-viewport {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    /* TOP BAR NAVEGACIÓN */
+    .top-nav {
+      height: 62px;
+      background: rgba(6, 12, 23, 0.98);
+      border-bottom: 1px solid rgba(28, 46, 76, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-nav-exit {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid var(--border-subtle);
+      color: #cbd5e1;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-nav-exit:hover {
+      background: rgba(37, 99, 235, 0.25);
+      border-color: var(--accent-blue-light);
+      color: #ffffff;
+    }
+
+    .toefl-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      padding: 4px 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      user-select: none;
+    }
+
+    .toefl-spark {
+      width: 15px;
+      height: 15px;
+      fill: var(--toefl-brand-blue);
+    }
+
+    .toefl-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--toefl-brand-blue);
+      letter-spacing: -0.4px;
+      line-height: 1;
+    }
+
+    .toefl-reg {
+      font-size: 7.5px;
+      font-weight: 700;
+      color: var(--toefl-brand-blue);
+      margin-top: -5px;
+    }
+
+    .nav-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      background: var(--accent-gold-soft);
+      color: var(--accent-gold);
+      border: 1px solid var(--border-gold);
+      padding: 4px 12px;
+      border-radius: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .coin-vault {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(212, 175, 55, 0.14);
+      border: 1.5px solid var(--accent-gold);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--accent-gold);
+    }
+
+    .btn-dropdown-menu {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-subtle);
+      color: #f8fafc;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .company-logo-slot {
+      height: 40px;
+      max-width: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .company-logo-slot img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    /* MENÚ FLOTANTE */
+    #curriculumMenu {
+      position: absolute;
+      top: 66px;
+      right: 36px;
+      width: 360px;
+      max-height: 540px;
+      overflow-y: auto;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-gold);
+      border-radius: 12px;
+      box-shadow: var(--shadow-deep);
+      padding: 16px;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .menu-header-tag {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      margin-bottom: 4px;
+      letter-spacing: 1px;
+    }
+
+    .menu-link-btn {
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: var(--bg-card-inner);
+      border: 1px solid var(--border-subtle);
+      font-size: 13px;
+      font-weight: 600;
+      color: #cbd5e1;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s;
+    }
+
+    .menu-link-btn:hover {
+      background: #192d4f;
+      color: #ffffff;
+      border-color: var(--accent-blue-light);
+    }
+
+    /* CONTENEDOR AMPLIO */
+    .stage-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 1520px;
+      margin: 0 auto;
+      padding: 40px 80px 24px 80px;
+      justify-content: space-between;
+    }
+
+    .slide {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .slide.active {
+      display: flex;
+      animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--accent-blue-light);
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid rgba(96, 165, 250, 0.35);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .main-step-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(30px, 3.2vw, 46px);
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .sub-step-desc {
+      font-size: clamp(16px, 1.3vw, 20px);
+      color: #e2e8f0;
+      line-height: 1.6;
+      max-width: 1100px;
+    }
+
+    .es-note {
+      font-style: italic;
+      font-size: clamp(14px, 1.1vw, 17px);
+      color: var(--text-spanish);
+      line-height: 1.55;
+      margin-top: 6px;
+    }
+
+    /* TEORÍA PEDAGÓGICA */
+    .theory-atomic-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-subtle);
+      border-left: 6px solid var(--accent-gold);
+      border-radius: 12px;
+      padding: 24px 30px;
+      margin-top: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-deep);
+    }
+
+    .theory-atomic-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .theory-atomic-card p {
+      font-size: clamp(15px, 1.15vw, 17.5px);
+      color: #f1f5f9;
+      line-height: 1.65;
+    }
+
+    /* PRÁCTICA */
+    .practice-atomic-box {
+      background: var(--bg-card-inner);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 26px 32px;
+      margin-bottom: 24px;
+    }
+
+    .speaker-dialogue-card {
+      background: rgba(16, 29, 54, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-left: 4px solid var(--accent-blue);
+      border-radius: 8px;
+      padding: 12px 18px;
+      margin-bottom: 18px;
+    }
+
+    .speaker-dialogue-card .label {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--accent-blue-light);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .speaker-dialogue-card .dialogue-text {
+      font-size: clamp(15px, 1.2vw, 18px);
+      color: #ffffff;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .practice-task-prompt {
+      font-size: clamp(16px, 1.25vw, 19px);
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    /* TILES Y DOCK */
+    .tiles-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      min-height: 56px;
+      padding: 12px;
+      background: rgba(7, 13, 24, 0.7);
+      border: 1.5px dashed var(--border-subtle);
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    .sentence-construction-dock {
+      min-height: 64px;
+      background: var(--bg-card);
+      border: 2px dashed var(--border-subtle);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .tile-btn {
+      background: #192942;
+      border: 1.5px solid #2e476e;
+      padding: 10px 20px;
+      border-radius: 7px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(14px, 1.1vw, 16px);
+      font-weight: 700;
+      color: #ffffff;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+
+    .tile-btn:hover {
+      border-color: var(--accent-blue-light);
+      background: #243b61;
+      transform: translateY(-2px);
+    }
+
+    .tile-btn.docked {
+      background: #1e3a5f;
+      border-color: #3b82f6;
+    }
+
+    .tile-btn.locked-hint {
+      background: rgba(212, 175, 55, 0.25);
+      border-color: var(--accent-gold);
+      color: #fef08a;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .dock-terminal-sign {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--accent-gold);
+      padding-left: 10px;
+    }
+
+    /* BARRA EXACTA: NEED EXTRA HELP? */
+    .help-shop-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: rgba(10, 20, 36, 0.85);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin-top: 14px;
+    }
+
+    .help-shop-label {
+      font-size: 12.5px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-gold);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .help-shop-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .shop-btn {
+      background: rgba(18, 32, 56, 0.95);
+      border: 1px solid var(--border-gold);
+      color: #ffffff;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .shop-btn:hover {
+      background: rgba(212, 175, 55, 0.2);
+      border-color: var(--accent-gold);
+    }
+
+    /* TIMER DEL MOCK */
+    .mock-timer-display {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--accent-gold);
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--accent-gold);
+      padding: 5px 14px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .mock-timer-display.danger {
+      color: #fca5a5;
+      border-color: var(--danger);
+      background: var(--danger-bg);
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    /* FEEDBACK */
+    .audit-feedback-card {
+      display: none;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 16px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .audit-feedback-card.show-success {
+      display: block;
+      background: var(--success-bg);
+      border: 1.5px solid var(--success);
+      color: #a7f3d0;
+    }
+
+    .audit-feedback-card.show-hint {
+      display: block;
+      background: var(--warning-bg);
+      border: 1.5px solid var(--warning);
+      color: #fde68a;
+    }
+
+    .audit-feedback-card.show-error {
+      display: block;
+      background: var(--danger-bg);
+      border: 1.5px solid var(--danger);
+      color: #fecaca;
+    }
+
+    /* CLIPPY */
+    .clippy-drill-box {
+      background: linear-gradient(135deg, rgba(16, 29, 54, 0.95) 0%, rgba(8, 16, 31, 0.95) 100%);
+      border: 1.5px solid var(--accent-gold);
+      border-radius: 12px;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 16px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    .clippy-mini-avatar {
+      width: 52px;
+      height: 52px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1.5px solid var(--accent-gold);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .clippy-mini-speech {
+      font-size: clamp(13.5px, 1.1vw, 15px);
+      color: #e2e8f0;
+      line-height: 1.55;
+    }
+
+    .clippy-mini-speech strong {
+      color: var(--accent-gold);
+    }
+
+    /* CONTROLES INFERIORES */
+    .bottom-bar {
+      padding: 18px 80px;
+      background: rgba(6, 12, 23, 0.98);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .btn-act {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 26px;
+      border-radius: 7px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent-blue);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #1d4ed8;
+      box-shadow: 0 0 18px rgba(37, 99, 235, 0.5);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border-subtle);
+      color: #cbd5e1;
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-card);
+      color: #ffffff;
+    }
+
+    .btn-skip-pill {
+      background: transparent;
+      border: 1.5px solid rgba(245, 158, 11, 0.45);
+      color: #fde68a;
+      font-size: 13px;
+      padding: 9px 18px;
+    }
+
+    .btn-skip-pill:hover {
+      background: rgba(245, 158, 11, 0.18);
+      border-color: var(--warning);
+    }
+
+    /* FOOTER SOBRIO */
+    .institutional-footer {
+      padding: 10px 48px;
+      background: #03060d;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11.5px;
+      color: #64748b;
+    }
+
+    .signature-badge {
+      font-family: 'AnanthaSignature', cursive, sans-serif;
+      font-size: 17px;
+      color: #ffffff;
+      line-height: 1;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 900px) {
+      .stage-container {
+        padding: 24px 20px;
+      }
+      .bottom-bar {
+        padding: 14px 20px;
+      }
+      .top-nav {
+        padding: 0 16px;
+      }
+      .institutional-footer {
+        padding: 8px 16px;
+        flex-direction: column;
+        gap: 4px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app-viewport">
+    
+    <!-- TOP NAVIGATION -->
+    <div class="top-nav">
+      <div class="nav-left">
+        <a href="index.html" class="btn-nav-exit"><span>⬅</span> Main Hub</a>
+        <div class="toefl-badge">
+          <svg class="toefl-spark" viewBox="0 0 100 100">
+            <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(0 50 50)"/>
+            <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(60 50 50)"/>
+            <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(120 50 50)"/>
+          </svg>
+          <span class="toefl-name">toefl ibt</span>
+          <span class="toefl-reg">®</span>
+        </div>
+        <span class="nav-badge" id="stepBadge">Phase 05 Roadmap</span>
+      </div>
+
+      <div class="nav-right">
+        <div class="coin-vault">
+          <span>🪙</span> <span id="userCoins">25</span>
+        </div>
+
+        <button class="btn-dropdown-menu" onclick="toggleMenu()">
+          <span>📋</span> Jump to Tip ▾
+        </button>
+
+        <div class="company-logo-slot">
+          <img src="logo.png" alt="JM ELT Solutions" onerror="this.style.display='none'">
+        </div>
+      </div>
+    </div>
+
+    <!-- MENÚ FLOTANTE -->
+    <div id="curriculumMenu">
+      <div class="menu-header-tag">Phase 05: Advanced Inversion & Simulation</div>
+      <div class="menu-link-btn" onclick="goToStep(0)">01. Phase 05 Blueprint</div>
+      <div class="menu-link-btn" onclick="goToStep(1)">02. Tip 17 • Rule A: Negative Fronting</div>
+      <div class="menu-link-btn" onclick="goToStep(2)">03. Tip 17 • Rule B: Inversion Assembly</div>
+      <div class="menu-link-btn" onclick="goToStep(3)">04. Tip 18 • Rule A: Conditional Inversion</div>
+      <div class="menu-link-btn" onclick="goToStep(4)">05. Tip 18 • Rule B: Had / Were Assembly</div>
+      <div class="menu-link-btn" onclick="goToStep(5)">06. Grand Final 15-Item Simulation Mock</div>
+    </div>
+
+    <!-- MAIN MOUNT -->
+    <div id="mountPoint" style="flex:1; display:flex; flex-direction:column;"></div>
+
+    <!-- FOOTER INSTITUCIONAL -->
+    <div class="institutional-footer">
+      <span>TOEFL iBT Writing: Build a Sentence Mastery</span>
+      <span class="signature-badge">by Dr. Jesús Miguel Lima E.</span>
+      <span>JM ELT Solutions</span>
+    </div>
+
+  </div>
+
+  <script>
+    /* ========================================================
+       AUDIO ENGINE
+       ======================================================== */
+    let audioCtx = null;
+    function playSound(type) {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      if (type === 'tap') {
+        osc.frequency.setValueAtTime(420, now);
+        osc.frequency.exponentialRampToValueAtTime(560, now + 0.04);
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.linearRampToValueAtTime(0, now + 0.04);
+        osc.start(now); osc.stop(now + 0.04);
+      } else if (type === 'correct') {
+        osc.frequency.setValueAtTime(523.25, now);
+        osc.frequency.setValueAtTime(659.25, now + 0.08);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.linearRampToValueAtTime(0, now + 0.28);
+        osc.start(now); osc.stop(now + 0.28);
+      } else if (type === 'coin') {
+        osc.frequency.setValueAtTime(987.77, now);
+        osc.frequency.setValueAtTime(1318.51, now + 0.08);
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.linearRampToValueAtTime(0, now + 0.25);
+        osc.start(now); osc.stop(now + 0.25);
+      } else if (type === 'hint') {
+        osc.frequency.setValueAtTime(350, now);
+        osc.frequency.linearRampToValueAtTime(440, now + 0.1);
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.linearRampToValueAtTime(0, now + 0.15);
+        osc.start(now); osc.stop(now + 0.15);
+      } else if (type === 'error') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(160, now);
+        osc.frequency.linearRampToValueAtTime(110, now + 0.16);
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.linearRampToValueAtTime(0, now + 0.16);
+        osc.start(now); osc.stop(now + 0.16);
+      }
+    }
+
+    /* ========================================================
+       DATA & STORAGE
+       ======================================================== */
+    const STORAGE_KEY = "toefl_mastery_user_profile";
+    let userData = {
+      name: "Candidate",
+      birthYear: "1998",
+      coins: 25,
+      phasesCompleted: [true, true, true, true, false],
+      phase5StepProgress: new Array(8).fill(false)
+    };
+
+    function loadData() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        try {
+          userData = Object.assign(userData, JSON.parse(raw));
+        } catch(e) {}
+      }
+      document.getElementById('userCoins').innerText = userData.coins;
+    }
+
+    function saveCoins(delta) {
+      userData.coins += delta;
+      if (delta > 0) playSound('coin');
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+      document.getElementById('userCoins').innerText = userData.coins;
+    }
+
+    /* ========================================================
+       SCAFFOLDED MODULES: EXPLICACIÓN -> PRÁCTICA
+       ======================================================== */
+    let activeStep = 0;
+    const mount = document.getElementById('mountPoint');
+    const badge = document.getElementById('stepBadge');
+
+    function goToStep(idx) {
+      activeStep = idx;
+      toggleMenu(false);
+      renderCurrentStep();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderCurrentStep() {
+      mount.innerHTML = '';
+      if (activeStep === 0) renderBlueprint();
+      else if (activeStep === 1) renderTip17RuleA();
+      else if (activeStep === 2) renderTip17RuleB();
+      else if (activeStep === 3) renderTip18RuleA();
+      else if (activeStep === 4) renderTip18RuleB();
+      else if (activeStep === 5) renderMockIntro();
+      else if (activeStep >= 6 && activeStep <= 20) {
+        renderMockItem(activeStep - 6);
+      } else if (activeStep === 21) {
+        renderMockResults();
+      }
+    }
+
+    /* PASO 0: BLUEPRINT DE LA FASE 05 */
+    function renderBlueprint() {
+      badge.innerText = "Phase 05 • Roadmap";
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>👑</span> GRAND FINAL: ADVANCED INVERSION & SIMULATION</div>
+              <h2 class="main-step-title">MAXIMUM SYNTACTIC SOPHISTICATION</h2>
+              <p class="sub-step-desc">
+                Welcome to the final phase, <strong>${userData.name}</strong>! Phase 05 covers the highest-scoring grammar structures evaluated in TOEFL iBT Task 1: Negative Adverb Inversion and Conditional Inversion with the omission of 'If'.
+              </p>
+              <p class="es-note">(Fase 05: Inversión Avanzada y Simulación Oficial. Dominio de adverbios negativos iniciales e inversión condicional sin 'if' para asegurar el 10/10 raw score.)</p>
+
+              <div class="theory-atomic-card">
+                <h3>Phase 05 Milestone Sequence:</h3>
+                <p>
+                  <strong>• Tip 17: Negative & Restrictive Adverb Fronting:</strong> Fronting <em>Never, Seldom, Rarely, Hardly, Under no circumstances</em> triggers mandatory Auxiliary Inversion.<br>
+                  <strong>• Tip 18: Conditional Inversion:</strong> Eliminating <em>if</em> by fronting auxiliary operators (<em>Had they known... / Were they to decide... / Should you require...</em>).<br>
+                  <strong>• Grand Final Simulation:</strong> 15 authentic TOEFL items integrating all 18 Tips under the 33-second pacing rule to achieve total course certification.
+                </p>
+              </div>
+
+              <div class="clippy-drill-box">
+                <div class="clippy-mini-avatar">📎</div>
+                <div class="clippy-mini-speech">
+                  "This is the grand summit of your training, <strong>${userData.name}</strong>! Inversion sounds elegant and guarantees a raw 10/10 score. Let's master Rule 17.A!"
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <a href="index.html" class="btn-act btn-outline"><span>⬅</span> Main Hub</a>
+              <button class="btn-act btn-primary" onclick="goToStep(1)">
+                Begin Tip 17: Rule 17.A ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* PASO 1: TIP 17 • RULE 17.A (NEGATIVE ADVERB FRONTING) */
+    function renderTip17RuleA() {
+      badge.innerText = "Tip 17 • Rule 17.A";
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>⚡</span> TIP 17 • RULE 17.A: NEGATIVE ADVERB FRONTING</div>
+              <h2 class="main-step-title">Negative Adverb Triggers Mandatory Inversion</h2>
+              <p class="sub-step-desc">
+                When a negative or restrictive adverb (<strong>Never, Seldom, Rarely, Little, Under no circumstances</strong>) is placed at the very start of a sentence, standard word order is strictly forbidden. An auxiliary verb must leap before the subject!
+              </p>
+              <p class="es-note">(Al poner 'Never' o 'Rarely' al inicio, es obligatorio invertir: Adverbio + Auxiliar + Sujeto + Verbo base.)</p>
+
+              <div class="theory-atomic-card">
+                <h3>Decision Protocol (Protocolo de Decisión):</h3>
+                <p>
+                  Starter element: <strong>Rarely</strong>.<br><br>
+                  • If you assemble *<em>Rarely the scientists observed such anomalies</em> ➔ <strong>0.0 points</strong> (declarative failure; lack of inversion).<br>
+                  • If you assemble <strong>Rarely did the scientists observe such anomalies</strong> ➔ <strong>1.0 point</strong> (canonical auxiliary inversion).
+                </p>
+              </div>
+
+              <div class="practice-atomic-box">
+                <div class="speaker-dialogue-card">
+                  <div class="label">Speaker A:</div>
+                  <div class="dialogue-text">"Did the observatory document any similar cosmic phenomena in the past?"</div>
+                </div>
+
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 17.A: Select the only inverted opening that obeys negative fronting syntax:
+                </div>
+
+                <div class="tiles-area" id="t17aRack">
+                  <button class="tile-btn" onclick="handleWrongInversion('Rarely astronomers witnessed')">Rarely astronomers witnessed</button>
+                  <button class="tile-btn" onclick="handleCorrectInversion(this)">Rarely had astronomers witnessed</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t17aDock">
+                  <span style="font-family:'JetBrains Mono'; font-size:15px; color:#ffffff;">
+                    <strong style="color:var(--accent-gold);">[ ? ]</strong> such a significant solar event.
+                  </span>
+                </div>
+
+                <div class="help-shop-bar">
+                  <div class="help-shop-label"><span>💡</span> Need Extra Help? (¿Necesitas ayuda?)</div>
+                  <div class="help-shop-actions">
+                    <button class="shop-btn" onclick="buyRuleHint('When Rarely starts the sentence, the auxiliary verb had must come BEFORE astronomers.')"><span>📜</span> Buy Hint (-5 🪙)</button>
+                  </div>
+                </div>
+
+                <div class="audit-feedback-card" id="t17aFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech" id="clippyT17A">
+                    "Negative fronting acts like a question mark for word order: Aux (had) + Subject (astronomers), <strong>${userData.name}</strong>!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(0)"><span>⬅</span> Roadmap</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(2)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext17A" onclick="goToStep(2)" disabled>
+                Next Rule: Inversion Assembly ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleWrongInversion(w) {
+      playSound('error');
+      const fb = document.getElementById('t17aFeedback');
+      fb.className = "audit-feedback-card show-error";
+      fb.innerHTML = `<strong>✕ Inversion Error:</strong> "${w}" commits a declarative error. Fronting "Rarely" strictly requires the auxiliary verb before the subject!`;
+    }
+
+    function handleCorrectInversion(btn) {
+      playSound('correct');
+      btn.style.background = "var(--success)";
+      document.getElementById('t17aDock').innerHTML = `
+        <span style="font-family:'JetBrains Mono'; font-size:16px; font-weight:700; color:#ffffff;">
+          <strong style="color:var(--success);">Rarely had astronomers witnessed</strong> such a significant solar event.
+        </span>
+      `;
+      const fb = document.getElementById('t17aFeedback');
+      fb.className = "audit-feedback-card show-success";
+      fb.innerHTML = `<strong>✔ Negative Inversion Mastered (+10 🪙):</strong> Negative Adverb (Rarely) + Auxiliary (had) + Subject (astronomers) + Participle (witnessed) flawlessly executed!`;
+      saveCoins(10);
+      document.getElementById('clippyT17A').innerHTML = `"Splendid, <strong>${userData.name}</strong>! Now let's assemble a complete negative inversion sentence from scratch!"`;
+      document.getElementById('btnNext17A').disabled = false;
+    }
+
+    /* PASO 2: TIP 17 • RULE 17.B (NEGATIVE INVERSION FULL ASSEMBLY) */
+    let t17bDocked = [];
+    const t17bTarget = ['seldom', 'did', 'the', 'committee', 'encounter', 'such', 'resistance'];
+
+    function renderTip17RuleB() {
+      badge.innerText = "Tip 17 • Rule 17.B";
+      t17bDocked = [];
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>⚡</span> TIP 17 • RULE 17.B: NEGATIVE INVERSION ASSEMBLY</div>
+              <h2 class="main-step-title">Assemble the Do-Support Negative Inversion</h2>
+              <p class="sub-step-desc">
+                In Simple Past, an unassisted verb requires auxiliary <strong>did</strong> to invert. Assemble: <strong>Seldom + did + the committee + encounter (base form) + such resistance</strong>.
+              </p>
+              <p class="es-note">(Seldom + auxiliar did + sujeto the committee + verbo en forma base encounter + objeto.)</p>
+
+              <div class="practice-atomic-box">
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 17.B: Assemble the inverted sentence into the dock:
+                </div>
+
+                <div class="tiles-area" id="t17bRack">
+                  <button class="tile-btn" onclick="tapT17BWord(this, 'did')">did</button>
+                  <button class="tile-btn" onclick="tapT17BWord(this, 'resistance')">resistance</button>
+                  <button class="tile-btn" onclick="tapT17BWord(this, 'the')">the</button>
+                  <button class="tile-btn" onclick="tapT17BWord(this, 'seldom')">seldom</button>
+                  <button class="tile-btn" onclick="tapT17BWord(this, 'encounter')">encounter</button>
+                  <button class="tile-btn" onclick="tapT17BWord(this, 'committee')">committee</button>
+                  <button class="tile-btn" onclick="tapT17BWord(this, 'such')">such</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t17bDock">
+                  <span id="t17bWordsContainer" style="font-family:'JetBrains Mono'; font-size:18px; font-weight:700; color:#ffffff;"></span>
+                  <span class="dock-terminal-sign">.</span>
+                </div>
+
+                <div class="help-shop-bar">
+                  <div class="help-shop-label"><span>💡</span> Need Extra Help? (¿Necesitas ayuda?)</div>
+                  <div class="help-shop-actions">
+                    <button class="shop-btn" onclick="buyRuleHint('Lead with Seldom + did + the committee + encounter.')"><span>📜</span> Buy Hint (-5 🪙)</button>
+                    <button class="shop-btn" onclick="buy5050Specific('seldom', 't17bRack', 't17bWordsContainer', t17bDocked)"><span>⚡</span> 50/50 Key Starter (-10 🪙)</button>
+                  </div>
+                </div>
+
+                <div class="audit-feedback-card" id="t17bFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech">
+                    "Negative Adverb (Seldom) + Aux (did) + Subject (the committee) + Base Verb (encounter)!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(1)"><span>⬅</span> Back to Rule 17.A</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(3)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext17B" onclick="goToStep(3)" disabled>
+                Advance to Tip 18 ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function tapT17BWord(btn, word) {
+      if (btn.style.display === 'none') return;
+      playSound('tap');
+      btn.style.display = 'none';
+      t17bDocked.push(word);
+
+      document.getElementById('t17bWordsContainer').innerText = t17bDocked.join(' ');
+
+      if (t17bDocked.length === 7) {
+        const isCorrect = t17bDocked.every((w, i) => w === t17bTarget[i]);
+        const fb = document.getElementById('t17bFeedback');
+
+        if (isCorrect) {
+          playSound('correct');
+          fb.className = "audit-feedback-card show-success";
+          fb.innerHTML = `<strong>✔ 1.0 PERFECT RAW SCORE (+10 🪙)!</strong> Do-support negative inversion strictly validated!`;
+          saveCoins(10);
+          document.getElementById('btnNext17B').disabled = false;
+        } else {
+          playSound('error');
+          fb.className = "audit-feedback-card show-error";
+          fb.innerHTML = `<strong>✕ Inversion Error:</strong> Resetting tiles so you can arrange correctly!`;
+          setTimeout(() => { renderTip17RuleB(); }, 1400);
+        }
+      }
+    }
+
+    /* PASO 3: TIP 18 • RULE 18.A (CONDITIONAL INVERSION: OMISSION OF 'IF') */
+    function renderTip18RuleA() {
+      badge.innerText = "Tip 18 • Rule 18.A";
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>🏛️</span> TIP 18 • RULE 18.A: CONDITIONAL INVERSION</div>
+              <h2 class="main-step-title">Omitting 'If' with Had, Were, and Should</h2>
+              <p class="sub-step-desc">
+                In formal academic prose, the conditional conjunction <strong>if</strong> can be omitted. When 'if' is dropped, the auxiliary operator (<strong>Had, Were, Should</strong>) fronts before the subject.
+              </p>
+              <p class="es-note">(Al omitir 'if', el auxiliar pasa al frente: Had the committee known... reemplaza a If the committee had known...)</p>
+
+              <div class="theory-atomic-card">
+                <h3>Decision Protocol (Protocolo de Decisión):</h3>
+                <p>
+                  Equivalent conditional: <em>If the team had conducted the tests...</em><br><br>
+                  • If you start with *<em>Had if the team conducted</em> ➔ <strong>0.0 points</strong> (you cannot keep 'if' during inversion).<br>
+                  • If you start with <strong>Had the team conducted</strong> ➔ <strong>1.0 point</strong> (canonical Third Conditional inversion).
+                </p>
+              </div>
+
+              <div class="practice-atomic-box">
+                <div class="speaker-dialogue-card">
+                  <div class="label">Speaker A:</div>
+                  <div class="dialogue-text">"Would the laboratory have avoided contamination under stricter protocols?"</div>
+                </div>
+
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 18.A: Select the only inverted conditional clause that eliminates "if":
+                </div>
+
+                <div class="tiles-area" id="t18aRack">
+                  <button class="tile-btn" onclick="handleWrongCond('If had the staff followed')">If had the staff followed</button>
+                  <button class="tile-btn" onclick="handleCorrectCond(this)">Had the staff followed</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t18aDock">
+                  <span style="font-family:'JetBrains Mono'; font-size:15px; color:#ffffff;">
+                    <strong style="color:var(--accent-gold);">[ ? ]</strong> the protocol, contamination would not have occurred.
+                  </span>
+                </div>
+
+                <div class="help-shop-bar">
+                  <div class="help-shop-label"><span>💡</span> Need Extra Help? (¿Necesitas ayuda?)</div>
+                  <div class="help-shop-actions">
+                    <button class="shop-btn" onclick="buyRuleHint('Drop if entirely. Start directly with Had + subject.')"><span>📜</span> Buy Hint (-5 🪙)</button>
+                  </div>
+                </div>
+
+                <div class="audit-feedback-card" id="t18aFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech" id="clippyT18A">
+                    "When you invert a conditional, 'if' disappears completely, <strong>${userData.name}</strong>!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(2)"><span>⬅</span> Back to Tip 17</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(4)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext18A" onclick="goToStep(4)" disabled>
+                Next Rule: Conditional Assembly ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function handleWrongCond(w) {
+      playSound('error');
+      const fb = document.getElementById('t18aFeedback');
+      fb.className = "audit-feedback-card show-error";
+      fb.innerHTML = `<strong>✕ Redundancy Error:</strong> You cannot keep "If" when fronting "Had". "${w}" is ungrammatical.`;
+    }
+
+    function handleCorrectCond(btn) {
+      playSound('correct');
+      btn.style.background = "var(--success)";
+      document.getElementById('t18aDock').innerHTML = `
+        <span style="font-family:'JetBrains Mono'; font-size:16px; font-weight:700; color:#ffffff;">
+          <strong style="color:var(--success);">Had the staff followed</strong> the protocol, contamination would not have occurred.
+        </span>
+      `;
+      const fb = document.getElementById('t18aFeedback');
+      fb.className = "audit-feedback-card show-success";
+      fb.innerHTML = `<strong>✔ Conditional Inversion Mastered (+10 🪙):</strong> Auxiliary operator "Had" perfectly fronted without "if"!`;
+      saveCoins(10);
+      document.getElementById('clippyT18A').innerHTML = `"Masterful! Now let's assemble a complete conditional inversion sentence with Were!"`;
+      document.getElementById('btnNext18A').disabled = false;
+    }
+
+    /* PASO 4: TIP 18 • RULE 18.B (CONDITIONAL INVERSION ASSEMBLY: WERE) */
+    let t18bDocked = [];
+    const t18bTarget = ['were', 'the', 'results', 'favorable', 'they', 'would', 'proceed'];
+
+    function renderTip18RuleB() {
+      badge.innerText = "Tip 18 • Rule 18.B";
+      t18bDocked = [];
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div class="step-pill"><span>🏛️</span> TIP 18 • RULE 18.B: SECOND CONDITIONAL INVERSION</div>
+              <h2 class="main-step-title">Inversion with 'Were' (Hypothetical Condition)</h2>
+              <p class="sub-step-desc">
+                In Second Conditional, <em>If the results were favorable...</em> inverts to: <strong>Were + the results + favorable + they + would + proceed</strong>.
+              </p>
+              <p class="es-note">(Were al frente reemplaza a 'if': Were the results favorable, they would proceed.)</p>
+
+              <div class="practice-atomic-box">
+                <div class="practice-task-prompt">
+                  🎯 Micro-Task 18.B: Assemble the inverted conditional sentence into the dock:
+                </div>
+
+                <div class="tiles-area" id="t18bRack">
+                  <button class="tile-btn" onclick="tapT18BWord(this, 'favorable')">favorable</button>
+                  <button class="tile-btn" onclick="tapT18BWord(this, 'proceed')">proceed</button>
+                  <button class="tile-btn" onclick="tapT18BWord(this, 'the')">the</button>
+                  <button class="tile-btn" onclick="tapT18BWord(this, 'they')">they</button>
+                  <button class="tile-btn" onclick="tapT18BWord(this, 'were')">were</button>
+                  <button class="tile-btn" onclick="tapT18BWord(this, 'results')">results</button>
+                  <button class="tile-btn" onclick="tapT18BWord(this, 'would')">would</button>
+                </div>
+
+                <div class="sentence-construction-dock" id="t18bDock">
+                  <span id="t18bWordsContainer" style="font-family:'JetBrains Mono'; font-size:18px; font-weight:700; color:#ffffff;"></span>
+                  <span class="dock-terminal-sign">.</span>
+                </div>
+
+                <div class="help-shop-bar">
+                  <div class="help-shop-label"><span>💡</span> Need Extra Help? (¿Necesitas ayuda?)</div>
+                  <div class="help-shop-actions">
+                    <button class="shop-btn" onclick="buyRuleHint('Were leads + the results favorable, then they would proceed.')"><span>📜</span> Buy Hint (-5 🪙)</button>
+                    <button class="shop-btn" onclick="buy5050Specific('were', 't18bRack', 't18bWordsContainer', t18bDocked)"><span>⚡</span> 50/50 Key Starter (-10 🪙)</button>
+                  </div>
+                </div>
+
+                <div class="audit-feedback-card" id="t18bFeedback"></div>
+
+                <div class="clippy-drill-box">
+                  <div class="clippy-mini-avatar">📎</div>
+                  <div class="clippy-mini-speech">
+                    "Were [the results favorable] + [they would proceed]!"
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(3)"><span>⬅</span> Back to Rule 18.A</button>
+              <button class="btn-act btn-skip-pill" onclick="goToStep(5)"><span>⏭</span> Skip for Now (0 🪙)</button>
+              <button class="btn-act btn-primary" id="btnNext18B" onclick="goToStep(5)" disabled>
+                Unlock Grand Final Simulation Mock ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function tapT18BWord(btn, word) {
+      if (btn.style.display === 'none') return;
+      playSound('tap');
+      btn.style.display = 'none';
+      t18bDocked.push(word);
+
+      document.getElementById('t18bWordsContainer').innerText = t18bDocked.join(' ');
+
+      if (t18bDocked.length === 7) {
+        const isCorrect = t18bDocked.every((w, i) => w === t18bTarget[i]);
+        const fb = document.getElementById('t18bFeedback');
+
+        if (isCorrect) {
+          playSound('correct');
+          fb.className = "audit-feedback-card show-success";
+          fb.innerHTML = `<strong>✔ 1.0 PERFECT RAW SCORE (+10 🪙)!</strong> Conditional inversion with 'Were' strictly executed!`;
+          saveCoins(10);
+          document.getElementById('btnNext18B').disabled = false;
+        } else {
+          playSound('error');
+          fb.className = "audit-feedback-card show-error";
+          fb.innerHTML = `<strong>✕ Inversion Error:</strong> Resetting tiles to try again!`;
+          setTimeout(() => { renderTip18RuleB(); }, 1400);
+        }
+      }
+    }
+
+    /* ========================================================
+       DATABASE: 15 ITEMS DEL GRAND FINAL BENCHMARK MOCK
+       ======================================================== */
+    const GRAND_MOCK_15_ITEMS = [
+      {
+        speakerA: "Did the historical society discover any architectural blueprints?",
+        bank: ["rarely", "did", "the", "archivists", "find", "such", "documents"],
+        target: ["rarely", "did", "the", "archivists", "find", "such", "documents"],
+        sign: ".",
+        hint: "Start with Rarely + did + the archivists find."
+      },
+      {
+        speakerA: "Would the project have secured approval under stricter environmental terms?",
+        bank: ["had", "the", "firm", "complied", "permits", "would", "be", "issued"],
+        target: ["had", "the", "firm", "complied", "permits", "would", "be", "issued"],
+        sign: ".",
+        hint: "Third conditional inversion: Had the firm complied + permits would be issued."
+      },
+      {
+        speakerA: "Are undergraduate students permitted to operate the centrifuge unaccompanied?",
+        bank: ["under", "no", "circumstances", "may", "students", "enter", "alone"],
+        target: ["under", "no", "circumstances", "may", "students", "enter", "alone"],
+        sign: ".",
+        hint: "Negative prepositional fronting: Under no circumstances may students enter alone."
+      },
+      {
+        speakerA: "What would occur if the state government withdrew the research grant?",
+        bank: ["were", "funding", "halted", "the", "study", "would", "terminate"],
+        target: ["were", "funding", "halted", "the", "study", "would", "terminate"],
+        sign: ".",
+        hint: "Were funding halted + the study would terminate."
+      },
+      {
+        speakerA: "How frequently do international delegates visit the facility unannounced?",
+        bank: ["seldom", "do", "foreign", "inspectors", "arrive", "without", "notice"],
+        target: ["seldom", "do", "foreign", "inspectors", "arrive", "without", "notice"],
+        sign: ".",
+        hint: "Seldom + do foreign inspectors arrive without notice."
+      },
+      {
+        speakerA: "Could you clarify when the university admissions portal closes tomorrow?",
+        bank: ["it", "closes", "at", "five", "in", "the", "afternoon"],
+        target: ["it", "closes", "at", "five", "in", "the", "afternoon"],
+        sign: ".",
+        hint: "Declarative period: it closes at five in the afternoon."
+      },
+      {
+        speakerA: "Someone mentioned that our research methodology assignment was revised.",
+        bank: ["did", "the", "professor", "change", "the", "deadline"],
+        target: ["did", "the", "professor", "change", "the", "deadline"],
+        sign: "?",
+        hint: "Terminal question mark: Did the professor change the deadline?"
+      },
+      {
+        speakerA: "What valuable items did the curators recover from the vault?",
+        bank: ["they", "found", "ancient", "gold", "coins", "there"],
+        target: ["they", "found", "ancient", "gold", "coins", "there"],
+        sign: ".",
+        hint: "Adjective hierarchy: ancient (age) before gold (material)."
+      },
+      {
+        speakerA: "Who submitted the final project documentation to the dean?",
+        bank: ["both", "the", "author", "and", "the", "editor", "signed"],
+        target: ["both", "the", "author", "and", "the", "editor", "signed"],
+        sign: ".",
+        hint: "Correlative pair: Both the author and the editor signed."
+      },
+      {
+        speakerA: "Did the foundation support the doctoral student's dissertation?",
+        bank: ["they", "awarded", "the", "scholar", "a", "substantial", "grant"],
+        target: ["they", "awarded", "the", "scholar", "a", "substantial", "grant"],
+        sign: ".",
+        hint: "Bare ditransitive: awarded + the scholar (IO) + a substantial grant (DO)."
+      },
+      {
+        speakerA: "What happened when the customer asked for the music to stop?",
+        bank: ["the", "manager", "turned", "it", "off", "promptly"],
+        target: ["the", "manager", "turned", "it", "off", "promptly"],
+        sign: ".",
+        hint: "Pronoun trapping: turned it off promptly."
+      },
+      {
+        speakerA: "Will the administration reconsider their controversial tuition decision?",
+        bank: ["officials", "avoided", "discussing", "the", "delicate", "matter"],
+        target: ["officials", "avoided", "discussing", "the", "delicate", "matter"],
+        sign: ".",
+        hint: "Avoid takes gerund: avoided discussing the delicate matter."
+      },
+      {
+        speakerA: "Did the archeological expedition proceed despite the storm?",
+        bank: ["although", "weather", "worsened", "they", "advanced", "northward"],
+        target: ["although", "weather", "worsened", "they", "advanced", "northward"],
+        sign: ".",
+        hint: "Conjunction although leads: Although weather worsened, they advanced."
+      },
+      {
+        speakerA: "Who analyzed the astronomical satellite telemetry this morning?",
+        bank: ["the", "scientist", "who", "leads", "the", "team", "verified"],
+        target: ["the", "scientist", "who", "leads", "the", "team", "verified"],
+        sign: ".",
+        hint: "Relative pronoun who: The scientist who leads the team verified."
+      },
+      {
+        speakerA: "What did the legal council confirm regarding the trial verdict?",
+        bank: ["lawyers", "confirmed", "that", "the", "regulations", "were", "binding"],
+        target: ["lawyers", "confirmed", "that", "the", "regulations", "were", "binding"],
+        sign: ".",
+        hint: "That-clause: confirmed that the regulations were binding."
+      }
+    ];
+
+    let mockCurrentIndex = 0;
+    let mockScores = new Array(15).fill(0);
+    let mockTimer = null;
+    let mockTimeLeft = 33;
+    let mockDocked = [];
+    let mockAvailable = [];
+
+    /* PASO 5: INTRO AL GRAND FINAL MOCK */
+    function renderMockIntro() {
+      badge.innerText = "Grand Final Simulation Benchmark";
+      mockCurrentIndex = 0;
+      mockScores = new Array(15).fill(0);
+
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div style="text-align:center; padding: 20px 0;">
+              <div class="step-pill" style="color:var(--success); border-color:var(--success);"><span>👑</span> GRAND FINAL ASSESSMENT</div>
+              <h2 class="main-step-title">Official 15-Item Comprehensive Simulation Mock</h2>
+              <p class="sub-step-desc" style="margin: 0 auto 20px auto;">
+                You have completed all 18 strategic tips across the 5 phases of the curriculum! Now, face the official comprehensive simulation: <strong>15 mixed exam questions, one per screen, with a strict 33-second countdown per item!</strong>
+              </p>
+
+              <div class="theory-atomic-card" style="max-width:780px; margin: 0 auto 24px auto; text-align:left;">
+                <h3>Grand Final Standards:</h3>
+                <p>
+                  • <strong>Curriculum Integration:</strong> Covers Tips 01 through 18 (Punctuation, Tense, SVO, Noun Phrases, Verbs, Clauses & Inversion).<br>
+                  • <strong>Strict 33-Second Timer:</strong> Automatic submission upon expiration.<br>
+                  • <strong>Master Certification:</strong> 12/15 (80%) or higher awards full course mastery honors.<br>
+                  • <strong>Screen-by-Screen:</strong> Clear visual progression and instant syntactic auditing.
+                </p>
+              </div>
+
+              <div class="clippy-drill-box" style="max-width:780px; margin: 0 auto;">
+                <div class="clippy-mini-avatar">📎</div>
+                <div class="clippy-mini-speech">
+                  "You've trained for this moment, <strong>${userData.name}</strong>! Trust your syntactic instincts and secure that perfect 10/10 score!"
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(4)"><span>⬅</span> Review Tip 18</button>
+              <button class="btn-act btn-primary" onclick="startMockExam()">
+                <span>🚀</span> Start Final Simulation (Question 1) ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function startMockExam() {
+      mockCurrentIndex = 0;
+      mockScores = new Array(15).fill(0);
+      goToStep(6);
+    }
+
+    /* RENDERIZA CADA ITEM DEL GRAND FINAL EN PANTALLA INDEPENDIENTE */
+    function renderMockItem(itemIdx) {
+      mockCurrentIndex = itemIdx;
+      const itemObj = GRAND_MOCK_15_ITEMS[mockCurrentIndex];
+      badge.innerText = `Grand Mock • Question ${mockCurrentIndex + 1} of 15`;
+
+      mockDocked = [];
+      mockAvailable = [...itemObj.bank].sort(() => Math.random() - 0.5);
+      mockTimeLeft = 33;
+      clearInterval(mockTimer);
+
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                <div class="step-pill"><span>⚡</span> QUESTION ${mockCurrentIndex + 1} OF 15</div>
+                <div class="mock-timer-display" id="mockTimerBox">
+                  <span>⏱️</span> Time Left: <strong id="mockTimeNum">33</strong>s
+                </div>
+              </div>
+
+              <h2 class="main-step-title" style="font-size:26px; margin-bottom:14px;">Build the Response Sentence (Mastery Integration)</h2>
+
+              <div class="practice-atomic-box">
+                <div class="speaker-dialogue-card">
+                  <div class="label">Speaker A:</div>
+                  <div class="dialogue-text">"${itemObj.speakerA}"</div>
+                </div>
+
+                <div style="font-size:12px; font-family:'JetBrains Mono'; color:var(--text-muted); text-transform:uppercase; margin-bottom:8px;">
+                  Available Word Bank:
+                </div>
+                <div class="tiles-area" id="mockBankRack"></div>
+
+                <div style="font-size:12px; font-family:'JetBrains Mono'; color:var(--text-muted); text-transform:uppercase; margin-bottom:8px;">
+                  Your Response Dock:
+                </div>
+                <div class="sentence-construction-dock" id="mockDockRack">
+                  <span class="dock-terminal-sign">${itemObj.sign}</span>
+                </div>
+
+                <!-- HELP STORE CON FRASE EXACTA: NEED EXTRA HELP? -->
+                <div class="help-shop-bar">
+                  <div class="help-shop-label"><span>💡</span> Need Extra Help? (¿Necesitas ayuda?)</div>
+                  <div class="help-shop-actions">
+                    <button class="shop-btn" onclick="buyMockHint()"><span>📜</span> Buy Hint (-5 🪙)</button>
+                    <button class="shop-btn" onclick="buyMock5050()"><span>⚡</span> 50/50 Key Starter (-10 🪙)</button>
+                  </div>
+                </div>
+
+                <div class="audit-feedback-card" id="mockFeedback"></div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" id="btnResetMock" onclick="resetMockDock()">
+                <span>↺</span> Reset Tiles
+              </button>
+              <div style="display:flex; gap:10px;">
+                <button class="btn-act btn-primary" id="btnSubmitMock" onclick="submitMockSentence()">
+                  <span>✔</span> Submit Sentence
+                </button>
+                <button class="btn-act btn-primary" id="btnNextMock" onclick="nextMockItem()" style="display:none; background:var(--success);">
+                  Next Question <span>➔</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      refreshMockDOM();
+
+      mockTimer = setInterval(() => {
+        mockTimeLeft--;
+        const timerNum = document.getElementById('mockTimeNum');
+        const timerBox = document.getElementById('mockTimerBox');
+        if (timerNum) timerNum.innerText = mockTimeLeft;
+
+        if (mockTimeLeft <= 10 && timerBox) {
+          timerBox.classList.add('danger');
+        }
+
+        if (mockTimeLeft <= 0) {
+          clearInterval(mockTimer);
+          submitMockSentence(true);
+        }
+      }, 1000);
+    }
+
+    function refreshMockDOM() {
+      const bankRack = document.getElementById('mockBankRack');
+      const dockRack = document.getElementById('mockDockRack');
+      const itemObj = GRAND_MOCK_15_ITEMS[mockCurrentIndex];
+      if (!bankRack || !dockRack) return;
+
+      if (mockAvailable.length === 0) {
+        bankRack.innerHTML = '<span style="font-size:13px; color:var(--text-muted); font-style:italic;">(All words placed in dock)</span>';
+      } else {
+        bankRack.innerHTML = mockAvailable.map((w, idx) => `
+          <button class="tile-btn" onclick="dockMockWord(${idx})">${w}</button>
+        `).join('');
+      }
+
+      const dockedHTML = mockDocked.map((w, idx) => `
+        <button class="tile-btn docked" onclick="undockMockWord(${idx})">${w}</button>
+      `).join('');
+
+      if (mockDocked.length === 0) {
+        dockRack.innerHTML = '<span style="font-size:13.5px; color:var(--text-muted); font-style:italic;">[Tap words above to assemble here...]</span><span class="dock-terminal-sign">' + itemObj.sign + '</span>';
+      } else {
+        dockRack.innerHTML = dockedHTML + '<span class="dock-terminal-sign">' + itemObj.sign + '</span>';
+      }
+    }
+
+    function dockMockWord(idx) {
+      playSound('tap');
+      const w = mockAvailable.splice(idx, 1)[0];
+      mockDocked.push(w);
+      refreshMockDOM();
+    }
+
+    function undockMockWord(idx) {
+      playSound('tap');
+      const w = mockDocked.splice(idx, 1)[0];
+      mockAvailable.push(w);
+      refreshMockDOM();
+    }
+
+    function resetMockDock() {
+      playSound('tap');
+      const itemObj = GRAND_MOCK_15_ITEMS[mockCurrentIndex];
+      mockDocked = [];
+      mockAvailable = [...itemObj.bank].sort(() => Math.random() - 0.5);
+      refreshMockDOM();
+    }
+
+    function submitMockSentence(isTimeOut = false) {
+      clearInterval(mockTimer);
+      const itemObj = GRAND_MOCK_15_ITEMS[mockCurrentIndex];
+      const isCorrect = (mockDocked.length === itemObj.target.length) &&
+                        mockDocked.every((w, i) => w.toLowerCase() === itemObj.target[i].toLowerCase());
+
+      const fb = document.getElementById('mockFeedback');
+      const submitBtn = document.getElementById('btnSubmitMock');
+      const nextBtn = document.getElementById('btnNextMock');
+      const resetBtn = document.getElementById('btnResetMock');
+
+      submitBtn.style.display = 'none';
+      resetBtn.style.display = 'none';
+      nextBtn.style.display = 'inline-flex';
+
+      if (isCorrect) {
+        playSound('correct');
+        mockScores[mockCurrentIndex] = 1;
+        saveCoins(10);
+        fb.className = "audit-feedback-card show-success";
+        fb.innerHTML = `<strong>✔ 1.0 PERFECT SCORE (+10 🪙)!</strong> Syntactic pattern strictly validated!`;
+      } else {
+        playSound('error');
+        mockScores[mockCurrentIndex] = 0;
+        fb.className = "audit-feedback-card show-error";
+        fb.innerHTML = isTimeOut 
+          ? `<strong>✕ Time Out (0.0 points):</strong> The 33 seconds expired.<br><strong>Target:</strong> "${itemObj.target.join(' ')}${itemObj.sign}"`
+          : `<strong>✕ Syntax Error (0.0 points):</strong><br><strong>Target:</strong> "${itemObj.target.join(' ')}${itemObj.sign}"`;
+      }
+    }
+
+    function nextMockItem() {
+      playSound('tap');
+      if (mockCurrentIndex < 14) {
+        goToStep(activeStep + 1);
+      } else {
+        goToStep(21);
+      }
+    }
+
+    /* MONEDAS: PISTAS Y 50/50 */
+    function buyMockHint() {
+      if (userData.coins < 5) {
+        alert("Not enough coins (5 required)!");
+        return;
+      }
+      saveCoins(-5);
+      playSound('hint');
+      const itemObj = GRAND_MOCK_15_ITEMS[mockCurrentIndex];
+      const fb = document.getElementById('mockFeedback');
+      fb.className = "audit-feedback-card show-hint";
+      fb.innerHTML = `<strong>💡 Strategic Hint (-5 🪙):</strong> ${itemObj.hint}`;
+    }
+
+    function buyMock5050() {
+      if (userData.coins < 10) {
+        alert("Not enough coins (10 required)!");
+        return;
+      }
+      saveCoins(-10);
+      playSound('hint');
+      const itemObj = GRAND_MOCK_15_ITEMS[mockCurrentIndex];
+      const keyStarter = itemObj.target[0];
+
+      if (mockAvailable.includes(keyStarter)) {
+        mockAvailable = mockAvailable.filter(w => w !== keyStarter);
+        mockDocked.unshift(keyStarter);
+      } else if (mockDocked.includes(keyStarter)) {
+        mockDocked = mockDocked.filter(w => w !== keyStarter);
+        mockDocked.unshift(keyStarter);
+      }
+      refreshMockDOM();
+
+      const fb = document.getElementById('mockFeedback');
+      fb.className = "audit-feedback-card show-hint";
+      fb.innerHTML = `<strong>⚡ 50/50 Key Starter (-10 🪙):</strong> Position #1 locked with '<strong>${keyStarter}</strong>'!`;
+    }
+
+    function buyRuleHint(hintText) {
+      if (userData.coins < 5) {
+        alert("Not enough coins (5 required)!");
+        return;
+      }
+      saveCoins(-5);
+      playSound('hint');
+      const activeAlert = document.querySelector('.audit-feedback-card');
+      if (activeAlert) {
+        activeAlert.className = "audit-feedback-card show-hint";
+        activeAlert.innerHTML = `<strong>💡 Strategic Hint (-5 🪙):</strong> ${hintText}`;
+      }
+    }
+
+    function buy5050Specific(starterWord, rackId, containerId, dockArr) {
+      if (userData.coins < 10) {
+        alert("Not enough coins (10 required)!");
+        return;
+      }
+      saveCoins(-10);
+      playSound('hint');
+      const rack = document.getElementById(rackId);
+      if (rack) {
+        Array.from(rack.children).forEach(b => {
+          if (b.innerText === starterWord) b.style.display = 'none';
+        });
+      }
+      if (!dockArr.includes(starterWord)) {
+        dockArr.unshift(starterWord);
+      }
+      const container = document.getElementById(containerId);
+      if (container) {
+        container.innerHTML = `<span class="tile-btn docked locked-hint">${starterWord} 🔒</span> ` + dockArr.slice(1).join(' ');
+      }
+    }
+
+    /* RESULTADOS DEL GRAND FINAL */
+    function renderMockResults() {
+      badge.innerText = "Full Curriculum Certification";
+      const totalScore = mockScores.reduce((a, b) => a + b, 0);
+      const percentage = Math.round((totalScore / 15) * 100);
+      const passed = (totalScore >= 12);
+
+      mount.innerHTML = `
+        <div class="slide active">
+          <div class="stage-container">
+            <div style="text-align:center; padding: 20px 0;">
+              <div class="step-pill" style="color:${passed ? 'var(--success)' : 'var(--danger)'}; border-color:${passed ? 'var(--success)' : 'var(--danger)'};">
+                <span>🏆</span> GRAND FINAL TOEFL iBT TASK 1 CERTIFICATION
+              </div>
+
+              <h2 class="main-step-title">Mastery Candidate: ${userData.name.toUpperCase()}</h2>
+              <p class="sub-step-desc" style="margin: 0 auto 24px auto;">
+                Final Simulation Score: <strong style="color:var(--accent-gold); font-size:26px;">${totalScore} / 15</strong> (${percentage}%) • Status: <strong>${passed ? 'OFFICIALLY CERTIFIED (10/10 MASTER)' : 'RETRY REQUIRED'}</strong>
+              </p>
+
+              <div class="theory-atomic-card" style="max-width:760px; margin: 0 auto 24px auto; text-align:left;">
+                <h3>Program Audit Summary:</h3>
+                <p>
+                  • <strong>All 5 Phases Completed:</strong> Phase 01 to Phase 05 officially completed.<br>
+                  • <strong>All 18 Strategic Tips Mastered:</strong> Syntactic backbone, noun phrases, verbal complexes, complex clauses & advanced inversions.<br>
+                  • <strong>TOEFL iBT Benchmark Status:</strong> ${passed ? 'TOTAL MASTERY ACHIEVED. You are fully equipped to guarantee a perfect 10/10 raw score on the official exam.' : 'Score below 80% (12/15). Retry the simulation to lock in your certification.'}
+                </p>
+              </div>
+
+              <div class="clippy-drill-box" style="max-width:760px; margin: 0 auto;">
+                <div class="clippy-mini-avatar">📎</div>
+                <div class="clippy-mini-speech">
+                  ${passed 
+                    ? `"MAGNIFICENT ACHIEVEMENT, <strong>${userData.name}</strong>! You have conquered all 18 tips of Build a Sentence! You are an official TOEFL iBT Writing Task 1 Master!"`
+                    : `"Almost there, <strong>${userData.name}</strong>! You scored ${totalScore}/15. Take another look and retry to claim your full master certification!"`}
+                </div>
+              </div>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="btn-act btn-outline" onclick="goToStep(5)"><span>↺</span> Retry Grand Simulation</button>
+              ${passed 
+                ? `<button class="btn-act btn-primary" onclick="completeAllPhasesAndReturn()" style="background:var(--success);"><span>🎓</span> Complete Course & Return to Hub ➔</button>`
+                : `<button class="btn-act btn-primary" onclick="goToStep(0)"><span>🧭</span> Review Phase 05 Roadmap</button>`}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function completeAllPhasesAndReturn() {
+      userData.phasesCompleted[4] = true;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+      alert(`CONGRATULATIONS, ${userData.name}! You have certified all 5 Phases of TOEFL iBT Writing: Build a Sentence Mastery!`);
+      window.location.href = "index.html";
+    }
+
+    function toggleMenu(force) {
+      const m = document.getElementById('curriculumMenu');
+      if (typeof force === 'boolean') {
+        m.style.display = force ? 'flex' : 'none';
+      } else {
+        m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      const menu = document.getElementById('curriculumMenu');
+      const btn = document.querySelector('.btn-dropdown-menu');
+      if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.style.display = 'none';
+      }
+    });
+
+    // INICIALIZACIÓN
+    loadData();
+    renderCurrentStep();
+  </script>
+</body>
+</html>

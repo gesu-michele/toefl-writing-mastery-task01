@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TOEFL iBT Writing - Section 01: "BUILD A SENTENCE" - Dr. Jesús Miguel Lima E.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'AnanthaSignature';
+      src: url('Anantha Signature For Personal Use.ttf') format('truetype'),
+           url('Anantha Signature For Personal Use.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --bg-canvas: #040914;
+      --bg-panel: #0a1324;
+      --bg-card: #101d36;
+      --bg-card-inner: #070e1c;
+      --border-subtle: #1c2e4c;
+      --border-gold: rgba(212, 175, 55, 0.4);
+      --accent-gold: #d4af37;
+      --accent-gold-soft: rgba(212, 175, 55, 0.12);
+      --accent-blue: #2563eb;
+      --accent-blue-light: #60a5fa;
+      --toefl-brand-blue: #2B2B7A;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-spanish: #8192a9;
+      --shadow-deep: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      min-height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 90% 10%, rgba(37, 99, 235, 0.16) 0%, transparent 55%),
+        radial-gradient(circle at 10% 90%, rgba(212, 175, 55, 0.1) 0%, transparent 55%),
+        linear-gradient(to bottom, #030710, #081120);
+    }
+
+    #app-viewport {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .top-nav {
+      height: 58px;
+      background: rgba(6, 12, 23, 0.95);
+      border-bottom: 1px solid rgba(28, 46, 76, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      backdrop-filter: blur(12px);
+      z-index: 10;
+    }
+
+    .nav-brand-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .toefl-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      padding: 4px 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      user-select: none;
+    }
+
+    .toefl-spark {
+      width: 16px;
+      height: 16px;
+      fill: var(--toefl-brand-blue);
+    }
+
+    .toefl-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 13.5px;
+      color: var(--toefl-brand-blue);
+      letter-spacing: -0.4px;
+      line-height: 1;
+    }
+
+    .toefl-reg {
+      font-size: 8px;
+      font-weight: 700;
+      color: var(--toefl-brand-blue);
+      margin-top: -6px;
+    }
+
+    .nav-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .nav-brand-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .coin-display {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid var(--accent-gold);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent-gold);
+    }
+
+    .company-logo-slot {
+      height: 38px;
+      max-width: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .company-logo-slot img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .progress-track {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-blue-light);
+      background: rgba(37, 99, 235, 0.14);
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      padding: 4px 12px;
+      border-radius: 5px;
+    }
+
+    .screen-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .slide {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    /* PANTALLA 1: PORTADA PRINCIPAL */
+    .cover-fullscreen {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 44px 80px 40px 80px;
+      max-width: 1560px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .cover-top-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .cover-headings-group {
+      margin-bottom: 8px;
+    }
+
+    .main-section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(26px, 3.2vw, 42px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: #38bdf8;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .main-task-title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(46px, 6vw, 82px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+    }
+
+    .welcome-text-block {
+      max-width: 860px;
+      border-left: 3px solid var(--accent-gold);
+      padding-left: 24px;
+      margin-top: 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .welcome-en {
+      font-size: clamp(15.5px, 1.25vw, 19px);
+      color: #f1f5f9;
+      line-height: 1.65;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    .welcome-es {
+      font-style: italic;
+      font-size: clamp(14px, 1.1vw, 16.5px);
+      color: var(--text-spanish);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* FILA INFERIOR: FIRMA EN LÍNEA COMPLETA Y BOTÓN A LA DERECHA */
+    .cover-bottom-row {
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: 24px;
+      margin-top: 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: nowrap;
+      gap: 32px;
+      width: 100%;
+    }
+
+    .signature-container {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .signature-name-wrapper {
+      margin-bottom: 12px;
+      padding-bottom: 4px;
+      white-space: nowrap;
+    }
+
+    .signature-name {
+      font-family: 'AnanthaSignature', cursive, sans-serif;
+      font-size: clamp(34px, 3.4vw, 56px);
+      font-weight: normal;
+      color: #ffffff;
+      line-height: 1.35;
+      display: inline-block;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .signature-roles {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .signature-roles span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(11px, 0.9vw, 12.5px);
+      font-weight: 600;
+      color: #cbd5e1;
+      letter-spacing: 0.8px;
+      line-height: 1.4;
+    }
+
+    .signature-roles span.role-highlight {
+      color: var(--accent-gold);
+      font-weight: 700;
+    }
+
+    .cover-action-wrapper {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      flex-shrink: 0;
+      margin-bottom: 6px;
+    }
+
+    .btn-launch-large {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(15px, 1.1vw, 17px);
+      font-weight: 700;
+      padding: 16px 36px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid rgba(96, 165, 250, 0.5);
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-launch-large:hover {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.5);
+    }
+
+    /* PANTALLAS 2 Y 3 */
+    .center-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+      flex: 1;
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .center-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent-blue-light);
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      margin-bottom: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .center-title {
+      font-size: clamp(28px, 2.5vw, 36px);
+      font-weight: 800;
+      margin-bottom: 12px;
+      line-height: 1.25;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .minimal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 32px 36px;
+      width: 100%;
+      max-width: 620px;
+      box-shadow: var(--shadow-deep);
+      text-align: left;
+      margin-top: 24px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .field-group label {
+      font-size: 11.5px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .field-input {
+      background: var(--bg-card-inner);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #ffffff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .field-input:focus {
+      border-color: var(--accent-blue-light);
+    }
+
+    .companion-bubble-box {
+      background: linear-gradient(135deg, rgba(16, 29, 54, 0.95) 0%, rgba(8, 16, 31, 0.95) 100%);
+      border: 1.5px solid var(--accent-gold);
+      border-radius: 14px;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 24px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(212, 175, 55, 0.12);
+    }
+
+    .companion-clippy-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 68px;
+      height: 68px;
+      background: rgba(212, 175, 55, 0.14);
+      border: 1.5px solid rgba(212, 175, 55, 0.5);
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .companion-avatar-icon {
+      font-size: 38px;
+      line-height: 1;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+    }
+
+    .companion-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 800;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    .companion-text {
+      font-size: 14px;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+
+    .companion-text strong {
+      color: var(--accent-gold);
+    }
+
+    .progress-summary-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 24px 28px;
+      width: 100%;
+      max-width: 760px;
+      box-shadow: var(--shadow-deep);
+      text-align: left;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .phase-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: var(--bg-card-inner);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    .phase-row.current {
+      border-color: var(--accent-blue);
+      border-left: 5px solid var(--accent-blue);
+    }
+
+    .phase-row.locked {
+      opacity: 0.55;
+    }
+
+    .phase-info h4 {
+      font-size: 14.5px;
+      color: #ffffff;
+      margin-bottom: 3px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+    }
+
+    .phase-info span {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .bottom-bar {
+      padding: 18px 40px;
+      background: rgba(6, 12, 23, 0.95);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .btn-act {
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 11px 22px;
+      border-radius: 7px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--accent-blue);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border-subtle);
+      color: #cbd5e1;
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-card);
+      color: #ffffff;
+    }
+
+    .institutional-bottom {
+      padding: 10px 36px;
+      background: #03060d;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .institutional-bottom strong {
+      color: #cbd5e1;
+    }
+
+    @media (max-width: 860px) {
+      .cover-fullscreen {
+        padding: 36px 20px 24px 20px;
+      }
+      .top-nav {
+        padding: 0 18px;
+      }
+      .bottom-bar {
+        padding: 14px 20px;
+      }
+      .cover-bottom-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+      .signature-name {
+        font-size: 32px;
+      }
+      .cover-action-wrapper {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .btn-launch-large {
+        width: 100%;
+        justify-content: center;
+      }
+      .welcome-text-block {
+        margin-top: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app-viewport">
+    
+    <div class="top-nav" id="topNav" style="display: none;">
+      <div class="nav-brand-left">
+        <div class="toefl-badge">
+          <svg class="toefl-spark" viewBox="0 0 100 100">
+            <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(0 50 50)"/>
+            <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(60 50 50)"/>
+            <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(120 50 50)"/>
+          </svg>
+          <span class="toefl-name">toefl ibt</span>
+          <span class="toefl-reg">®</span>
+        </div>
+        <span class="nav-title">Writing Task 1: Build a Sentence</span>
+      </div>
+
+      <div class="nav-brand-right">
+        <div class="coin-display">
+          <span>🪙</span> <span id="navCoins">25</span>
+        </div>
+        <div class="progress-track" id="navPageTrack">Candidate Profile</div>
+        <div class="company-logo-slot">
+          <img src="logo.png" alt="JM ELT Solutions" onerror="this.style.display='none'">
+        </div>
+      </div>
+    </div>
+
+    <div class="screen-container" id="mountNode"></div>
+
+    <div class="institutional-bottom">
+      <span>TOEFL iBT Writing: Build a Sentence Mastery</span>
+      <span>All Rights Reserved © by <strong>Dr. Jesús Miguel Lima E.</strong> • JM ELT Solutions</span>
+    </div>
+
+  </div>
+
+  <script>
+    const STORAGE_KEY = "toefl_mastery_user_profile";
+    let activeScreen = 1;
+
+    let userState = {
+      name: "",
+      birthYear: "",
+      coins: 25,
+      phasesCompleted: [false, false, false, false, false],
+      phase1Score: 0,
+      phase1CompletedDrills: 0
+    };
+
+    function initData() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        try {
+          userState = JSON.parse(raw);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+
+    function syncStorage() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(userState));
+      const elCoins = document.getElementById('navCoins');
+      if (elCoins) elCoins.innerText = userState.coins || 25;
+    }
+
+    function setScreen(step) {
+      activeScreen = step;
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function render() {
+      const mount = document.getElementById('mountNode');
+      const nav = document.getElementById('topNav');
+      const track = document.getElementById('navPageTrack');
+      mount.innerHTML = '';
+
+      if (activeScreen === 1) {
+        nav.style.display = 'none';
+        renderScreen1(mount);
+      } else if (activeScreen === 2) {
+        nav.style.display = 'flex';
+        track.innerText = 'Candidate Profile';
+        renderScreen2(mount);
+      } else if (activeScreen === 3) {
+        nav.style.display = 'flex';
+        track.innerText = 'Course Progression';
+        renderScreen3(mount);
+      }
+      syncStorage();
+    }
+
+    function renderScreen1(mount) {
+      mount.innerHTML = `
+        <div class="slide">
+          <div class="cover-fullscreen">
+            
+            <div>
+              <div class="cover-top-badge-row">
+                <div class="toefl-badge" style="padding: 5px 12px;">
+                  <svg class="toefl-spark" style="width:18px; height:18px;" viewBox="0 0 100 100">
+                    <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(0 50 50)"/>
+                    <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(60 50 50)"/>
+                    <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(120 50 50)"/>
+                  </svg>
+                  <span class="toefl-name" style="font-size:16px;">toefl ibt</span>
+                  <span class="toefl-reg" style="font-size:9px; margin-top:-8px;">®</span>
+                </div>
+
+                <div class="company-logo-slot" style="height:48px; max-width:160px;">
+                  <img src="logo.png" alt="JM ELT Solutions" onerror="this.style.display='none'">
+                </div>
+              </div>
+
+              <div class="cover-headings-group">
+                <div class="main-section-title">TOEFL iBT Writing - section 01</div>
+                <div class="main-task-title">"BUILD A SENTENCE"</div>
+              </div>
+
+              <div class="welcome-text-block">
+                <p class="welcome-en">
+                  Welcome to the specialized training program for international exams. Master sentence building with precision, syntactic confidence, and speed.
+                </p>
+                <p class="welcome-es">
+                  (Bienvenido al curso especializado en exámenes internacionales. Domina la construcción de oraciones con precisión, agilidad y confianza sintáctica.)
+                </p>
+              </div>
+            </div>
+
+            <div class="cover-bottom-row">
+              <div class="signature-container">
+                <div class="signature-name-wrapper">
+                  <span class="signature-name">by Dr. Jesús Miguel Lima E.</span>
+                </div>
+                <div class="signature-roles">
+                  <span class="role-highlight">CEO of JM ELT Solutions</span>
+                  <span>Celta & Delta Trainer</span>
+                  <span>Exam Trainer</span>
+                  <span>Teacher Trainer</span>
+                  <span>University Professor</span>
+                </div>
+              </div>
+
+              <div class="cover-action-wrapper">
+                <button class="btn-launch-large" onclick="setScreen(2)">
+                  <span>🚀</span> Begin Master Program ➔
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      `;
+    }
+
+    function renderScreen2(mount) {
+      mount.innerHTML = `
+        <div class="slide">
+          <div class="center-stage">
+            <div class="center-tag"><span>🎓</span> STEP 1: IDENTITY</div>
+            <h2 class="center-title">CANDIDATE PROFILE</h2>
+            <div style="max-width: 580px;">
+              <p style="font-size:15px; color:#e2e8f0; line-height:1.5;">Enter your first name and birth year to initialize your personal tracking vault.</p>
+              <p style="font-style:italic; font-size:13px; color:var(--text-spanish); margin-top:4px;">(Ingresa tu nombre y año de nacimiento para guardar tu progreso de forma automática.)</p>
+            </div>
+
+            <div class="minimal-card">
+              <div class="field-group">
+                <label for="txtName">First Name (Nombre)</label>
+                <input type="text" id="txtName" class="field-input" placeholder="e.g. Juan" value="${userState.name || ''}" autocomplete="off">
+              </div>
+              <div class="field-group">
+                <label for="txtYear">Birth Year / PIN (Año de Nacimiento)</label>
+                <input type="number" id="txtYear" class="field-input" placeholder="e.g. 1998" min="1950" max="2020" value="${userState.birthYear || ''}">
+              </div>
+
+              <div class="companion-bubble-box">
+                <div class="companion-clippy-visual">
+                  <span class="companion-avatar-icon">📎</span>
+                  <span class="companion-tag">Klippy</span>
+                </div>
+                <div class="companion-text">
+                  ${userState.name 
+                    ? `"Welcome back, <strong>${userState.name}</strong>! Your credentials are ready. Let's head over to the course roadmap."`
+                    : `"Hi there! I'm <strong>Klippy</strong>, your TOEFL Writing Assistant. I'll keep your coins safe and cheer you on through every challenge!"`}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bottom-bar">
+            <button class="btn-act btn-outline" onclick="setScreen(1)">
+              <span>⬅</span> Back to Cover
+            </button>
+            <button class="btn-act btn-primary" onclick="confirmProfile()">
+              <span>👉</span> Continue to Progression ➔
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function confirmProfile() {
+      const name = document.getElementById('txtName').value.trim();
+      const year = document.getElementById('txtYear').value.trim();
+
+      if (!name) {
+        alert("Please enter your name.");
+        return;
+      }
+      if (!year || year.length !== 4) {
+        alert("Please enter a valid 4-digit birth year (e.g. 1998).");
+        return;
+      }
+
+      userState.name = name;
+      userState.birthYear = year;
+      syncStorage();
+      setScreen(3);
+    }
+
+    function renderScreen3(mount) {
+      const completedCount = userState.phasesCompleted.filter(Boolean).length;
+      const pct = Math.round((completedCount / 5) * 100);
+
+      mount.innerHTML = `
+        <div class="slide">
+          <div class="center-stage">
+            <div class="center-tag"><span>🧭</span> STEP 2: ROADMAP</div>
+            <h2 class="center-title">OVERALL COURSE PROGRESSION</h2>
+            <div style="max-width: 600px; margin-bottom: 8px;">
+              <p style="font-size:15px; color:#e2e8f0; line-height:1.5;">Candidate: <strong style="color:var(--accent-gold);">${userState.name}</strong> • Status: ${pct}% Complete (${completedCount} of 5 Phases)</p>
+              <p style="font-style:italic; font-size:13px; color:var(--text-spanish); margin-top:4px;">(Resumen de progreso del curso. Completa cada fase en orden para desbloquear la siguiente.)</p>
+            </div>
+
+            <div class="progress-summary-card">
+              <div class="phase-row current">
+                <div class="phase-info">
+                  <h4>Phase 01: Core Sentence Backbone & Rapid Scanning</h4>
+                  <span>Tips 01 to 04 • 20 Practice Drills • Timed Benchmark</span>
+                </div>
+                <div style="font-family:'JetBrains Mono'; font-size:11.5px; font-weight:800; color:var(--accent-blue-light);">
+                  UNLOCKED
+                </div>
+              </div>
+
+              <div class="phase-row locked">
+                <div class="phase-info">
+                  <h4>Phase 02: The Noun Phrase Blueprint</h4>
+                  <span>Articles, quantifiers, compound subjects, and pre-modifiers</span>
+                </div>
+                <div style="font-family:'JetBrains Mono'; font-size:11.5px; font-weight:700; color:var(--text-muted);">
+                  🔒 LOCKED
+                </div>
+              </div>
+
+              <div class="phase-row locked">
+                <div class="phase-info">
+                  <h4>Phase 03: Verbal Complex & Complementation</h4>
+                  <span>Direct/indirect objects, phrasal verbs, gerunds & infinitives</span>
+                </div>
+                <div style="font-family:'JetBrains Mono'; font-size:11.5px; font-weight:700; color:var(--text-muted);">
+                  🔒 LOCKED
+                </div>
+              </div>
+
+              <div class="phase-row locked">
+                <div class="phase-info">
+                  <h4>Phase 04: Clauses & Syntactic Expansion</h4>
+                  <span>Subordinating conjunctions, relative clauses, coordinate balance</span>
+                </div>
+                <div style="font-family:'JetBrains Mono'; font-size:11.5px; font-weight:700; color:var(--text-muted);">
+                  🔒 LOCKED
+                </div>
+              </div>
+
+              <div class="phase-row locked">
+                <div class="phase-info">
+                  <h4>Phase 05: Advanced Inversion & Full Simulation</h4>
+                  <span>Negative adverb fronting, conditional inversion, 10-Item Mock</span>
+                </div>
+                <div style="font-family:'JetBrains Mono'; font-size:11.5px; font-weight:700; color:var(--text-muted);">
+                  🔒 LOCKED
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bottom-bar">
+            <button class="btn-act btn-outline" onclick="setScreen(2)">
+              <span>⬅</span> Back to Profile
+            </button>
+            <button class="btn-act btn-primary" onclick="launchPhase1()">
+              <span>🚀</span> Start Phase 01 ➔
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function launchPhase1() {
+      window.location.href = "phase1.html";
+    }
+
+    initData();
+    render();
+  </script>
+</body>
+</html>
