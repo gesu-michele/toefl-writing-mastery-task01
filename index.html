@@ -10,8 +10,8 @@
   <style>
     @font-face {
       font-family: 'AnanthaSignature';
-      src: url('Anantha Signature For Personal Use.ttf') format('truetype'),
-           url('Anantha Signature For Personal Use.otf') format('opentype');
+      src: url('Anantha%20Signature%20For%20Personal%20Use.ttf') format('truetype'),
+           url('Anantha Signature For Personal Use.ttf') format('truetype');
       font-weight: normal;
       font-style: normal;
     }
@@ -254,7 +254,6 @@
       font-weight: 300;
     }
 
-    /* FILA INFERIOR: FIRMA EN LÍNEA COMPLETA Y BOTÓN A LA DERECHA */
     .cover-bottom-row {
       border-top: 1px solid rgba(255, 255, 255, 0.12);
       padding-top: 24px;
@@ -501,6 +500,17 @@
       border: 1px solid var(--border-subtle);
       border-radius: 10px;
       margin-bottom: 12px;
+      gap: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .phase-row.unlocked {
+      border-color: rgba(37, 99, 235, 0.4);
+    }
+
+    .phase-row.unlocked:hover {
+      border-color: var(--accent-blue-light);
+      background: rgba(16, 29, 54, 0.9);
     }
 
     .phase-row.current {
@@ -523,6 +533,29 @@
     .phase-info span {
       font-size: 12px;
       color: var(--text-muted);
+    }
+
+    .btn-phase-launch {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 8px 18px;
+      border-radius: 6px;
+      border: 1px solid var(--accent-blue-light);
+      background: rgba(37, 99, 235, 0.25);
+      color: #ffffff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-phase-launch:hover {
+      background: var(--accent-blue);
+      box-shadow: 0 0 12px rgba(37, 99, 235, 0.6);
+      transform: translateY(-1px);
     }
 
     .bottom-bar {
@@ -612,6 +645,10 @@
       .welcome-text-block {
         margin-top: 36px;
       }
+      .phase-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
@@ -670,7 +707,8 @@
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         try {
-          userState = JSON.parse(raw);
+          const parsed = JSON.parse(raw);
+          userState = { ...userState, ...parsed };
         } catch (e) {
           console.error(e);
         }
@@ -687,6 +725,13 @@
       activeScreen = step;
       render();
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Navegación segura compatible con GitHub Pages y Netlify
+    function navigateToPhase(phaseNumber) {
+      syncStorage();
+      const numStr = String(phaseNumber).padStart(2, '0');
+      window.location.href = `./PHASE%20${numStr}.html`;
     }
 
     function render() {
@@ -714,7 +759,6 @@
       mount.innerHTML = `
         <div class="slide">
           <div class="cover-fullscreen">
-            
             <div>
               <div class="cover-top-badge-row">
                 <div class="toefl-badge" style="padding: 5px 12px;">
@@ -843,6 +887,42 @@
       const completedCount = userState.phasesCompleted.filter(Boolean).length;
       const pct = Math.round((completedCount / 5) * 100);
 
+      const phasesConfig = [
+        { id: 1, title: "Phase 01: Core Sentence Backbone & Rapid Scanning", desc: "Tips 01 to 04 • 20 Practice Drills • Timed Benchmark" },
+        { id: 2, title: "Phase 02: The Noun Phrase Blueprint", desc: "Articles, quantifiers, compound subjects, and pre-modifiers" },
+        { id: 3, title: "Phase 03: Verbal Complex & Complementation", desc: "Direct/indirect objects, phrasal verbs, gerunds & infinitives" },
+        { id: 4, title: "Phase 04: Clauses & Syntactic Expansion", desc: "Subordinating conjunctions, relative clauses, coordinate balance" },
+        { id: 5, title: "Phase 05: Advanced Inversion & Full Simulation", desc: "Negative adverb fronting, conditional inversion, 10-Item Mock" }
+      ];
+
+      const phasesHtml = phasesConfig.map((p, idx) => {
+        // La Fase 1 siempre está accesible; las demás se abren si la anterior se completó
+        const isUnlocked = idx === 0 || userState.phasesCompleted[idx - 1] === true;
+        const isCurrent = isUnlocked && !userState.phasesCompleted[idx];
+
+        let stateClass = "locked";
+        let statusBadge = `<div style="font-family:'JetBrains Mono'; font-size:11.5px; font-weight:700; color:var(--text-muted);">🔒 LOCKED</div>`;
+
+        if (isUnlocked) {
+          stateClass = isCurrent ? "unlocked current" : "unlocked";
+          statusBadge = `
+            <button class="btn-phase-launch" onclick="navigateToPhase(${p.id})">
+              <span>▶</span> Launch Phase ${String(p.id).padStart(2, '0')}
+            </button>
+          `;
+        }
+
+        return `
+          <div class="phase-row ${stateClass}">
+            <div class="phase-info">
+              <h4>${p.title}</h4>
+              <span>${p.desc}</span>
+            </div>
+            <div>${statusBadge}</div>
+          </div>
+        `;
+      }).join('');
+
       mount.innerHTML = `
         <div class="slide">
           <div class="center-stage">
@@ -850,59 +930,11 @@
             <h2 class="center-title">OVERALL COURSE PROGRESSION</h2>
             <div style="max-width: 600px; margin-bottom: 8px;">
               <p style="font-size:15px; color:#e2e8f0; line-height:1.5;">Candidate: <strong style="color:var(--accent-gold);">${userState.name}</strong> • Status: ${pct}% Complete (${completedCount} of 5 Phases)</p>
-              <p style="font-style:italic; font-size:13px; color:var(--text-spanish); margin-top:4px;">(Resumen de progreso del curso. Completa cada fase en orden para desbloquear la siguiente.)</p>
+              <p style="font-style:italic; font-size:13px; color:var(--text-spanish); margin-top:4px;">(Resumen de progreso del curso. Selecciona una fase disponible para comenzar.)</p>
             </div>
 
             <div class="progress-summary-card">
-              <div class="phase-row current">
-                <div class="phase-info">
-                  <h4>Phase 01: Core Sentence Backbone & Rapid Scanning</h4>
-                  <span>Tips 01 to 04 • 20 Practice Drills • Timed Benchmark</span>
-                </div>
-                <div style="font-family:'JetBrains Mono'; font-size:11.5px; font-weight:800; color:var(--accent-blue-light);">
-                  UNLOCKED
-                </div>
-              </div>
-
-              <div class="phase-row locked">
-                <div class="phase-info">
-                  <h4>Phase 02: The Noun Phrase Blueprint</h4>
-                  <span>Articles, quantifiers, compound subjects, and pre-modifiers</span>
-                </div>
-                <div style="font-family:'JetBrains Mono'; font-size:11.5px; font-weight:700; color:var(--text-muted);">
-                  🔒 LOCKED
-                </div>
-              </div>
-
-              <div class="phase-row locked">
-                <div class="phase-info">
-                  <h4>Phase 03: Verbal Complex & Complementation</h4>
-                  <span>Direct/indirect objects, phrasal verbs, gerunds & infinitives</span>
-                </div>
-                <div style="font-family:'JetBrains Mono'; font-size:11.5px; font-weight:700; color:var(--text-muted);">
-                  🔒 LOCKED
-                </div>
-              </div>
-
-              <div class="phase-row locked">
-                <div class="phase-info">
-                  <h4>Phase 04: Clauses & Syntactic Expansion</h4>
-                  <span>Subordinating conjunctions, relative clauses, coordinate balance</span>
-                </div>
-                <div style="font-family:'JetBrains Mono'; font-size:11.5px; font-weight:700; color:var(--text-muted);">
-                  🔒 LOCKED
-                </div>
-              </div>
-
-              <div class="phase-row locked">
-                <div class="phase-info">
-                  <h4>Phase 05: Advanced Inversion & Full Simulation</h4>
-                  <span>Negative adverb fronting, conditional inversion, 10-Item Mock</span>
-                </div>
-                <div style="font-family:'JetBrains Mono'; font-size:11.5px; font-weight:700; color:var(--text-muted);">
-                  🔒 LOCKED
-                </div>
-              </div>
+              ${phasesHtml}
             </div>
           </div>
 
@@ -910,16 +942,12 @@
             <button class="btn-act btn-outline" onclick="setScreen(2)">
               <span>⬅</span> Back to Profile
             </button>
-            <button class="btn-act btn-primary" onclick="launchPhase1()">
+            <button class="btn-act btn-primary" onclick="navigateToPhase(1)">
               <span>🚀</span> Start Phase 01 ➔
             </button>
           </div>
         </div>
       `;
-    }
-
-    function launchPhase1() {
-      window.location.href = "phase1.html";
     }
 
     initData();
