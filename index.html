@@ -484,7 +484,7 @@
       border-radius: 14px;
       padding: 24px 28px;
       width: 100%;
-      max-width: 760px;
+      max-width: 780px;
       box-shadow: var(--shadow-deep);
       text-align: left;
       margin-top: 20px;
@@ -522,6 +522,18 @@
       opacity: 0.55;
     }
 
+    /* FILA ESPECIAL FINAL MOCK */
+    .phase-row.mock-row {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(10, 19, 36, 0.9) 100%);
+      border: 1.5px solid rgba(212, 175, 55, 0.3);
+      margin-top: 18px;
+    }
+
+    .phase-row.mock-row.unlocked {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 16px rgba(212, 175, 55, 0.25);
+    }
+
     .phase-info h4 {
       font-size: 14.5px;
       color: #ffffff;
@@ -556,6 +568,30 @@
       background: var(--accent-blue);
       box-shadow: 0 0 12px rgba(37, 99, 235, 0.6);
       transform: translateY(-1px);
+    }
+
+    .btn-mock-launch {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 9px 20px;
+      border-radius: 6px;
+      border: 1px solid var(--accent-gold);
+      background: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+      color: #040914;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    }
+
+    .btn-mock-launch:hover {
+      background: #facc15;
+      transform: translateY(-1px);
+      box-shadow: 0 0 22px rgba(212, 175, 55, 0.7);
     }
 
     .bottom-bar {
@@ -692,6 +728,7 @@
 
   <script>
     const STORAGE_KEY = "toefl_mastery_user_profile";
+    const MOCK_STORAGE_KEY = "toefl_mock_results";
     let activeScreen = 1;
 
     let userState = {
@@ -727,11 +764,15 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Navegación segura compatible con GitHub Pages y Netlify
     function navigateToPhase(phaseNumber) {
       syncStorage();
       const numStr = String(phaseNumber).padStart(2, '0');
       window.location.href = `./PHASE%20${numStr}.html`;
+    }
+
+    function launchMock() {
+      syncStorage();
+      window.location.href = `./MOCK%2001.html`;
     }
 
     function render() {
@@ -887,6 +928,21 @@
       const completedCount = userState.phasesCompleted.filter(Boolean).length;
       const pct = Math.round((completedCount / 5) * 100);
 
+      // Verificamos si la Fase 05 está completada para desbloquear el Mock
+      const isPhase5Complete = userState.phasesCompleted[4] === true;
+
+      // Lectura opcional si el alumno ya rindió el Mock anteriormente
+      let mockBadgeExtra = "";
+      try {
+        const rawMock = localStorage.getItem(MOCK_STORAGE_KEY);
+        if (rawMock) {
+          const parsedMock = JSON.parse(rawMock);
+          if (parsedMock.toeflScaled !== undefined) {
+            mockBadgeExtra = ` • TOEFL Score: <strong style="color:var(--accent-gold);">${parsedMock.toeflScaled}/30</strong>`;
+          }
+        }
+      } catch(e) {}
+
       const phasesConfig = [
         { id: 1, title: "Phase 01: Core Sentence Backbone & Rapid Scanning", desc: "Tips 01 to 04 • 20 Practice Drills • Timed Benchmark" },
         { id: 2, title: "Phase 02: The Noun Phrase Blueprint", desc: "Articles, quantifiers, compound subjects, and pre-modifiers" },
@@ -896,7 +952,6 @@
       ];
 
       const phasesHtml = phasesConfig.map((p, idx) => {
-        // La Fase 1 siempre está accesible; las demás se abren si la anterior se completó
         const isUnlocked = idx === 0 || userState.phasesCompleted[idx - 1] === true;
         const isCurrent = isUnlocked && !userState.phasesCompleted[idx];
 
@@ -923,18 +978,44 @@
         `;
       }).join('');
 
+      // Tarjeta especial del Final Mock (50 Ítems)
+      const mockRowHtml = `
+        <div class="phase-row mock-row ${isPhase5Complete ? 'unlocked' : 'locked'}">
+          <div class="phase-info">
+            <h4 style="color:var(--accent-gold);">🏆 Capstone: Final Master Mock Exam (50 Items)</h4>
+            <span>Comprehensive diagnostic benchmark • Unified TOEFL iBT Scale (0–30) • Drill-by-Drill Audit</span>
+          </div>
+          <div>
+            ${isPhase5Complete ? `
+              <button class="btn-mock-launch" onclick="launchMock()">
+                <span>⚡</span> Launch Final Mock ➔
+              </button>
+            ` : `
+              <div style="font-family:'JetBrains Mono'; font-size:11.5px; font-weight:700; color:var(--text-muted);">
+                🔒 COMPLETE PHASE 05 TO UNLOCK
+              </div>
+            `}
+          </div>
+        </div>
+      `;
+
       mount.innerHTML = `
         <div class="slide">
           <div class="center-stage">
             <div class="center-tag"><span>🧭</span> STEP 2: ROADMAP</div>
             <h2 class="center-title">OVERALL COURSE PROGRESSION</h2>
-            <div style="max-width: 600px; margin-bottom: 8px;">
-              <p style="font-size:15px; color:#e2e8f0; line-height:1.5;">Candidate: <strong style="color:var(--accent-gold);">${userState.name}</strong> • Status: ${pct}% Complete (${completedCount} of 5 Phases)</p>
-              <p style="font-style:italic; font-size:13px; color:var(--text-spanish); margin-top:4px;">(Resumen de progreso del curso. Selecciona una fase disponible para comenzar.)</p>
+            <div style="max-width: 650px; margin-bottom: 8px;">
+              <p style="font-size:15px; color:#e2e8f0; line-height:1.5;">
+                Candidate: <strong style="color:var(--accent-gold);">${userState.name}</strong> • Status: ${pct}% Complete (${completedCount} of 5 Phases)${mockBadgeExtra}
+              </p>
+              <p style="font-style:italic; font-size:13px; color:var(--text-spanish); margin-top:4px;">
+                (Resumen de progreso del curso. Completa cada fase para desbloquear el Final Mock Exam de 50 ítems.)
+              </p>
             </div>
 
             <div class="progress-summary-card">
               ${phasesHtml}
+              ${mockRowHtml}
             </div>
           </div>
 
