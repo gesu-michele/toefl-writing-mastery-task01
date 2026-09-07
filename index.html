@@ -232,7 +232,7 @@
       max-width: 860px;
       border-left: 3px solid var(--accent-gold);
       padding-left: 24px;
-      margin-top: 64px;
+      margin-top: 50px;
       display: flex;
       flex-direction: column;
       gap: 14px;
@@ -257,7 +257,7 @@
     .cover-bottom-row {
       border-top: 1px solid rgba(255, 255, 255, 0.12);
       padding-top: 24px;
-      margin-top: 50px;
+      margin-top: 40px;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
@@ -313,17 +313,18 @@
 
     .cover-action-wrapper {
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: flex-end;
       flex-shrink: 0;
-      margin-bottom: 6px;
+      gap: 14px;
+      flex-wrap: wrap;
     }
 
     .btn-launch-large {
       font-family: 'Inter', sans-serif;
-      font-size: clamp(15px, 1.1vw, 17px);
+      font-size: clamp(14px, 1.05vw, 16px);
       font-weight: 700;
-      padding: 16px 36px;
+      padding: 14px 30px;
       border-radius: 8px;
       cursor: pointer;
       border: 1px solid rgba(96, 165, 250, 0.5);
@@ -341,6 +342,32 @@
       background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
       transform: translateY(-2px);
       box-shadow: 0 14px 30px rgba(37, 99, 235, 0.5);
+    }
+
+    /* BOTÓN DIRECTO COMPACTO FAST-TRACK */
+    .btn-fast-mock {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 13px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1.5px solid var(--accent-gold);
+      background: rgba(212, 175, 55, 0.12);
+      color: var(--accent-gold);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(8px);
+      white-space: nowrap;
+    }
+
+    .btn-fast-mock:hover {
+      background: var(--accent-gold);
+      color: #040914;
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
     }
 
     /* PANTALLAS 2 Y 3 */
@@ -522,7 +549,6 @@
       opacity: 0.55;
     }
 
-    /* FILA ESPECIAL FINAL MOCK */
     .phase-row.mock-row {
       background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(10, 19, 36, 0.9) 100%);
       border: 1.5px solid rgba(212, 175, 55, 0.3);
@@ -674,7 +700,7 @@
         width: 100%;
         justify-content: flex-start;
       }
-      .btn-launch-large {
+      .btn-launch-large, .btn-fast-mock {
         width: 100%;
         justify-content: center;
       }
@@ -775,6 +801,15 @@
       window.location.href = `./MOCK%2001.html`;
     }
 
+    // ACCESO DIRECTO RÁPIDO PARA ALUMNOS AVANZADOS
+    function launchMockDirect() {
+      if (userState.name && userState.name.trim().length > 0) {
+        window.location.href = `./MOCK%2001.html`;
+      } else {
+        setScreen(2);
+      }
+    }
+
     function render() {
       const mount = document.getElementById('mountNode');
       const nav = document.getElementById('topNav');
@@ -847,8 +882,11 @@
               </div>
 
               <div class="cover-action-wrapper">
+                <button class="btn-fast-mock" onclick="launchMockDirect()">
+                  <span>⚡</span> Direct Mock (100 Items) ➔
+                </button>
                 <button class="btn-launch-large" onclick="setScreen(2)">
-                  <span>🚀</span> Begin Master Program ➔
+                  <span>🚀</span> Begin Full Program ➔
                 </button>
               </div>
             </div>
@@ -928,17 +966,15 @@
       const completedCount = userState.phasesCompleted.filter(Boolean).length;
       const pct = Math.round((completedCount / 5) * 100);
 
-      // Verificamos si la Fase 05 está completada para desbloquear el Mock
       const isPhase5Complete = userState.phasesCompleted[4] === true;
 
-      // Lectura opcional si el alumno ya rindió el Mock anteriormente
       let mockBadgeExtra = "";
       try {
         const rawMock = localStorage.getItem(MOCK_STORAGE_KEY);
         if (rawMock) {
           const parsedMock = JSON.parse(rawMock);
           if (parsedMock.toeflScaled !== undefined) {
-            mockBadgeExtra = ` • TOEFL Score: <strong style="color:var(--accent-gold);">${parsedMock.toeflScaled}/30</strong>`;
+            mockBadgeExtra = ` • TOEFL Score: <strong style="color:var(--accent-gold);">${parsedMock.toeflScaled}/30</strong> (${parsedMock.totalCorrect || 0}/100)`;
           }
         }
       } catch(e) {}
@@ -978,12 +1014,11 @@
         `;
       }).join('');
 
-      // Tarjeta especial del Final Mock (50 Ítems)
       const mockRowHtml = `
         <div class="phase-row mock-row ${isPhase5Complete ? 'unlocked' : 'locked'}">
           <div class="phase-info">
-            <h4 style="color:var(--accent-gold);">🏆 Capstone: Final Master Mock Exam (50 Items)</h4>
-            <span>Comprehensive diagnostic benchmark • Unified TOEFL iBT Scale (0–30) • Drill-by-Drill Audit</span>
+            <h4 style="color:var(--accent-gold);">🏆 Capstone: Final Master Mock Exam (100 Items)</h4>
+            <span>Comprehensive diagnostic benchmark • 4-Stage Simulation • Official TOEFL iBT Scale (0–30)</span>
           </div>
           <div>
             ${isPhase5Complete ? `
@@ -1009,7 +1044,7 @@
                 Candidate: <strong style="color:var(--accent-gold);">${userState.name}</strong> • Status: ${pct}% Complete (${completedCount} of 5 Phases)${mockBadgeExtra}
               </p>
               <p style="font-style:italic; font-size:13px; color:var(--text-spanish); margin-top:4px;">
-                (Resumen de progreso del curso. Completa cada fase para desbloquear el Final Mock Exam de 50 ítems.)
+                (Resumen de progreso del curso. Completa cada fase para desbloquear el Final Mock Exam de 100 ítems.)
               </p>
             </div>
 

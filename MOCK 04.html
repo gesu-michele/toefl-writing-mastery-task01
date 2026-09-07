@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TOEFL iBT Writing - FINAL MOCK EXAM (Part 4/4) - Dr. Jesús Miguel Lima E.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'AnanthaSignature';
+      src: url('Anantha%20Signature%20For%20Personal%20Use.ttf') format('truetype'),
+           url('Anantha Signature For Personal Use.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    :root {
+      --bg-canvas: #040914;
+      --bg-panel: rgba(10, 19, 36, 0.85);
+      --bg-card: rgba(16, 29, 54, 0.7);
+      --bg-card-inner: rgba(7, 14, 28, 0.75);
+      --border-subtle: rgba(56, 189, 248, 0.15);
+      --border-glow: rgba(56, 189, 248, 0.4);
+      --border-gold: rgba(212, 175, 55, 0.4);
+      --accent-gold: #d4af37;
+      --accent-gold-soft: rgba(212, 175, 55, 0.12);
+      --accent-blue: #2563eb;
+      --accent-blue-light: #60a5fa;
+      --accent-cyan: #38bdf8;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --toefl-brand-blue: #2B2B7A;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-spanish: #8192a9;
+      --shadow-deep: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(37, 99, 235, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 15% 85%, rgba(212, 175, 55, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.1) 0%, transparent 60%),
+        linear-gradient(to bottom, #02050c, #060e1d 60%, #03060f);
+      background-attachment: fixed;
+    }
+
+    .top-nav {
+      height: 64px;
+      background: rgba(6, 12, 23, 0.85);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      backdrop-filter: blur(16px);
+      z-index: 100;
+    }
+
+    .nav-brand-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .toefl-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      padding: 4px 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      user-select: none;
+    }
+
+    .toefl-spark {
+      width: 16px;
+      height: 16px;
+      fill: var(--toefl-brand-blue);
+    }
+
+    .toefl-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 13.5px;
+      color: var(--toefl-brand-blue);
+      letter-spacing: -0.4px;
+      line-height: 1;
+    }
+
+    .nav-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      letter-spacing: 0.5px;
+      font-family: 'Space Grotesk', sans-serif;
+      text-transform: uppercase;
+    }
+
+    .nav-brand-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .candidate-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 5px 12px;
+      border-radius: 6px;
+      backdrop-filter: blur(8px);
+    }
+
+    .candidate-tag span {
+      color: var(--accent-gold);
+    }
+
+    .exam-mode-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--accent-gold);
+    }
+
+    .company-logo-slot {
+      height: 38px;
+      max-width: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .company-logo-slot img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .main-layout {
+      flex: 1;
+      max-width: 1120px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 30px 24px 40px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .progress-bar-shell {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      height: 9px;
+      border-radius: 9999px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .progress-bar-glow {
+      height: 100%;
+      width: 4%;
+      background: linear-gradient(90deg, #38bdf8, #2563eb, #d4af37);
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.8);
+      transition: width 0.3s ease;
+    }
+
+    .exercise-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 36px 44px;
+      box-shadow: var(--shadow-deep);
+      backdrop-filter: blur(20px);
+      position: relative;
+    }
+
+    .exercise-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 14px;
+    }
+
+    .item-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--accent-gold);
+      letter-spacing: 1.5px;
+    }
+
+    .item-difficulty-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .sentence-prompt {
+      font-size: 21.5px;
+      line-height: 1.7;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 28px;
+    }
+
+    .blank-dropzone {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      min-height: 52px;
+      min-width: 240px;
+      border: 2px dashed rgba(212, 175, 55, 0.7);
+      background: rgba(212, 175, 55, 0.06);
+      padding: 4px 10px;
+      border-radius: 10px;
+      vertical-align: middle;
+      gap: 8px;
+      box-shadow: inset 0 0 14px rgba(212, 175, 55, 0.1);
+    }
+
+    .blank-placeholder {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: rgba(212, 175, 55, 0.7);
+      font-weight: 600;
+      user-select: none;
+      font-style: italic;
+    }
+
+    .chips-section-title {
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chips-staging-area {
+      background: var(--bg-card-inner);
+      border: 1.5px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 20px;
+      min-height: 96px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 26px;
+      box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .word-chip {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 10px 18px;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 1.5px solid rgba(96, 165, 250, 0.25);
+      color: #f1f5f9;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-flex;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .word-chip:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(56, 189, 248, 0.3);
+      color: #ffffff;
+    }
+
+    .word-chip.slotted {
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
+      border-color: #60a5fa;
+      color: #ffffff;
+    }
+
+    .word-chip.slotted:hover {
+      border-color: #ef4444;
+      background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
+    }
+
+    .controls-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-act {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13px 26px;
+      border-radius: 9px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.15);
+      color: #94a3b8;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      color: #ffffff;
+      border: 1px solid rgba(96, 165, 250, 0.4);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      transform: translateY(-2px);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    /* PANTALLA DE REPORTE FINAL GLOBAL (100 EJERCICIOS) */
+    .results-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-gold);
+      border-radius: 20px;
+      padding: 46px 36px;
+      text-align: center;
+      box-shadow: var(--shadow-deep);
+      backdrop-filter: blur(20px);
+    }
+
+    .results-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .results-subtitle {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .toefl-score-hero {
+      background: linear-gradient(135deg, rgba(43, 43, 122, 0.45) 0%, rgba(7, 14, 28, 0.95) 100%);
+      border: 1.5px solid rgba(96, 165, 250, 0.4);
+      border-radius: 18px;
+      padding: 30px 20px;
+      margin-bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .toefl-scaled-number {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(56px, 7.5vw, 82px);
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1;
+      letter-spacing: -2px;
+    }
+
+    .toefl-scaled-number span {
+      font-size: 28px;
+      color: var(--accent-gold);
+      font-weight: 700;
+    }
+
+    .toefl-level-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 6px 18px;
+      border-radius: 9999px;
+      margin-top: 12px;
+      border: 1px solid;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .stat-box {
+      background: var(--bg-card-inner);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 16px 12px;
+    }
+
+    .stat-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--accent-gold);
+      margin-bottom: 4px;
+    }
+
+    .stat-lbl {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .rubric-breakdown-card {
+      background: var(--bg-card-inner);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: left;
+      margin-bottom: 32px;
+    }
+
+    .rubric-breakdown-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #60a5fa;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rubric-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 13.5px;
+    }
+
+    .rubric-row:last-child {
+      border-bottom: none;
+    }
+
+    .rubric-row span:first-child {
+      color: #cbd5e1;
+    }
+
+    .rubric-row span:last-child {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+
+    .audit-section {
+      text-align: left;
+      margin-top: 36px;
+      margin-bottom: 30px;
+    }
+
+    .audit-section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .audit-item-box {
+      background: var(--bg-card-inner);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+      border-left: 4px solid #334155;
+    }
+
+    .audit-item-box.correct {
+      border-left-color: var(--accent-green);
+    }
+
+    .audit-item-box.incorrect {
+      border-left-color: var(--accent-red);
+    }
+
+    .audit-item-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .audit-verdict-tag {
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .audit-verdict-tag.correct {
+      color: #6ee7b7;
+      background: rgba(16, 185, 129, 0.15);
+    }
+
+    .audit-verdict-tag.incorrect {
+      color: #fca5a5;
+      background: rgba(239, 68, 68, 0.15);
+    }
+
+    .audit-prompt {
+      font-size: 14.5px;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .audit-line {
+      font-size: 13.5px;
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    .audit-rule-hint {
+      font-size: 12px;
+      font-style: italic;
+      color: var(--accent-gold);
+      margin-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 6px;
+    }
+
+    .footer-bar {
+      padding: 14px 36px;
+      background: #02050c;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .footer-bar strong {
+      color: #cbd5e1;
+    }
+
+    @media (max-width: 860px) {
+      .exercise-card {
+        padding: 26px 20px;
+      }
+      .sentence-prompt {
+        font-size: 18px;
+      }
+      .top-nav {
+        padding: 0 18px;
+      }
+      .controls-row {
+        flex-direction: column-reverse;
+      }
+      .btn-act {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-nav">
+    <div class="nav-brand-left">
+      <div class="toefl-badge">
+        <svg class="toefl-spark" viewBox="0 0 100 100">
+          <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(0 50 50)"/>
+          <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(60 50 50)"/>
+          <rect x="42" y="8" width="16" height="84" rx="4" transform="rotate(120 50 50)"/>
+        </svg>
+        <span class="toefl-name">toefl ibt</span>
+      </div>
+      <span class="nav-title">FINAL MOCK • PART 4 (ITEMS 76–100)</span>
+    </div>
+
+    <div class="nav-brand-right">
+      <div class="candidate-tag">Candidate: <span id="displayCandidate">Candidate</span></div>
+      <div class="exam-mode-badge"><span>✍️</span> FINAL SIMULATION</div>
+      <div class="company-logo-slot">
+        <img src="logo.png" alt="JM ELT Solutions" onerror="this.style.display='none'">
+      </div>
+    </div>
+  </header>
+
+  <main class="main-layout" id="mainContainer">
+    <div class="progress-bar-shell">
+      <div class="progress-bar-glow" id="progressBar"></div>
+    </div>
+
+    <div class="exercise-card" id="cardContainer">
+      <!-- Inyectado dinámicamente -->
+    </div>
+  </main>
+
+  <footer class="footer-bar">
+    <span>TOEFL iBT Writing: Build a Sentence • 100-Item Master Benchmark</span>
+    <span>Supervised by <strong>Dr. Jesús Miguel Lima E.</strong> • JM ELT Solutions</span>
+  </footer>
+
+  <script>
+    // BANCO FINAL DE ÉLITE C1+ (ÍTEMS 76 AL 100)
+    const mockExercisesPart4 = [
+      {
+        id: 76,
+        level: "Negative Adverb Fronting (No sooner... than)",
+        pre: "No sooner had the deep-core drill penetrated the permafrost boundary",
+        post: "surging upward into the sampling manifold.",
+        fragments: ["than", "pressurized", "methane", "hydrates", "began"],
+        target: "than pressurized methane hydrates began",
+        hint: "Correlative inversion timing: 'No sooner had S V-ed THAN [subject noun phrase] [past verb]'."
+      },
+      {
+        id: 77,
+        level: "Mandative Subjunctive & Direct Object Ordering",
+        pre: "The ethics advisory council mandated that the biopharmaceutical firm",
+        post: "during all stages of the pediatric trial.",
+        fragments: ["disclose", "any", "potential", "adverse", "side", "effects"],
+        target: "disclose any potential adverse side effects",
+        hint: "Subjunctive clause structure: mandative base verb ('disclose') + premodified noun phrase."
+      },
+      {
+        id: 78,
+        level: "Inverted 2nd Conditional without 'If'",
+        pre: "Were municipal planners to ignore current demographic influx projections,",
+        post: "acute potable water deficits.",
+        fragments: ["the", "entire", "urban", "conurbation", "would", "suffer"],
+        target: "the entire urban conurbation would suffer",
+        hint: "Formal inverted conditional apodosis: subject noun phrase + modal auxiliary ('would') + bare verb."
+      },
+      {
+        id: 79,
+        level: "Royal Order of Adjectives & Technical Compounds",
+        pre: "Materials science researchers synthesized",
+        post: "capable of self-healing at room temperature.",
+        fragments: ["an", "ultra-thin", "transparent", "polymeric", "composite", "membrane"],
+        target: "an ultra-thin transparent polymeric composite membrane",
+        hint: "Adjective Hierarchy: Article + Dimension/Property + Optical Trait + Origin/Type + Classifier + Head Noun."
+      },
+      {
+        id: 80,
+        level: "Correlative Conjunction Parallelism (Neither... nor)",
+        pre: "Archival evidence confirms that neither the prime contractor nor",
+        post: "aware of the structural metallurgical flaw.",
+        fragments: ["the", "subcontracted", "welding", "technicians", "were"],
+        target: "the subcontracted welding technicians were",
+        hint: "Proximity rule in correlatives: plural noun phrase adjacent to the verb requires plural auxiliary 'were'."
+      },
+      {
+        id: 81,
+        level: "Restricted Prepositional Gerund Complement",
+        pre: "The international maritime tribunal prohibited foreign commercial fleets",
+        post: "within territorial migratory sanctuaries.",
+        fragments: ["from", "deploying", "pelagic", "drift", "nets"],
+        target: "from deploying pelagic drift nets",
+        hint: "Verbal regime: 'prohibit [someone/something] FROM [gerund]' + compound noun object."
+      },
+      {
+        id: 82,
+        level: "Reduced Passive Participle Relative Clause",
+        pre: "Several high-priority aerospace components,",
+        post: "underwent rigorous non-destructive acoustic testing.",
+        fragments: ["initially", "forged", "from", "recycled", "titanium", "alloys,"],
+        target: "initially forged from recycled titanium alloys,",
+        hint: "Reduced non-restrictive participial modifier enclosed by commas before the matrix verb."
+      },
+      {
+        id: 83,
+        level: "Negative Fronting Inversion (Under no condition)",
+        pre: "Under no condition should senior administrative officers",
+        post: "without documented board authorization.",
+        fragments: ["override", "automated", "financial", "audit", "safeguards"],
+        target: "override automated financial audit safeguards",
+        hint: "Negative fronting inversion already positioned ('should [S]'); complete with bare infinitive verb + object."
+      },
+      {
+        id: 84,
+        level: "Partitive Distributive Agreement with Prepositional Distractors",
+        pre: "The state comptroller established that each of the subsidized",
+        post: "strictly compliant with federal fiscal guidelines.",
+        fragments: ["clean", "energy", "infrastructure", "projects", "was"],
+        target: "clean energy infrastructure projects was",
+        hint: "'Each of [plural nouns]' is syntactically singular and governs the singular linking verb 'was'."
+      },
+      {
+        id: 85,
+        level: "Inverted 3rd Conditional (Had... would have)",
+        pre: "Had regulatory watchdogs intercepted the fraudulent transactions earlier,",
+        post: "its devastating liquidity crisis.",
+        fragments: ["the", "clearinghouse", "could", "have", "avoided"],
+        target: "the clearinghouse could have avoided",
+        hint: "Contrafactual inversion apodosis: Subject + modal 'could' + perfect auxiliary 'have' + past participle."
+      },
+      {
+        id: 86,
+        level: "Verbal Complementation & Separation Regime",
+        pre: "Cognitive behavioral psychologists frequently dissuade patients",
+        post: "minor occupational difficulties.",
+        fragments: ["from", "habitually", "and", "prematurely", "magnifying"],
+        target: "from habitually and prematurely magnifying",
+        hint: "'Dissuade [object] FROM' followed by coordinated parallel manner adverbs + active gerund."
+      },
+      {
+        id: 87,
+        level: "Split Relative Clause Construction",
+        pre: "Several crucial medieval manuscripts have recently emerged",
+        post: "to illuminate undocumented monastic administrative practices.",
+        fragments: ["that", "serve", "unambiguously", "and", "directly"],
+        target: "that serve unambiguously and directly",
+        hint: "Extraposed relative clause linking back to 'manuscripts': relative pronoun + plural verb + coordinated adverbs."
+      },
+      {
+        id: 88,
+        level: "Negative Frequency Inversion (Seldom)",
+        pre: "Seldom have oceanographic sensors recorded",
+        post: "in abyssal ocean trenches.",
+        fragments: ["such", "pronounced", "hydrothermal", "temperature", "spikes"],
+        target: "such pronounced hydrothermal temperature spikes",
+        hint: "Auxiliary is already inverted; arrange the intensified quantifier noun phrase: 'such + adj + noun stack'."
+      },
+      {
+        id: 89,
+        level: "Mandative Subjunctive with Passive Voice",
+        pre: "Constitutional jurisprudence requires that an accused citizen's right to counsel",
+        post: "regardless of socioeconomic status.",
+        fragments: ["be", "unconditionally", "and", "promptly", "guaranteed"],
+        target: "be unconditionally and promptly guaranteed",
+        hint: "Passive subjunctive: bare base form 'be' + coordinated adverbs + past participle."
+      },
+      {
+        id: 90,
+        level: "Reduced Active Gerund-Participle with Directional Complements",
+        pre: "Telemetry stations tracked thousands of high-altitude weather balloons",
+        post: "toward subpolar observation corridors.",
+        fragments: ["drifting", "steadily", "and", "predictably", "eastward"],
+        target: "drifting steadily and predictably eastward",
+        hint: "Reduced relative participle: active verb '-ing' + parallel coordinated manner adverbs + directional adverb."
+      },
+      {
+        id: 91,
+        level: "Fronted Restrictive Adverb (Only after... did)",
+        pre: "Only after extensive multi-center peer review",
+        post: "the groundbreaking gene-editing protocol.",
+        fragments: ["did", "the", "editorial", "board", "endorse"],
+        target: "did the editorial board endorse",
+        hint: "Fronted restrictive time clause triggers inversion in matrix clause: auxiliary 'did' + Subject + bare verb."
+      },
+      {
+        id: 92,
+        level: "Distributive Singular Agreement (None of)",
+        pre: "Field environmental audits established that none of the petroleum refineries",
+        post: "adequate carbon capture mechanisms.",
+        fragments: ["operating", "along", "the", "estuary", "possesses"],
+        target: "operating along the estuary possesses",
+        hint: "Formal singular 'none' dictates singular finite verb 'possesses', regardless of intervening plural 'refineries'."
+      },
+      {
+        id: 93,
+        level: "Correlative Inversion (Not only... but also)",
+        pre: "Not only did seismic tremors rupture municipal gas conduits,",
+        post: "auxiliary electrical substations.",
+        fragments: ["but", "they", "also", "disabled", "multiple"],
+        target: "but they also disabled multiple",
+        hint: "Correlative balance: 'Not only did S V..., but [pronoun] also [past verb] [quantifier]'."
+      },
+      {
+        id: 94,
+        level: "Inverted 1st Conditional (Should)",
+        pre: "Should unexpected telemetry discrepancies arise during re-entry,",
+        post: "to engage manual steering.",
+        fragments: ["flight", "controllers", "are", "formally", "instructed"],
+        target: "flight controllers are formally instructed",
+        hint: "Conditional apodosis: Subject noun phrase + present plural passive + adverb + governing to-infinitive."
+      },
+      {
+        id: 95,
+        level: "Obligatory Verbal Preposition & Perfect Gerund",
+        pre: "Under cross-examination, the former chief financial officer confessed",
+        post: "unauthorized overseas accounts.",
+        fragments: ["to", "having", "repeatedly", "diverted", "capital", "into"],
+        target: "to having repeatedly diverted capital into",
+        hint: "Verbal regime: 'confess TO [gerund]'; assemble perfect auxiliary 'having' + adverb + participle + object + preposition."
+      },
+      {
+        id: 96,
+        level: "Degree Negative Fronting (Little did...)",
+        pre: "Little did early nineteenth-century physicists realize",
+        post: "the foundation for quantum mechanics.",
+        fragments: ["that", "blackbody", "radiation", "experiments", "would", "lay"],
+        target: "that blackbody radiation experiments would lay",
+        hint: "Inverted negative degree clause followed by complementizer 'that' + compound subject + modal 'would lay'."
+      },
+      {
+        id: 97,
+        level: "Correlative Time Inversion (Scarcely had... before)",
+        pre: "Scarcely had the emergency evacuation directive been broadcast",
+        post: "inhabited coastal villages.",
+        fragments: ["before", "surging", "tsunami", "waves", "inundated"],
+        target: "before surging tsunami waves inundated",
+        hint: "Correlative conjunction connector: 'Scarcely had S V-ed BEFORE [participial modifier + noun subject + past verb]'."
+      },
+      {
+        id: 98,
+        level: "Dense Compound Prenominal Architecture",
+        pre: "Agronomists cultivated remnants of",
+        post: "resistant to devastating fungal infections.",
+        fragments: ["a", "resilient", "drought-tolerant", "Andean", "grain", "cultivar"],
+        target: "a resilient drought-tolerant Andean grain cultivar",
+        hint: "Hierarchy: Article + Evaluative Trait + Compound Property + Geographic Origin + Classifier + Head Noun."
+      },
+      {
+        id: 99,
+        level: "Catenative Verbal Complementation & Aspect",
+        pre: "Despite relentless cross-winds, the expedition pilots managed",
+        post: "on the desolate volcanic plateau.",
+        fragments: ["to", "execute", "a", "remarkably", "flawless", "touchdown"],
+        target: "to execute a remarkably flawless touchdown",
+        hint: "'Manage' governs to-infinitive + article + adverbially modified adjective + head noun."
+      },
+      {
+        id: 100,
+        level: "Fronted Restrictive Locative & Inversion Capstone",
+        pre: "Only on rare celestial alignments",
+        post: "spectral emission patterns of this magnitude.",
+        fragments: ["can", "ground-based", "astronomical", "interferometers", "detect"],
+        target: "can ground-based astronomical interferometers detect",
+        hint: "Restrictive fronted prepositional phrase ('Only on...') requires subject-auxiliary inversion: modal 'can' + Subject + bare verb."
+      }
+    ];
+
+    let currentIndex = 0;
+    let studentResponsesPart4 = [];
+    let slottedWords = [];
+    let unslottedWords = [];
+
+    // Persistencia unificada
+    const userProfileKey = "toefl_mastery_user_profile";
+    const mockStorageKey = "toefl_mock_results";
+
+    let candidateName = "Candidate";
+    let priorPart1Score = 0;
+    let priorPart2Score = 0;
+    let priorPart3Score = 0;
+
+    try {
+      const rawProfile = localStorage.getItem(userProfileKey);
+      if (rawProfile) {
+        const parsed = JSON.parse(rawProfile);
+        if (parsed.name) candidateName = parsed.name;
+      }
+    } catch(e) {}
+
+    try {
+      const rawMock = localStorage.getItem(mockStorageKey);
+      if (rawMock) {
+        const parsed = JSON.parse(rawMock);
+        if (typeof parsed.part1Score === 'number') priorPart1Score = parsed.part1Score;
+        if (typeof parsed.part2Score === 'number') priorPart2Score = parsed.part2Score;
+        if (typeof parsed.part3Score === 'number') priorPart3Score = parsed.part3Score;
+      }
+    } catch(e) {}
+
+    document.getElementById("displayCandidate").innerText = candidateName;
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function renderCurrentExercise() {
+      const ex = mockExercisesPart4[currentIndex];
+      slottedWords = [];
+      unslottedWords = shuffleArray(ex.fragments);
+
+      const progressPct = ((currentIndex + 1) / mockExercisesPart4.length) * 100;
+      document.getElementById("progressBar").style.width = `${progressPct}%`;
+
+      const card = document.getElementById("cardContainer");
+      const isLast = currentIndex === mockExercisesPart4.length - 1;
+
+      card.innerHTML = `
+        <div class="item-header">
+          <span class="item-counter">ITEM ${ex.id} OF 100</span>
+          <span class="item-difficulty-pill">${ex.level}</span>
+        </div>
+
+        <div class="sentence-prompt">
+          ${ex.pre}
+          <span class="blank-dropzone" id="dropzoneArea">
+            <span class="blank-placeholder" id="placeholderTxt">Click chips below to slot here...</span>
+          </span>
+          ${ex.post}
+        </div>
+
+        <div class="chips-section-title">
+          <span>🧩</span> AVAILABLE SYNTACTIC CHIPS (CLICK TO INSERT • CLICK SLOTTED TO REMOVE):
+        </div>
+        <div class="chips-staging-area" id="chipsStaging"></div>
+
+        <div class="controls-row">
+          <button class="btn-act btn-outline" id="btnReset" onclick="resetSlots()">↺ Reset All Chips</button>
+          <button class="btn-act btn-primary" id="btnSaveContinue" onclick="saveAndContinue()" disabled>
+            ${isLast ? 'Finalize Master 100-Item Benchmark ➔' : 'Save & Next Question ➔'}
+          </button>
+        </div>
+      `;
+
+      renderChips();
+    }
+
+    function renderChips() {
+      const staging = document.getElementById("chipsStaging");
+      const dropzone = document.getElementById("dropzoneArea");
+      const placeholder = document.getElementById("placeholderTxt");
+      const btnSave = document.getElementById("btnSaveContinue");
+
+      staging.innerHTML = "";
+      unslottedWords.forEach((word, idx) => {
+        const chip = document.createElement("button");
+        chip.className = "word-chip";
+        chip.innerText = word;
+        chip.onclick = () => slotWord(idx);
+        staging.appendChild(chip);
+      });
+
+      dropzone.innerHTML = "";
+      if (slottedWords.length === 0) {
+        dropzone.appendChild(placeholder);
+      } else {
+        slottedWords.forEach((word, idx) => {
+          const chip = document.createElement("button");
+          chip.className = "word-chip slotted";
+          chip.innerText = word;
+          chip.title = "Click to remove back to pool";
+          chip.onclick = () => unslotWord(idx);
+          dropzone.appendChild(chip);
+        });
+      }
+
+      btnSave.disabled = slottedWords.length !== mockExercisesPart4[currentIndex].fragments.length;
+    }
+
+    function slotWord(index) {
+      const word = unslottedWords.splice(index, 1)[0];
+      slottedWords.push(word);
+      renderChips();
+    }
+
+    function unslotWord(index) {
+      const word = slottedWords.splice(index, 1)[0];
+      unslottedWords.push(word);
+      renderChips();
+    }
+
+    function resetSlots() {
+      unslottedWords = [...unslottedWords, ...slottedWords];
+      slottedWords = [];
+      renderChips();
+    }
+
+    function saveAndContinue() {
+      const ex = mockExercisesPart4[currentIndex];
+      const builtSentence = slottedWords.join(" ").trim();
+      const isCorrect = builtSentence.toLowerCase() === ex.target.toLowerCase();
+
+      studentResponsesPart4.push({
+        id: ex.id,
+        level: ex.level,
+        pre: ex.pre,
+        post: ex.post,
+        target: ex.target,
+        submitted: builtSentence,
+        isCorrect: isCorrect,
+        hint: ex.hint
+      });
+
+      if (currentIndex < mockExercisesPart4.length - 1) {
+        currentIndex++;
+        renderCurrentExercise();
+      } else {
+        renderUltimate100Report();
+      }
+    }
+
+    function renderUltimate100Report() {
+      const scorePart4 = studentResponsesPart4.filter(r => r.isCorrect).length;
+      const totalCorrect100 = priorPart1Score + priorPart2Score + priorPart3Score + scorePart4;
+      const accuracyPct = Math.round((totalCorrect100 / 100) * 100);
+
+      // Conversión Oficial TOEFL iBT Writing (Escala 0–30)
+      const toeflScaledScore = Math.round((totalCorrect100 / 100) * 30);
+
+      // Persistir reporte unificado final
+      try {
+        const grandSummary = {
+          candidate: candidateName,
+          part1Score: priorPart1Score,
+          part2Score: priorPart2Score,
+          part3Score: priorPart3Score,
+          part4Score: scorePart4,
+          totalCorrect: totalCorrect100,
+          totalItems: 100,
+          toeflScaled: toeflScaledScore,
+          accuracy: accuracyPct,
+          completedDate: new Date().toISOString()
+        };
+        localStorage.setItem(mockStorageKey, JSON.stringify(grandSummary));
+      } catch(e) {
+        console.error("Error saving final mock report:", e);
+      }
+
+      // Descriptores Oficiales ETS
+      let toeflBand = "Advanced (24–30)";
+      let bandDescriptor = "Demonstrates full mastery of advanced syntactic structures. Effortless control across fronted restrictive inversions, complex mandative subjunctives, and dense participial clauses with zero structural degradation.";
+      let badgeColor = "#38bdf8";
+
+      if (toeflScaledScore >= 24) {
+        toeflBand = "Advanced (24–30)";
+        bandDescriptor = "Exemplary syntactic command under authentic testing pressure. Consistent precision with correlative inversion pairs, split relative clauses, and multi-tiered prenominal adjectives.";
+        badgeColor = "#38bdf8";
+      } else if (toeflScaledScore >= 17) {
+        toeflBand = "High-Intermediate (17–23)";
+        bandDescriptor = "Competent academic syntactic grasp. Occasional minor slips in distant partitive subject-verb agreement or dependent prepositions after gerunds, but overall clause boundaries remain clear.";
+        badgeColor = "#d4af37";
+      } else if (toeflScaledScore >= 13) {
+        toeflBand = "Low-Intermediate (13–16)";
+        bandDescriptor = "Fair baseline competence. Marked difficulties arise during negative adverb fronting and inverted conditionals without 'if'. Focused review on Phase 04 and Phase 05 recommended.";
+        badgeColor = "#f97316";
+      } else {
+        toeflBand = "Below Low-Intermediate (0–12)";
+        bandDescriptor = "Frequent syntactic fragmentation across subordinate and coordinate complexes. Foundational sentence architecture drills require immediate structured reinforcement.";
+        badgeColor = "#ef4444";
+      }
+
+      // Auditoría ítem por ítem de la Parte 4
+      const auditHtml = studentResponsesPart4.map(item => {
+        const statusClass = item.isCorrect ? "correct" : "incorrect";
+        const verdictText = item.isCorrect ? "✓ CORRECT" : "✗ SYNTACTIC BREAK";
+
+        return `
+          <div class="audit-item-box ${statusClass}">
+            <div class="audit-item-header">
+              <span style="color:var(--text-muted);">ITEM ${item.id} • ${item.level}</span>
+              <span class="audit-verdict-tag ${statusClass}">${verdictText}</span>
+            </div>
+            <div class="audit-prompt">
+              <em>${item.pre}</em> <strong>[ ... ]</strong> <em>${item.post}</em>
+            </div>
+            <div class="audit-line" style="color:${item.isCorrect ? '#6ee7b7' : '#fca5a5'};">
+              <strong>Your Input:</strong> ${item.submitted}
+            </div>
+            ${!item.isCorrect ? `
+              <div class="audit-line" style="color:#38bdf8;">
+                <strong>Standard Target Order:</strong> ${item.target}
+              </div>
+            ` : ''}
+            <div class="audit-rule-hint">
+              <span>📎 Syntactic Principle:</span> ${item.hint}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      const container = document.getElementById("mainContainer");
+      container.innerHTML = `
+        <div class="results-card">
+          <div style="font-family:'JetBrains Mono'; font-size:12px; color:var(--accent-gold); font-weight:800; letter-spacing:1.5px; margin-bottom:10px;">
+            100-ITEM MASTER BENCHMARK FINISHED
+          </div>
+          <h2 class="results-title">Complete TOEFL iBT Diagnostic Profile</h2>
+          <p class="results-subtitle">Candidate: <strong>${candidateName}</strong> • Full 100-Item "Build a Sentence" Simulation</p>
+
+          <div class="toefl-score-hero">
+            <div style="font-family:'JetBrains Mono'; font-size:12px; color:#cbd5e1; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">
+              Final Scaled Score
+            </div>
+            <div class="toefl-scaled-number">
+              ${toeflScaledScore} <span>/ 30</span>
+            </div>
+            <div class="toefl-level-badge" style="color:${badgeColor}; border-color:${badgeColor}; background:rgba(255,255,255,0.05);">
+              ${toeflBand}
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-val">${totalCorrect100} / 100</div>
+              <div class="stat-lbl">Total Score</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val">${accuracyPct}%</div>
+              <div class="stat-lbl">Overall Precision</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val">${priorPart1Score}/25</div>
+              <div class="stat-lbl">Part 1 (Core)</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val">${priorPart2Score}/25</div>
+              <div class="stat-lbl">Part 2 (Phrases)</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val">${priorPart3Score}/25</div>
+              <div class="stat-lbl">Part 3 (Clauses)</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val">${scorePart4}/25</div>
+              <div class="stat-lbl">Part 4 (Inversion)</div>
+            </div>
+          </div>
+
+          <div class="rubric-breakdown-card">
+            <h4><span>📋</span> Official Evaluation Breakdown</h4>
+            <div class="rubric-row">
+              <span>ETS Performance Band:</span>
+              <span>${toeflBand}</span>
+            </div>
+            <div class="rubric-row">
+              <span>Section 01 Global Mastery:</span>
+              <span>${accuracyPct >= 85 ? 'High Proficiency (C1 Master)' : accuracyPct >= 70 ? 'Competent Working Command (B2+)' : 'Developing (Needs Structured Practice)'}</span>
+            </div>
+            <div class="rubric-row">
+              <span>Total Simulated Sentence Drills:</span>
+              <span>100 of 100 Completed</span>
+            </div>
+            <p style="font-size:13.5px; color:#cbd5e1; line-height:1.6; margin-top:14px;">
+              ${bandDescriptor}
+            </p>
+          </div>
+
+          <div class="audit-section">
+            <div class="audit-section-title">
+              <span>📋</span> PART 4 DRILL-BY-DRILL AUDIT (${scorePart4}/25 IN PART 4)
+            </div>
+            ${auditHtml}
+          </div>
+
+          <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-top:30px;">
+            <button class="btn-act btn-outline" onclick="window.location.href='./MOCK%2001.html'">
+              <span>↺</span> Restart Simulation (Items 01–25)
+            </button>
+            <button class="btn-act btn-primary" onclick="window.location.href='./index.html'">
+              <span>🏠</span> Return to Master Dashboard ➔
+            </button>
+          </div>
+        </div>
+      `;
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    renderCurrentExercise();
+  </script>
+</body>
+</html>
